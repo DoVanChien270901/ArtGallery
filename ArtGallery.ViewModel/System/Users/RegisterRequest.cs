@@ -21,7 +21,7 @@ namespace ArtGallery.ViewModel.System.Users
         public string Hobby { get; set; }
         public IFormFile Avatar { get; set; }
         public string Email { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public DateTime DOB { get; set; }
         public string ConfirmPassword { get; set; }
     }    

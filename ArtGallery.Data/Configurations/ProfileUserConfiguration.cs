@@ -25,6 +25,7 @@ namespace ArtGallery.Data.Configurations
             builder.Property(c => c.Hobby).HasMaxLength(100);
             builder.Property(c => c.Avatar).HasMaxLength(250);
             builder.Property(c => c.Email).HasMaxLength(100);
+            builder.Property(c => c.PhoneNumber).HasMaxLength(16);
             builder.HasOne(c => c.Account).WithOne(c => c.ProfileUser).HasForeignKey<ProfileUser>(c => c.AccountId);
         }
     }

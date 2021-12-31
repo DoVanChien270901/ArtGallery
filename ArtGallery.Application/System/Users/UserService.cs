@@ -66,6 +66,7 @@ namespace ArtGallery.Application.System.Users
             };
             ProfileUser pro = new ProfileUser
             {
+                AccountId = registerRequest.Name,
                 FullName=registerRequest.FullName,
                 Gender=registerRequest.Gender,
                 Address = registerRequest.Address,
@@ -73,7 +74,7 @@ namespace ArtGallery.Application.System.Users
                 Wards = registerRequest.Wards, 
                 City= registerRequest.City,
                 Hobby = registerRequest.Hobby,
-                Avatar = registerRequest.Avatar.FileName,
+                //Avatar = registerRequest.Avatar.FileName,
                 Email = registerRequest.Email,
                 PhoneNumber = registerRequest.PhoneNumber,
                 DOB = registerRequest.DOB

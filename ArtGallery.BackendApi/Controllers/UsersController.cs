@@ -38,7 +38,7 @@ namespace ArtGallery.BackendApi.Controllers
                 Data = resultToken
             };
         }
-        [HttpGet("register")]
+        [HttpPost("register")]
         public async Task<ResponseApi> Register(RegisterRequest request)
         {
             var resultToken = await _userService.Register(request);

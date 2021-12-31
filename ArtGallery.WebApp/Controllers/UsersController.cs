@@ -73,7 +73,7 @@ namespace ArtGallery.WebApp.Controllers
         {
 
             if (!ModelState.IsValid) return View();
-            var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url+"register", request).Result.Content.ReadAsStringAsync());
+            var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url+ "register", request).Result.Content.ReadAsStringAsync());
             if (result.Success)
             {
                 var token = result.Data.ToString();
