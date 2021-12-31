@@ -1,0 +1,98 @@
+﻿@model ArtGallery.ViewModel.System.Users.LoginRequest
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Login";
+}
+<!--middle content-->
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--left sidebar---->
+            <aside class="col-sm-3 left-sidebar">
+                <div class="box category">
+                    <div class="box-heading">
+                        <h3>Account <i class="fa fa-angle-up"></i></h3>
+                    </div>
+
+                    <div class="box-content test">
+                        <div class="box-category">
+                            <ul class="menu">
+                                <li><a>Login</a></li>
+                                <li><a asp-action="Register" asp-controller="Users">Register</a></li>
+                                <li><a>Forgotten Password</a></li>
+                                <li><a>My Account</a></li>
+                                <li><a>Address Books</a></li>
+                                <li><a>Wish List</a> </li>
+                                <li><a>Order History</a> </li>
+                                <li><a>Downloads</a></li>
+                                <li><a>Reward Points</a></li>
+                                <li><a>Returns</a></li>
+                                <li><a>Transactions</a> </li>
+                                <li><a>Newsletter</a></li>
+                                <li><a>Recurring payments</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!--main content-->
+            <div id="content" class="col-sm-9">
+                <ul class="breadcrumb">
+                    <li><a href="home.html"><i class="fa fa-home"></i></a></li>
+                    <li><a>Login</a></li>
+                </ul>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="well">
+                            <div class="heading-text">
+                                <i class="fa fa-file-text-o"></i>
+                                <div class="extra-wrap">
+                                    <h2>New Customer</h2>
+                                    <strong>Register Account</strong>
+                                    <hr />
+                                </div>
+                            </div>
+                            <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+                            <a class="btn btn-custom" href="register.html">Continue</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="well">
+                            <div class="heading-text">
+                                <i class="fa fa-key"></i>
+                                <h2>Returning Customer</h2>
+                                <strong>I am a returning customer</strong>
+                                <hr />
+                            </div>
+                            <form asp-action="Login" asp-controller="Users" method="post">
+                                <span class="text-danger">@Html.ValidationMessage("loginMessage")</span>
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label class="control-label">User Name</label>
+                                    <input asp-for="Name" class="form-control" placeholder="UserName">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Password</label>
+                                    <input asp-for="Password" class="form-control" placeholder="Password">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="RememberMe" />Remember Me
+                                    </label>
+                                    <br>
+                                    <a>Forgotten Password</a>
+                                </div>
+                                <input type="submit" class="btn btn-custom" value="Login">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end main content-->
+        </div>
+    </div>
+</div>
+<!--End of middle content-->

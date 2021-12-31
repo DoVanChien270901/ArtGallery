@@ -1,0 +1,162 @@
+﻿@model ArtGallery.ViewModel.System.Users.RegisterRequest
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--middle content-->
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--left sidebar---->
+            <aside class="col-sm-3 left-sidebar">
+                <div class="box category">
+                    <div class="box-heading">
+                        <h3>Account <i class="fa fa-angle-up"></i></h3>
+                    </div>
+
+                    <div class="box-content test">
+                        <div class="box-category">
+                            <ul class="menu">
+                                <li><a>Login</a></li>
+                                <li><a href="register.html">Register</a></li>
+                                <li><a>Forgotten Password</a></li>
+                                <li><a>My Account</a></li>
+                                <li><a>Address Books</a></li>
+                                <li><a>Wish List</a> </li>
+                                <li><a>Order History</a> </li>
+                                <li><a>Downloads</a></li>
+                                <li><a>Reward Points</a></li>
+                                <li><a>Returns</a></li>
+                                <li><a>Transactions</a> </li>
+                                <li><a>Newsletter</a></li>
+                                <li><a>Recurring payments</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+            <!--end sidebar-->
+            <!--main content-->
+            <div class="col-sm-9" id="content">
+                <ul class="breadcrumb">
+                    <li><a href="home.html"><i class="fa fa-home"></i></a></li>
+                    <li><a>Register</a></li>
+                </ul>
+                <h2>Register Account</h2>
+                <p>
+                    If you already have an account with us, please login at the
+                    <a asp-action="Login" asp-controller="Users">login page</a>.
+                </p>
+                <form class="form-horizontal" asp-action="Register" asp-controller="Users" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @*Account*@
+                    <fieldset>
+                        <legend>Your Account</legend>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">User Name</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Name" type="text" class="form-control" placeholder="User Name">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Password</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Password" type="text" class="form-control" placeholder="Password">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Confirm Password</label>
+                            <div class="col-sm-8">
+                                <input asp-for="ConfirmPassword" type="text" class="form-control" placeholder="Confirm Password">
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    @*pROFILE*@
+                    <fieldset id="account">
+                        <legend>Profile</legend>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">FullName</label>
+                            <div class="col-sm-8">
+                                <input asp-for="FullName" type="text" class="form-control" placeholder="FullName">
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Gender</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Gender" type="text" class="form-control" placeholder="Gender">
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Address</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Address" type="text" class="form-control" placeholder="Address">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Avatar</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Avatar" type="file" class="form-control" placeholder="Avatar">
+                                <span asp-validation-for="Avatar" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Email</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Day of Birt</label>
+                            <div class="col-sm-8">
+                                <input asp-for="DOB" type="date" class="form-control" placeholder="Day of Birt">
+                                <span asp-validation-for="DOB" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Phone</label>
+                            <div class="col-sm-8">
+                                <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Phone">
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Newsletter</legend>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Subscribe</label>
+                            <div class="col-sm-8">
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="newsletter">
+                                    Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" checked="checked" value="0" name="newsletter">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="buttons">
+                        <div class="pull-right">
+                            I have read and agree to the <a class="agree"><b>Privacy Policy</b></a> <input type="checkbox" value="1" name="agree" style="vertical-align:text-bottom">
+                            &nbsp;
+                            <button type="submit" class="success">Create Account</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <!--end main content-->
+        </div>
+    </div>
+</div>
+<!--End of middle content-->
