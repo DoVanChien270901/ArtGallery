@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Catalog\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ArtGallery.Data\ArtGallery.Data.csproj" />
     <ProjectReference Include="..\ArtGallery.ViewModel\ArtGallery.ViewModel.csproj" />
   </ItemGroup>
