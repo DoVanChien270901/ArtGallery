@@ -236,7 +236,7 @@ namespace ArtGallery.Data.Migrations
 
                     b.Property<string>("Description")
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(15,2)");

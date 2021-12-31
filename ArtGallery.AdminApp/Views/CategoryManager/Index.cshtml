@@ -1,0 +1,98 @@
+﻿@using ArtGallery.ViewModel.System.Admin;
+@model CategoryModelView
+@{
+    ViewData["Title"] = "Category List";
+}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>DataTable</h3>
+                <p class="text-subtitle text-muted">For user to check they list</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                Category List
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="row mb-3">
+                        <div class="col-sm-12 col-md-3">
+                            <div class="dataTables_length" id="table1_length">
+                                <form asp-action="Create" asp-controller="CategoryManager" method="post">
+                                    <h6>Category Name</h6>
+                                    <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
+                                    <br />
+                                    <input type="submit" value="Create" class="btn btn-success rounded-pill" />
+                                    <span asp-validation-for="Name"></span>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3"></div>
+
+                        <div class="col-sm-12 col-md-3">
+                            <form asp-action="Index" asp-controller="CategoryManager" method="post">
+                                <h6>Search by Name</h6>
+                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
+
+                                <br />
+                                <input type="submit" value="Search" class="btn btn-success rounded-pill" />
+                                <span asp-validation-for="Name"></span>
+                            </form>
+                        </div>
+                        <div class="col-sm-12 col-md-3"></div>
+                    </div>
+                    <table class="table table-light mb-0">
+                        <thead>
+                            <tr>
+                                <th class="col-3">@Html.DisplayNameFor(c => c.Id)</th>
+                                <th class="col-3">@Html.DisplayNameFor(c => c.Name)</th>
+                                <th class="col-3">Action</th>
+                                <th class="col-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Categories)
+                            {
+                                <tr>
+                                    <td class="text-bold-500">@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = item.Id }, new { @class = "btn btn-danger" })
+                                        <a class="btn btn-success" onClick="$('#@item.Id').toggle(1);">Update</a>
+                                    </td>
+                                    <td>
+                                        <form id="@item.Id" style="display:none;" asp-action="Update" asp-controller="CategoryManager" method="post">
+                                            <input type="text" placeholder="@item.Name" name="name" />
+                                            <span asp-validation-for="@item.Name"></span>
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <input type="submit" class="btn btn-success" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script src="assets/js/mazer.js"></script>
