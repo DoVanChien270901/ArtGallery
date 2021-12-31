@@ -1,3 +1,4 @@
+using ArtGallery.Application.System.Admin;
 using ArtGallery.Application.System.Users;
 using ArtGallery.Data.EF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +33,10 @@ namespace ArtGallery.BackendApi
             //Declare DI
             services.AddDbContext<ArtGalleryDbContext>(op=>op.UseSqlServer(Configuration.GetConnectionString("ArtGalleryShop")));
             services.AddTransient<IUserService, UserService>();
+
+            //DI vinhvizg
+            services.AddTransient<ICategoryServices, CategoryServicesImp>();
+            services.AddTransient<IUserServices, UserServicesImp>();
             //
 
             services.AddControllers();

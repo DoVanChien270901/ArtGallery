@@ -18,7 +18,7 @@ namespace ArtGallery.Application.System.Admin
 
         public async Task<bool> DeleteCategory(int cateid)
         {
-            var cate = context.Categories.SingleOrDefault(c => c.Id.Equals(cateid));
+            var cate = context.Categories.SingleOrDefault(c=>c.Id.Equals(cateid));
             if (cate != null)
             {
                 context.Categories.Remove(cate);
@@ -35,7 +35,7 @@ namespace ArtGallery.Application.System.Admin
 
         public async Task<Category> GetCategory(int cateid)
         {
-            return context.Categories.SingleOrDefault(c => c.Id.Equals(cateid));
+            return context.Categories.SingleOrDefault(c=>c.Id.Equals(cateid));
         }
 
         public async Task<bool> InsertCategory(Category category)
@@ -53,12 +53,12 @@ namespace ArtGallery.Application.System.Admin
         //seach with name
         public async Task<IEnumerable<Category>> SearchCategory(string catename)
         {
-            return context.Categories.Where(c => c.Name.Contains(catename));
+            return context.Categories.Where(c=>c.Name.Contains(catename));
         }
 
         public async Task<bool> UpdateCategory(Category cateid)
         {
-            var cate = context.Categories.SingleOrDefault(c => c.Id.Equals(cateid.Id));
+            var cate = context.Categories.SingleOrDefault(c=>c.Id.Equals(cateid.Id));
             if (cate != null)
             {
                 cate.Name = cateid.Name;
