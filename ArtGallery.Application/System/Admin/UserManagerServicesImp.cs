@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Application.System.Admin
 {
-    public class UserServicesImp : IUserServices
+    public class UserManagerServicesImp : IUserManagerServices
     {
         private readonly ArtGalleryDbContext context;
-        public UserServicesImp(ArtGalleryDbContext context)
+        public UserManagerServicesImp(ArtGalleryDbContext context)
         {
             this.context = context;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Application.System.Admin
 {
-    public interface IUserServices
+    public interface IUserManagerServices
     {
         Task<Account> GetUser(string uname);
         Task<IEnumerable<Account>> GetUsers();
