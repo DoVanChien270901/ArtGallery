@@ -1,5 +1,7 @@
 ﻿using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
+using ArtGallery.Data.Enum;
+using ArtGallery.ViewModel.System.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +18,12 @@ namespace ArtGallery.Application.System.Admin
             this.context = context;
         }
 
-        public async Task<bool> CreateUser(string name, string pass)
+        public async Task<bool> CreateUser(string name, string pass, Roleposition role)
         {
             var us = context.Accounts.SingleOrDefault(c => c.Name.Equals(name));
             if (us == null)
             {
-                Account user = new Account { Name = name, Password = pass};
+                Account user = new Account { Name = name, Password = pass, Roles = role};
                 await context.Accounts.AddAsync(user);
                 await context.SaveChangesAsync();
                 return true;
@@ -43,7 +45,31 @@ namespace ArtGallery.Application.System.Admin
 
         public async Task<Account> GetUser(string uname)
         {
-            return context.Accounts.SingleOrDefault(u=>u.Name.Equals(uname));
+            var model = context.Accounts.SingleOrDefault(a=>a.Name.Equals(uname));
+            var model2 = context.ProfileUsers.SingleOrDefault(p=>p.AccountId.Equals(uname));
+            Account acc = new Account
+            {
+                Name = model.Name,
+                Password = model.Password,
+                Roles = model.Roles,
+                ProfileUser = new ProfileUser
+                {
+                    Id = model2.Id,
+                    FullName = model2.FullName,
+                    Gender = model2.Gender,
+                    Address = model2.Address,
+                    District = model2.District,
+                    Wards = model2.Wards,
+                    City = model2.City,
+                    Hobby = model2.Hobby,
+                    Avatar = model2.Avatar,
+                    Email = model2.Email,
+                    PhoneNumber = model2.PhoneNumber,
+                    DOB = model2.DOB,
+                    AccountId = model2.AccountId
+                }
+            };
+            return acc;
         }
 
         public async Task<IEnumerable<Account>> GetUsers()
@@ -67,5 +93,6 @@ namespace ArtGallery.Application.System.Admin
             }
             return false;
         }
+
     }
 }

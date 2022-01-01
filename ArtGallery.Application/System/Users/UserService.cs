@@ -1,6 +1,7 @@
 ﻿using ArtGallery.Application.System.Users;
 using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
+using ArtGallery.Data.Enum;
 using ArtGallery.ViewModel.System.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -62,7 +63,8 @@ namespace ArtGallery.Application.System.Users
             Account acc = new Account
             {
                 Name = registerRequest.Name,
-                Password = registerRequest.Password
+                Password = registerRequest.Password,
+                Roles = Roleposition.User
             };
             ProfileUser pro = new ProfileUser
             {
