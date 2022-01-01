@@ -1,5 +1,7 @@
 using ArtGallery.Application.System.Admin;
 using ArtGallery.Application.System.Users;
+using ArtGallery.Application.Catalog.Products;
+using ArtGallery.Application;
 using ArtGallery.Data.EF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

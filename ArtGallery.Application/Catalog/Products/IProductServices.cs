@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ArtGallery.Application.System.Admin
+namespace ArtGallery.Application.Catalog.Products
 {
     public interface IProductServices
     {

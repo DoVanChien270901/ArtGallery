@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArtGallery.ViewModel.System.Admin
+namespace ArtGallery.ViewModel.Catalog.Products
 {
     public class ProductModelView
     {

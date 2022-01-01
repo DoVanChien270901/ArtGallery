@@ -1,4 +1,4 @@
-﻿@using ArtGallery.ViewModel.System.Admin;
+﻿@using ArtGallery.ViewModel.Catalog.Products;
 @model ProductModelView
 @{
     ViewData["Title"] = "Product List";
@@ -60,10 +60,18 @@
                                     <td class="text-bold-500">@item.Id</td>
                                     <td>@item.Title</td>
                                     <td>@item.Price</td>                          
-                                    <td><a class="btn btn-danger">@item.Status</a></td>
                                     <td>
-                                        @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-success" })
-                                        @Html.ActionLink("Censorship", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                        @if (item.Status == false)
+                                        {
+                                            <a class="btn btn-danger">@item.Status</a>
+                                        } 
+                                        else {
+                                            <a class="btn btn-success">@item.Status</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                        @Html.ActionLink("Delete", "Delete", "ProductManager", new { id = item.Id }, new { @class = "btn btn-danger" })
                                     </td>                               
                                 </tr>
                             }

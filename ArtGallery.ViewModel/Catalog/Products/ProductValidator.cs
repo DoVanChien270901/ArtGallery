@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace ArtGallery.ViewModel.System.Admin
+namespace ArtGallery.ViewModel.Catalog.Products
 {
     public class ProductValidator : AbstractValidator<ProductModelView>
     {

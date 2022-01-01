@@ -1,5 +1,6 @@
 ﻿using ArtGallery.Data.Entities;
 using ArtGallery.ViewModel.System.Admin;
+using ArtGallery.ViewModel.Catalog.Products;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;

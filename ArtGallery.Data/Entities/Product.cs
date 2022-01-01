@@ -13,6 +13,7 @@ namespace ArtGallery.Data.Entities
         public string Description { get; set; }
         public decimal Price { get; set; }
         public bool Status { get; set; }
+        public int ViewCount { get; set; }
         public DateTime CreateDate { get; set; }
         public Category Category { get; set; }
         public Auction Auction { get; set; }
