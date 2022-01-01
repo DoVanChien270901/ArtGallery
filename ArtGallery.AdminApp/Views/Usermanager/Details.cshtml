@@ -1,0 +1,200 @@
+﻿@using ArtGallery.ViewModel.System.Admin;
+@model UserModelView
+@{
+    ViewData["Title"] = "User List";
+}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>DataTable</h3>
+                <p class="text-subtitle text-muted">For user to check they list</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                User Profile
+            </div>
+            <div class="card-body">
+                <div class="container emp-profile">
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="profile-img row">
+                                    <img class="col-8" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                                    <p></p>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="inputGroupFile01"><i class="bi bi-upload"></i></label>
+                                        <input type="file" class="form-control" id="inputGroupFile01">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="profile-head">
+                                    <h5>
+                                        @Model.Name
+                                    </h5>
+                                    <h6>
+                                        @Model.ProfileUser.Email
+                                    </h6>
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="profile-work">
+                                    <p>WORK LINK</p>
+                                    <a href="">Website Link</a><br />
+                                    <a href="">Bootsnipp Profile</a><br />
+                                    <a href="">Bootply Profile</a>
+                                    <p>SKILLS</p>
+                                    <a href="">Web Designer</a><br />
+                                    <a href="">Web Developer</a><br />
+                                    <a href="">WordPress</a><br />
+                                    <a href="">WooCommerce</a><br />
+                                    <a href="">PHP, .Net</a><br />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="tab-content profile-tab" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Full Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.User.ProfileUser.FullName</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.User.ProfileUser.Gender</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Address</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.User.ProfileUser.Address</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Hobby</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.User.ProfileUser.Hobby</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.User.ProfileUser.Email</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>PhoneNumber</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.User.ProfileUser.PhoneNumber</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>DOB</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.User.ProfileUser.DOB</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Experience</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Expert</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Hourly Rate</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>10$/hr</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Total Projects</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>230</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>English Level</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Expert</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Availability</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>6 months</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Your Bio</label><br />
+                                                <p>Your detail description</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script src="assets/js/mazer.js"></script>
