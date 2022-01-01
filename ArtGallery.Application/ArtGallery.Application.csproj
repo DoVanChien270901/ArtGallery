@@ -9,4 +9,9 @@
     <ProjectReference Include="..\ArtGallery.ViewModel\ArtGallery.ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Catalog\Categories\" />
+    <Folder Include="Catalog\Products\" />
+  </ItemGroup>
+
 </Project>

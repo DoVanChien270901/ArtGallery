@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtGallery.ViewModel", "Art
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtGallery.Application", "ArtGallery.Application\ArtGallery.Application.csproj", "{4FE8AEBA-2EDB-4163-B38D-B99A0957E15C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtGallery.AdminApp", "ArtGallery.AdminApp\ArtGallery.AdminApp.csproj", "{2F2BFB5C-D0E1-46B9-BDD2-397945DBD584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtGallery.AdminApp", "ArtGallery.AdminApp\ArtGallery.AdminApp.csproj", "{2F2BFB5C-D0E1-46B9-BDD2-397945DBD584}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
