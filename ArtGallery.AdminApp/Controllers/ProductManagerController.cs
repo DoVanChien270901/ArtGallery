@@ -23,6 +23,7 @@ namespace ArtGallery.AdminApp.Controllers
             ProductModelView productModelView = new ProductModelView { Products = model };
             return View(productModelView);
         }
+
         [HttpPost]
         public IActionResult Index(string title)
         {
@@ -31,13 +32,13 @@ namespace ArtGallery.AdminApp.Controllers
             return View(productModelView);
         }
 
-        [HttpPost]
-        public IActionResult Create(int Id)
-        {
-            Product product = new Product { Id = Id };
-            var model = httpClient.PostAsJsonAsync(url, product).Result;
-            return RedirectToAction("Index");
-        }
+        //[HttpPost]
+        //public IActionResult Create(int Id)
+        //{
+        //    Product product = new Product { Id = Id };
+        //    var model = httpClient.PostAsJsonAsync(url, product).Result;
+        //    return RedirectToAction("Index");
+        //}
 
         public IActionResult Delete(int id)
         {
@@ -61,9 +62,9 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Product Id)
+        public IActionResult Update(Product Code)
         {
-            var model = httpClient.PutAsJsonAsync(url, Id).Result;
+            var model = httpClient.PutAsJsonAsync(url, Code).Result;
             return RedirectToAction("Index");
         }
     }

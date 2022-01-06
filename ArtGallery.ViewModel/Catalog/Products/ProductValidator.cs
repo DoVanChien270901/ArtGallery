@@ -11,11 +11,8 @@ namespace ArtGallery.ViewModel.Catalog.Products
     {
         public ProductValidator()
         {
-            RuleFor(c => c.Title).NotNull()
-                .WithMessage("Title is required !!")
-                .Length(50)
-               .WithMessage("Title is maximun length 50");
-
+            RuleFor(c => c.Title).NotNull().WithMessage("Title is required !!")
+                .MaximumLength(50).WithMessage("Title is maximun length 50");
             RuleFor(c => c.Description).NotNull()
                 .WithMessage("Description is required !!");
             RuleFor(c => c.Price).NotNull().WithMessage("Price is required");

@@ -40,6 +40,7 @@ namespace ArtGallery.BackendApi
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
             services.AddTransient<IUserServices, UserServicesImp>();
             services.AddTransient<IProductServices, ProductServicesImp>();
+            services.AddTransient<IProductImageServices, ProductImageServicesImp>();
             //
 
             services.AddControllers();

@@ -1,12 +1,8 @@
-﻿using ArtGallery.Application.System.Admin;
-using ArtGallery.Application.Catalog.Products;
+﻿using ArtGallery.Application.Catalog.Products;
 using ArtGallery.Data.Entities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using ArtGallery.ViewModel.Catalog.Products;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ArtGallery.BackendApi.Controllers
@@ -26,13 +22,7 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return await productServices.DeleteProduct(Id);
         }
-
-        [HttpPost]
-        public async Task<bool> InsertProduct(Product product)
-        {
-            return await productServices.InsertProduct(product);
-        }
-
+       
         [HttpGet]
         public async Task<IEnumerable<Product>> GetProducts()
         {
@@ -52,9 +42,21 @@ namespace ArtGallery.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<bool> UpdateProduct(Product Id)
+        public async Task<bool> UpdateProductForAdmin(Product Id)
         {
-            return await productServices.UpdateProduct(Id);
+            return await productServices.UpdateProductForAdmin(Id);
+        }
+
+        [HttpGet("ProIncate/{cateName}")]
+        public List<Product> ProductInCategory(string cateName)
+        {
+            return productServices.ProductInCategory(cateName);
+        }
+
+        [HttpPost("InsertProduct")]
+        public Task<bool> InsertProduct(InsertProductRequest request)
+        {
+            return productServices.InsertProduct(request);
         }
     }
 }

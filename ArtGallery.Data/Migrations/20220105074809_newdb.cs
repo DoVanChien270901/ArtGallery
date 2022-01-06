@@ -2,30 +2,19 @@
 
 namespace ArtGallery.Data.Migrations
 {
-    public partial class ArtGalleryData : Migration
+    public partial class newdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ViewCount",
+                name: "CategoryId",
                 table: "Products");
-
-            migrationBuilder.AddColumn<bool>(
-                name: "Status",
-                table: "Products",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Status",
-                table: "Products");
-
             migrationBuilder.AddColumn<int>(
-                name: "ViewCount",
+                name: "CategoryId",
                 table: "Products",
                 type: "int",
                 nullable: false,
