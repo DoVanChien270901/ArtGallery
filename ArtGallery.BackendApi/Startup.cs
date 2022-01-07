@@ -37,7 +37,9 @@ namespace ArtGallery.BackendApi
 
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
-            services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
+          services.AddTransient<IUserServices, UserServicesImp>();
+            services.AddTransient<IProductServices, ProductServicesImp>();
+          services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
             services.AddTransient<IProfileUserManager, ProfileUserManagerImp>();
             //
 

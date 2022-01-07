@@ -1,23 +1,18 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-
+    <title>OAG - Online Art Gallery</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.css">
-
     <link rel="stylesheet" href="/vendors/iconly/bold.css">
-
     <link rel="stylesheet" href="/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/app.css">
     <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon">
 </head>
-
 <body>
     <div id="app">
         <div id="sidebar" class="active">
@@ -25,7 +20,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="#"><img style="width:140px; height:auto;" src="~/images/logo/logo2.png" alt="LOGO" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -35,16 +30,13 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
-
-                        <li class="sidebar-title">Forms &amp; Tables</li>
-
+                        @*<li class="sidebar-title">Forms &amp; Tables</li>*@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
@@ -52,117 +44,96 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    @Html.ActionLink("Category List", "Index", "CategoryManager")
+                                    @Html.ActionLink("List", "Index", "CategoryManager")
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="sidebar-title">Extra UI</li>
-
+                        @*<li class="sidebar-title">Extra UI</li>*@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pentagon-fill"></i>
+                                <i class="bi bi-person"></i>
                                 <span>User Manager</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    @Html.ActionLink("User List", "Index", "UserManager")
+                                    @Html.ActionLink("List", "Index", "UserManager")
                                 </li>
-                                <li class="submenu-item ">
+                                @*<li class="submenu-item ">
                                     <a href="ui-widgets-pricing.html">Pricing</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="ui-widgets-todolist.html">To-do List</a>
-                                </li>
+                                </li>*@
                             </ul>
                         </li>
-
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-egg-fill"></i>
-                                <span>Icons</span>
+                                <i class="bi bi-clipboard-check"></i>
+                                <span>Product Manager</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="ui-icons-bootstrap-icons.html">Bootstrap Icons </a>
+                                    @Html.ActionLink("List", "Index", "ProductManager")
                                 </li>
-                                <li class="submenu-item ">
+                                @*<li class="submenu-item ">
                                     <a href="ui-icons-fontawesome.html">Fontawesome</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="ui-icons-dripicons.html">Dripicons</a>
-                                </li>
+                                </li>*@
                             </ul>
                         </li>
-
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Charts</span>
+                                <i class="bi bi-cash-stack"></i>
+                                <span>Transaction Manager</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-chartjs.html">ChartJS</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-apexcharts.html">Apexcharts</a>
-                                </li>
+                                @*<li class="submenu-item ">
+                                    @Html.ActionLink("List", "Index", "TransactionManager")
+                                </li>*@
                             </ul>
                         </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="ui-file-uploader.html" class='sidebar-link'>
-                                <i class="bi bi-cloud-arrow-up-fill"></i>
-                                <span>File Uploader</span>
-                            </a>
-                        </li>
-
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-map-fill"></i>
-                                <span>Maps</span>
+                                <i class="bi bi-chat-square-dots"></i>
+                                <span>Feedback Manager</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-map-google-map.html">Google Map</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                                </li>
+                                @*<li class="submenu-item ">
+                                    @Html.ActionLink("List", "Index", "FeedbackManager")
+                                </li>*@
                             </ul>
                         </li>
-
-                        <li class="sidebar-title">Pages</li>
-
-                        <li class="sidebar-item  ">
+                        @*<li class="sidebar-item  ">
                             <a href="application-email.html" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Email Application</span>
                             </a>
-                        </li>
+                        </li>*@
 
-                        <li class="sidebar-item  ">
+                        @*<li class="sidebar-item  ">
                             <a href="application-chat.html" class='sidebar-link'>
                                 <i class="bi bi-chat-dots-fill"></i>
                                 <span>Chat Application</span>
                             </a>
-                        </li>
+                        </li>*@
 
-                        <li class="sidebar-item  ">
+                        @*<li class="sidebar-item  ">
                             <a href="application-gallery.html" class='sidebar-link'>
                                 <i class="bi bi-image-fill"></i>
                                 <span>Photo Gallery</span>
                             </a>
-                        </li>
+                        </li>*@
 
-                        <li class="sidebar-item  ">
+                        @*<li class="sidebar-item  ">
                             <a href="application-checkout.html" class='sidebar-link'>
                                 <i class="bi bi-basket-fill"></i>
                                 <span>Checkout Page</span>
                             </a>
-                        </li>
+                        </li>*@
 
-                        <li class="sidebar-item  has-sub">
+                        @*<li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Authentication</span>
@@ -219,8 +190,7 @@
                                 <i class="bi bi-cash"></i>
                                 <span>Donate</span>
                             </a>
-                        </li>
-
+                        </li>*@
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -236,24 +206,21 @@
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
+                        <p>2021 &copy; Online Art Gallery</p>
                     </div>
                     <div class="float-end">
                         <p>
-                            Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
+                            Made <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#">Group 2 (T1.2008.A0)</a>
                         </p>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-
     <script src="/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-
     <script src="/vendors/apexcharts/apexcharts.js"></script>
     <script src="/js/pages/dashboard.js"></script>
-
     <script src="/js/mazer.js"></script>
 </body>
 

@@ -32,9 +32,9 @@
                             <div class="dataTables_length" id="table1_length">
                                 <form asp-action="Create" asp-controller="CategoryManager" method="post">
                                     <h6>Category Name</h6>
-                                    <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
-                                    <br />
-                                    <input type="submit" value="Create" class="btn btn-success rounded-pill" />
+                                    <input class="form-control rounded-pill" type="text" name="name" placeholder="Input">
+                                    <div style="padding:4px;"></div>
+                                    <input type="submit" value="Create" class="btn btn-success" />
                                     <span asp-validation-for="Name"></span>
                                 </form>
                             </div>
@@ -44,10 +44,9 @@
                         <div class="col-sm-12 col-md-3">
                             <form asp-action="Index" asp-controller="CategoryManager" method="post">
                                 <h6>Search by Name</h6>
-                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
-
-                                <br />
-                                <input type="submit" value="Search" class="btn btn-success rounded-pill" />
+                                <input class="form-control rounded-pill" type="text" name="name" placeholder="Search">
+                                <div style="padding:4px;"></div>
+                                <input type="submit" value="Search" class="btn btn-success" />
                                 <span asp-validation-for="Name"></span>
                             </form>
                         </div>
@@ -74,10 +73,11 @@
                                     </td>
                                     <td>
                                         <form id="@item.Id" style="display:none;" asp-action="Update" asp-controller="CategoryManager" method="post">
-                                            <input type="text" placeholder="@item.Name" name="name" />
+                                            <input class="rounded-pill" type="text" placeholder="@item.Name" name="name" />
                                             <span asp-validation-for="@item.Name"></span>
+                                            <div style="padding:2px;"></div>
                                             <input type="hidden" name="id" value="@item.Id" />
-                                            <input type="submit" class="btn btn-success" />
+                                            <input type="submit" class="btn btn-success" value="Submit" />
                                         </form>
                                     </td>
                                 </tr>
@@ -91,8 +91,6 @@
     </section>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
 <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
 <script src="assets/js/mazer.js"></script>

@@ -10,33 +10,31 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.AdminApp.Controllers
 {
-    public class CategoryManagerController : Controller
+    public class ProductManagerController : Controller
     {
-        //check neu khong chay
-        private readonly string url = "http://localhost:4086/api/CategoriesManager/";
+        private readonly string url = "http://localhost:4086/api/ProductsManager/";
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
         public IActionResult Index()
         {
-            var model = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(url).Result);
-            CategoryModelView categoryModelView = new CategoryModelView{ Categories = model };
-            return View(categoryModelView);
+            var model = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url).Result);
+            ProductModelView productModelView = new ProductModelView { Products = model };
+            return View(productModelView);
+        }
+        [HttpPost]
+        public IActionResult Index(string title)
+        {
+            var model = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + title).Result);
+            ProductModelView productModelView = new ProductModelView { Products = model };
+            return View(productModelView);
         }
 
         [HttpPost]
-        public IActionResult Index(string name)
+        public IActionResult Create(int Id)
         {
-                var model = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(url + name).Result);
-                CategoryModelView categoryModelView = new CategoryModelView { Categories = model };
-                return View(categoryModelView);
-        }
-
-        [HttpPost]
-        public IActionResult Create(string name)
-        {
-            Category cate = new Category { Name = name };
-            var model = httpClient.PostAsJsonAsync(url, cate).Result;
+            Product product = new Product { Id = Id };
+            var model = httpClient.PostAsJsonAsync(url, product).Result;
             return RedirectToAction("Index");
         }
 
@@ -62,9 +60,9 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Category cate)
+        public IActionResult Update(Product Id)
         {
-            var model = httpClient.PutAsJsonAsync(url, cate).Result;
+            var model = httpClient.PutAsJsonAsync(url, Id).Result;
             return RedirectToAction("Index");
         }
     }
