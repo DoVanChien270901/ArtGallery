@@ -19,9 +19,6 @@ namespace ArtGallery.Data.Configurations
             builder.Property(c => c.FullName).HasMaxLength(50);
             builder.Property(c => c.Gender).HasMaxLength(20);
             builder.Property(c => c.Address).HasMaxLength(150);
-            builder.Property(c => c.District).HasMaxLength(20);
-            builder.Property(c => c.Wards).HasMaxLength(20);
-            builder.Property(c => c.City).HasMaxLength(20);
             builder.Property(c => c.Hobby).HasMaxLength(100);
             builder.Property(c => c.Avatar).HasMaxLength(250);
             builder.Property(c => c.Email).HasMaxLength(100);

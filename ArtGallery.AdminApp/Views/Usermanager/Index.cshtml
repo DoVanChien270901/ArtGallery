@@ -1,5 +1,5 @@
 ﻿@using ArtGallery.ViewModel.System.Admin;
-@model UserModelView
+@model IEnumerable<UserModelView>
 @{
     ViewData["Title"] = "User List";
 }
@@ -35,7 +35,6 @@
                                     <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
                                     <br />
                                     <input type="submit" value="Create" class="btn btn-success rounded-pill" />
-                                    <span asp-validation-for="Name"></span>
                                 </form>
                             </div>
                         </div>
@@ -44,8 +43,7 @@
                         <div class="col-sm-12 col-md-3">
                             <form asp-action="Index" asp-controller="Usermanager" method="post">
                                 <h6>Search by Name</h6>
-                                <input class="form-control form-control-lg" type="text" asp-for="Name" placeholder="Large Input">
-                                <span asp-validation-for="Name"></span>
+                                <input class="form-control form-control-lg" type="text" name="name" placeholder="">
                                 <br />
                                 <input type="submit" value="Search" class="btn btn-success rounded-pill" />
 
@@ -67,70 +65,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Users)
+                            @foreach (var item in Model)
                             {
                                 <tr>
                                     <td>@item.Name</td>
                                     <td>@item.Password</td>
                                     <td>@item.Roles.ToString()</td>
                                     <td>
-                                        @try
-                                        {
-                                            <p>@item.Carts.Count()</p>
-                                        }
-                                        catch (ArgumentNullException)
-                                        {
-                                            <p>0</p>
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            <p>@ex</p>
-                                        }
+                                        @item.CartsCount
                                     </td>
 
 
                                     <td>
-                                        @try
-                                        {
-                                            <p>@item.Orders.Count()</p>
-                                        }
-                                        catch (ArgumentNullException)
-                                        {
-                                            <p>0</p>
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            <p>@ex</p>
-                                        }
+                                        @item.OrdersCount
                                     </td>
 
                                     <td>
-                                        @try
-                                        {
-                                            <p>@item.Transactions.Count()</p>
-                                        }
-                                        catch (ArgumentNullException)
-                                        {
-                                            <p>0</p>
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            <p>@ex</p>
-                                        }
+                                        @item.TransactionsCount
                                     </td>
                                     <td>
-                                        @try
-                                        {
-                                            <p>@item.FeedBacks.Count()</p>
-                                        }
-                                        catch (ArgumentNullException)
-                                        {
-                                            <p>0</p>
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            <p>@ex</p>
-                                        }
+                                        @item.FeedBacksCount
                                     </td>
                                     <td>
                                         @Html.ActionLink("Details", "Details", "UserManager", new { name = item.Name }, new { @class = "btn btn-outline-primary" })

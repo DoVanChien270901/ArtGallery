@@ -38,27 +38,27 @@ namespace ArtGallery.BackendApi.Controllers.Admin
         }
 
         [HttpGet("GetCarts/{name}")]
-        public async Task<IEnumerable<Cart>> GetCarts(string name)
+        public async Task<int> GetCarts(string name)
         {
-            return await profileUserManager.GetCarts(name);
+            return await profileUserManager.GetCartsCount(name);
         }
 
         [HttpGet("GetOrders/{name}")]
-        public async Task<IEnumerable<Order>> GetOrders(string name)
+        public async Task<int> GetOrders(string name)
         {
-            return await profileUserManager.GetOrders(name);
+            return await profileUserManager.GetOrdersCount(name);
         }
 
         [HttpGet("GetTransactions/{name}")]
-        public async Task<IEnumerable<Transaction>> GetTransactions(string name)
+        public async Task<int> GetTransactions(string name)
         {
-            return await profileUserManager.GetTransactions(name);
+            return await profileUserManager.GetTransactionsCount(name);
         }
 
         [HttpGet("GetFeedBacks/{name}")]
-        public async Task<IEnumerable<FeedBack>> GetFeedBacks(string name)
+        public async Task<int> GetFeedBacks(string name)
         {
-            return await profileUserManager.GetFeedBacks(name);
+            return await profileUserManager.GetFeedBacksCount(name);
         }
 
     }

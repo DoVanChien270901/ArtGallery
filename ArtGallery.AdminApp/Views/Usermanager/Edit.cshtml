@@ -1,5 +1,5 @@
 ﻿@using ArtGallery.ViewModel.System.Admin;
-@model ProfileUserModelView
+@model EditProfileReq
 @{
     ViewData["Title"] = "Edit Profile";
 }
@@ -8,8 +8,7 @@
 <hr>
 <div class="container bootstrap snippet">
     <div class="row">
-        <div class="col-sm-10"><h1>@Model.AccountId</h1></div>
-        <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"></a></div>
+        @*<div class="col-sm-10"><h1>@Model.AccountId</h1></div>*@
     </div>
     <div class="row">
         <div class="col-sm-3">
@@ -22,39 +21,30 @@
                 <input type="file" class="text-center center-block file-upload">
             </div></hr><br>
 
-
-
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-            </ul>
-
         </div><!--/col-3-->
         <div class="col-sm-9">
 
             <div class="tab-content">
                 <div class="tab-pane active" id="home">
                     <hr>
-                    <form class="form" action="##" method="post" id="registrationForm">
+                    
+                    <form class="form" asp-action="Edit" asp-controller="Usermanager" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-
+                            <div class="col-xs-6">
+                                <label for="first_name"><h4>ID</h4></label>
+                                <input type="text" class="form-control" asp-for="AccountId">
+                            </div>
                             <div class="col-xs-6">
                                 <label for="first_name"><h4>Full Name</h4></label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                                <input type="text" class="form-control" asp-for="FullName">
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
                                 <label for="last_name"><h4>Gender</h4></label>
-                                <select class="form-select" id="basicSelect">
-                                    <option>IT</option>
-                                    <option>Blade Runner</option>
-                                    <option>Thor Ragnarok</option>
-                                </select>
+                                <input type="text" class="form-control" asp-for="Gender">
                             </div>
                         </div>
 
@@ -62,62 +52,42 @@
 
                             <div class="col-xs-6">
                                 <label for="phone"><h4>Address</h4></label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                                <input type="text" class="form-control" asp-for="Address">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-xs-6">
-                                <label for="mobile"><h4>District</h4></label>
-                                <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                            </div>
-                        </div>
-                        <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="email"><h4>Wards</h4></label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                                <label for=""><h4>Hobby</h4></label>
+                                <input type="text" class="form-control" asp-for="Hobby">
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="email"><h4>City</h4></label>
-                                <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                                <label for=""><h4>Email</h4></label>
+                                <input type="email" class="form-control" asp-for="Email">
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="password"><h4>Hobby</h4></label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                                <label for=""><h4>PhoneNumber</h4></label>
+                                <input type="text" class="form-control" asp-for="PhoneNumber">
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="password2"><h4>Email</h4></label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="password2"><h4>PhoneNumber</h4></label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="password2"><h4>DOB</h4></label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                                <label for=""><h4>DOB</h4></label>
+                                <input type="date" class="form-control" asp-for="DOB">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <br>
-                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                <button class="btn btn-lg btn-success" type="submit">Save</button>
                             </div>
                         </div>
                     </form>

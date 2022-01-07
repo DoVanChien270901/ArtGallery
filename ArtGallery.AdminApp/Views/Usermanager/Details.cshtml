@@ -1,5 +1,5 @@
 ﻿@using ArtGallery.ViewModel.System.Admin;
-@model UserModelView
+@model ProfileUserModelView
 @{
     ViewData["Title"] = "Profile";
 }
@@ -37,10 +37,10 @@
                             <div class="col-md-6">
                                 <div class="profile-head">
                                     <h5>
-                                        @Model.Name
+                                        @Model.AccountId
                                     </h5>
                                     <h6>
-                                        @Model.ProfileUser.Email
+                                        @Model.Email
                                     </h6>
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
@@ -53,24 +53,22 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                @Html.ActionLink("Edit Profile", "Edit", "Usermanager", new {name = Model.Name }, new { @class = "profile-edit-btn"})
-                                <input asp-action="Edit" asp-controller="Usermanager" name="@Model.Name" type="submit" class="profile-edit-btn" value="Edit Profile" />
+                                @Html.ActionLink("Edit Profile", "Edit", "Usermanager", new {name = Model.AccountId }, new { @class = "profile-edit-btn"})
                             </div>
                         </div>
+                        <br />
                         <div class="row">
-                            <div class="col-md-4">
-                                @*<div class="profile-work">
-                                    <p>WORK LINK</p>
-                                    <a href="">Website Link</a><br />
-                                    <a href="">Bootsnipp Profile</a><br />
-                                    <a href="">Bootply Profile</a>
-                                    <p>SKILLS</p>
-                                    <a href="">Web Designer</a><br />
-                                    <a href="">Web Developer</a><br />
-                                    <a href="">WordPress</a><br />
-                                    <a href="">WooCommerce</a><br />
-                                    <a href="">PHP, .Net</a><br />
-                                </div>*@
+                            <div class="col-md-2">
+                                <ul class="list-group">
+                                    <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>Carts</strong></span> @Model.CartsCount</li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>Orders</strong></span> @Model.OrdersCount</li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>Transactions</strong></span> @Model.TransactionsCount</li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>FeedBacks</strong></span> @Model.FeedBacksCount</li>
+                                </ul>
+                            </div>
+                            <div class="col-md"-1>
+
                             </div>
                             <div class="col-md-8">
                                 <div class="tab-content profile-tab" id="myTabContent">
@@ -80,7 +78,7 @@
                                                 <label>Full Name</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>@Model.ProfileUser.FullName</p>
+                                                <p>@Model.FullName</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -88,7 +86,7 @@
                                                 <label>Gender</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>@Model.ProfileUser.Gender</p>
+                                                <p>@Model.Gender</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -96,7 +94,7 @@
                                                 <label>Address</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>@Model.ProfileUser.Address</p>
+                                                <p>@Model.Address</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -104,7 +102,7 @@
                                                 <label>Hobby</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>@Model.ProfileUser.Hobby</p>
+                                                <p>@Model.Hobby</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -112,7 +110,7 @@
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>@Model.ProfileUser.Email</p>
+                                                <p>@Model.Email</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -120,7 +118,7 @@
                                                 <label>PhoneNumber</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>@Model.ProfileUser.PhoneNumber</p>
+                                                <p>@Model.PhoneNumber</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -128,7 +126,7 @@
                                                 <label>DOB</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>@Model.ProfileUser.DOB</p>
+                                                <p>@Model.DOB</p>
                                             </div>
                                         </div>
                                     </div>
