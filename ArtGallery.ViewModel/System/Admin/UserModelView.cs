@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Data.Entities;
+using ArtGallery.Data.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ namespace ArtGallery.ViewModel.System.Admin
     {
         public string Name { get; set; }
         public string Password { get; set; }
+        public Roleposition Roles { get; set; }
         public IEnumerable<Account> Users { get; set; }
         public Account User { get; set; }
-        public List<Cart> Carts { get; set; }
-        public List<Order> Orders { get; set; }
-        public List<Transaction> Transactions { get; set; }
-        public List<FeedBack> FeedBacks { get; set; }
-        public ProfileUser ProfileUser { get; set; }
+        public int CartsCount { get; set; }
+        public int OrdersCount { get; set; }
+        public int TransactionsCount { get; set; }
+        public int FeedBacksCount { get; set; }
     }
 }
