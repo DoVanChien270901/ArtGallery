@@ -1,0 +1,263 @@
+﻿.about {
+    background: url(../images/khan.jpg) no-repeat left;
+    background-size: 55%;
+    background-color: #fdfdfd;
+    overflow: hidden;
+    padding: 100px 0;
+}
+
+.inner-section {
+    width: 55%;
+    float: right;
+    background-color: #d3a9a9;
+    padding: 90px;
+    box-shadow: 13px 12px 8px rgba(0, 0, 0, 0.3);
+}
+
+    .inner-section h1 {
+        margin-bottom: 30px;
+        font-size: 36px;
+        font-weight: 900;
+        color: #E10302;
+    }
+
+.text {
+    font-size: 16px;
+    line-height: 30px;
+    text-align: justify;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+.skills button {
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 1.4px;
+    border: none;
+    border-radius: 30px;
+    padding: 10px;
+    width: 200px;
+    background-color: #E10302;
+    color: #d4d4d4;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+    .skills button:hover {
+        transition: 1s;
+        background-color: #d4d4d4;
+        color: #E10302;
+    }
+
+@media screen and (max-width:1200px) {
+    .inner-section {
+        padding: 80px;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .about {
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+
+    .inner-section {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .about {
+        padding: 0;
+    }
+
+    .inner-section {
+        padding: 60px;
+    }
+
+    .skills button {
+        font-size: 19px;
+        padding: 5px;
+        width: 160px;
+    }
+}
+
+.our-teams {
+    padding-top: 10px;
+    color: #E10302;
+    margin: auto;
+}
+
+    .our-teams h1 {
+        font-size: 36px;
+        font-weight: 900;
+    }
+
+.sub-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.teams {
+    margin: 10px;
+    padding: 22px;
+    max-width: 30%;
+    cursor: pointer;
+    transition: 0.4s;
+    box-sizing: border-box;
+}
+
+    .teams:hover {
+        background: #ddd;
+    }
+
+    .teams img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+
+.name {
+    padding: 14px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.design {
+    color: #888;
+    font-size: 10px;
+}
+
+.social-links {
+    margin: 12px;
+}
+
+    .social-links a {
+        display: inline-block;
+        height: 50px;
+        width: 40px;
+        transition: .4s;
+    }
+
+        .social-links a:hover {
+            transform: scale(1.5);
+        }
+
+        .social-links a i {
+            color: #444;
+        }
+
+@media screen and (max-width: 600px) {
+    .teams {
+        max-width: 100%;
+    }
+}
+
+.contact-us {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 42px;
+}
+
+    .contact-us .contact-box {
+        max-width: 880px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #fff;
+        box-shadow: 0px 0px 19px 5px rgba(0, 0, 0, 0.19);
+    }
+
+    .contact-us .left {
+        background: url("../images/contact.jpg") no-repeat center;
+        background-size: cover;
+        height: 100%;
+    }
+
+    .contact-us .right {
+        padding: 25px 40px;
+    }
+
+    .contact-us h1 {
+        position: relative;
+        padding: 0 0 10px;
+        margin-bottom: 6px;
+        color: #E10302;
+        font-weight: 900;
+        font-size: 34px;
+    }
+
+        .contact-us h1:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            height: 2px;
+            width: 100px;
+            border-radius: 2px;
+            background-color: #333333;
+        }
+
+    .contact-us .field {
+        width: 100%;
+        border: 2px solid rgba(0, 0, 0, 0);
+        outline: none;
+        background-color: rgba(230, 230, 230, 0.6);
+        padding: 1rem 1rem;
+        font-size: 14px;
+        margin-bottom: 20px;
+        transition: .3s;
+    }
+
+.field:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.contact-us textarea {
+    min-height: 150px;
+}
+
+.contact-us .btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: #E10302;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+
+/* .contact-us .btn:hover {
+    background-color: #fff;
+    color: #E10302;
+} */
+
+.contact-us .field:focus {
+    border: 2px solid rgba(30, 85, 250, 0.47);
+    background-color: #fff;
+}
+
+@media screen and (max-width: 880px) {
+    .contact-us .contact-box {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-us .left {
+        height: 200px;
+    }
+}
