@@ -15,10 +15,10 @@ namespace ArtGallery.ViewModel.System.Admin
         public Roleposition Roles { get; set; }
         public IEnumerable<Account> Users { get; set; }
         public Account User { get; set; }
-        public List<Cart> Carts { get; set; }
-        public List<Order> Orders { get; set; }
-        public List<Transaction> Transactions { get; set; }
-        public List<FeedBack> FeedBacks { get; set; }
         public ProfileUser ProfileUser { get; set; }
+        public IEnumerable<Cart> Carts { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<Transaction> Transactions { get; set; }
+        public IEnumerable<FeedBack> FeedBacks { get; set; }
     }
 }

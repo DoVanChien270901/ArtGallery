@@ -46,30 +46,7 @@ namespace ArtGallery.Application.System.Admin
         public async Task<Account> GetUser(string uname)
         {
             var model = context.Accounts.SingleOrDefault(a=>a.Name.Equals(uname));
-            var model2 = context.ProfileUsers.SingleOrDefault(p=>p.AccountId.Equals(uname));
-            Account acc = new Account
-            {
-                Name = model.Name,
-                Password = model.Password,
-                Roles = model.Roles,
-                ProfileUser = new ProfileUser
-                {
-                    Id = model2.Id,
-                    FullName = model2.FullName,
-                    Gender = model2.Gender,
-                    Address = model2.Address,
-                    District = model2.District,
-                    Wards = model2.Wards,
-                    City = model2.City,
-                    Hobby = model2.Hobby,
-                    Avatar = model2.Avatar,
-                    Email = model2.Email,
-                    PhoneNumber = model2.PhoneNumber,
-                    DOB = model2.DOB,
-                    AccountId = model2.AccountId
-                }
-            };
-            return acc;
+            return model;
         }
 
         public async Task<IEnumerable<Account>> GetUsers()

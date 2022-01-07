@@ -42,13 +42,13 @@
                         <div class="col-sm-12 col-md-3"></div>
 
                         <div class="col-sm-12 col-md-3">
-                            <form asp-action="Index" asp-controller="CategoryManager" method="post">
+                            <form asp-action="Index" asp-controller="Usermanager" method="post">
                                 <h6>Search by Name</h6>
-                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
-
+                                <input class="form-control form-control-lg" type="text" asp-for="Name" placeholder="Large Input">
+                                <span asp-validation-for="Name"></span>
                                 <br />
                                 <input type="submit" value="Search" class="btn btn-success rounded-pill" />
-                                <span asp-validation-for="Name"></span>
+
                             </form>
                         </div>
                         <div class="col-sm-12 col-md-3"></div>
@@ -134,6 +134,7 @@
                                     </td>
                                     <td>
                                         @Html.ActionLink("Details", "Details", "UserManager", new { name = item.Name }, new { @class = "btn btn-outline-primary" })
+                                        @Html.ActionLink("Delete", "Delete", "UserManager",new { name = item.Name}, new { @class = "btn btn-outline-primary" })
                                     </td>
                                 </tr>
                             }

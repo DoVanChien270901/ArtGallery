@@ -55,5 +55,6 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return await userManager.GetUser(name);
         }
+
     }
 }
