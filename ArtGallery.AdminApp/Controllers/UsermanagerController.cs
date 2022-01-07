@@ -72,7 +72,6 @@ namespace ArtGallery.AdminApp.Controllers
             return View();
         }
 
-        [HttpGet]
         public IActionResult Details(string name)
         {
             try
@@ -86,6 +85,7 @@ namespace ArtGallery.AdminApp.Controllers
                 var feedBacks = JsonConvert.DeserializeObject<IEnumerable<FeedBack>>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + model.Name).Result);
                 UserModelView userModelView = new UserModelView
                 {
+                    Name = model.Name,
                     User = model,
                     ProfileUser = profile,
                     Carts = carts,
@@ -94,6 +94,51 @@ namespace ArtGallery.AdminApp.Controllers
                     FeedBacks = feedBacks
                 };
                 return View(userModelView);
+            }
+            catch (Exception)
+            {
+
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string name)
+        {
+            var profile = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(urlProfile + "getProfileUser/" + name).Result);
+            ProfileUserModelView PuserModelView = new ProfileUserModelView
+            {
+                Id = profile.Id,
+                FullName = profile.FullName,
+                Gender = profile.Gender,
+                Address = profile.Address,
+                District = profile.District,
+                Wards = profile.Wards,
+                City = profile.City,
+                Hobby = profile.Hobby,
+                Avatar = profile.Avatar,
+                Email = profile.Email,
+                PhoneNumber = profile.PhoneNumber,
+                DOB = profile.DOB,
+                AccountId = profile.AccountId
+            };
+
+            return View(profile);
+
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ProfileUser puser)
+        {
+            try
+            {
+                var profile = httpClient.PutAsJsonAsync(urlProfile+ "UpdateProfile/",puser).Result;
+
+                if (profile.IsSuccessStatusCode)
+                {
+                    return View();
+                }
+                return View("Error");
             }
             catch (Exception)
             {

@@ -1,7 +1,7 @@
 ﻿@using ArtGallery.ViewModel.System.Admin;
 @model UserModelView
 @{
-    ViewData["Title"] = "User List";
+    ViewData["Title"] = "Profile";
 }
 <div class="page-heading">
     <div class="page-title">
@@ -53,12 +53,13 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                                @Html.ActionLink("Edit Profile", "Edit", "Usermanager", new {name = Model.Name }, new { @class = "profile-edit-btn"})
+                                <input asp-action="Edit" asp-controller="Usermanager" name="@Model.Name" type="submit" class="profile-edit-btn" value="Edit Profile" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="profile-work">
+                                @*<div class="profile-work">
                                     <p>WORK LINK</p>
                                     <a href="">Website Link</a><br />
                                     <a href="">Bootsnipp Profile</a><br />
@@ -69,7 +70,7 @@
                                     <a href="">WordPress</a><br />
                                     <a href="">WooCommerce</a><br />
                                     <a href="">PHP, .Net</a><br />
-                                </div>
+                                </div>*@
                             </div>
                             <div class="col-md-8">
                                 <div class="tab-content profile-tab" id="myTabContent">
