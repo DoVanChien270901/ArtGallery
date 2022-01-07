@@ -21,19 +21,46 @@ namespace ArtGallery.Application.System.Admin
             return context.Accounts.SingleOrDefault(a=>a.Name.Equals(name));
         }
 
-        public async Task<IEnumerable<Cart>> GetCarts(string name)
+        public async Task<int> GetCartsCount(string name)
         {
-            return context.Carts.Where(c=>c.AccountId.Equals(name)).ToList();
+            var model = context.Carts.Where(c => c.AccountId.Equals(name)).ToList();
+            try
+            {
+                return model.Count();
+            }
+            catch (ArgumentNullException)
+            {
+
+                return 0;
+            }
         }
 
-        public async Task<IEnumerable<FeedBack>> GetFeedBacks(string name)
+        public async Task<int> GetFeedBacksCount(string name)
         {
-            return context.FeedBacks.Where(c => c.AccountId.Equals(name)).ToList();
+            var model = context.FeedBacks.Where(c => c.AccountId.Equals(name)).ToList();
+            try
+            {
+                return model.Count();
+            }
+            catch (ArgumentNullException)
+            {
+
+                return 0;
+            }
         }
 
-        public async Task<IEnumerable<Order>> GetOrders(string name)
+        public async Task<int> GetOrdersCount(string name)
         {
-            return context.Orders.Where(c => c.AccountId.Equals(name)).ToList();
+            var model = context.Orders.Where(c => c.AccountId.Equals(name)).ToList();
+            try
+            {
+                return model.Count();
+            }
+            catch (ArgumentNullException)
+            {
+
+                return 0;
+            }
         }
 
         public async Task<ProfileUser> GetProfileUser(string name)
@@ -41,9 +68,14 @@ namespace ArtGallery.Application.System.Admin
             return context.ProfileUsers.SingleOrDefault(c => c.AccountId.Equals(name));
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactions(string name)
+        public async Task<int> GetTransactionsCount(string name)
         {
-            return context.Transactions.Where(c => c.AccountId.Equals(name)).ToList();
+            var model = context.Transactions.Where(c => c.AccountId.Equals(name)).ToList();
+            try
+            {
+                return model.Count();
+            }
+            catch (ArgumentNullException) { return 0; }
         }
 
         public async Task<bool> UpdateProfile(ProfileUser profileUser)
@@ -54,10 +86,7 @@ namespace ArtGallery.Application.System.Admin
                 model.FullName = profileUser.FullName;
                 model.Gender = profileUser.Gender;
                 model.Address = profileUser.Address;
-                model.Wards = profileUser.Wards;
-                model.City = profileUser.City;
-                model.Hobby = profileUser.Hobby;
-                model.Avatar = profileUser.Avatar;
+                //model.Avatar = profileUser.Avatar;
                 model.Email = profileUser.Email;
                 model.PhoneNumber = profileUser.PhoneNumber;
                 model.DOB = profileUser.DOB;

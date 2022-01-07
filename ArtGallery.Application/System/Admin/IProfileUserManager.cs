@@ -12,10 +12,10 @@ namespace ArtGallery.Application.System.Admin
         Task<ProfileUser> GetProfileUser(string name);
         Task<Account> GetAccount(string name);
         Task<bool> UpdateProfile(ProfileUser profileUser);
-        Task<IEnumerable<Cart>> GetCarts(string name);
-        Task<IEnumerable<Order>> GetOrders(string name);
-        Task<IEnumerable<Transaction>> GetTransactions(string name);
-        Task<IEnumerable<FeedBack>> GetFeedBacks(string name);
+        Task<int> GetCartsCount(string name);
+        Task<int> GetOrdersCount(string name);
+        Task<int> GetTransactionsCount(string name);
+        Task<int> GetFeedBacksCount(string name);
 
     }
 }

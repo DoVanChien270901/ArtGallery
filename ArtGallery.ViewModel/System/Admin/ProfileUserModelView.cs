@@ -21,5 +21,9 @@ namespace ArtGallery.ViewModel.System.Admin
         public string PhoneNumber { get; set; }
         public DateTime DOB { get; set; }
         public string AccountId { get; set; }
+        public int CartsCount { get; set; }
+        public int OrdersCount { get; set; }
+        public int TransactionsCount { get; set; }
+        public int FeedBacksCount { get; set; }
     }
 }

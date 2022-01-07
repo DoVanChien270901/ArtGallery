@@ -20,35 +20,59 @@ namespace ArtGallery.AdminApp.Controllers
         public IActionResult Index()
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Account>>(httpClient.GetStringAsync(url).Result);
+            List<UserModelView> userModelView = new List<UserModelView>();
             foreach (var item in model)
             {
-                var cart = JsonConvert.DeserializeObject<IEnumerable<Cart>>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + item.Name).Result);
-                var order = JsonConvert.DeserializeObject<IEnumerable<Order>>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + item.Name).Result);
-                var trans = JsonConvert.DeserializeObject<IEnumerable<Transaction>>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + item.Name).Result);
-                var feedBacks = JsonConvert.DeserializeObject<IEnumerable<FeedBack>>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + item.Name).Result);
-                item.Carts = cart.ToList();
-                item.Orders = order.ToList();
-                item.Transactions = trans.ToList();
-                item.FeedBacks = feedBacks.ToList();
+                var cart = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + item.Name).Result);
+                var order = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + item.Name).Result);
+                var trans = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + item.Name).Result);
+                var feedBacks = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + item.Name).Result);
+                UserModelView view = new UserModelView
+                {
+                    Name = item.Name,
+                    Password = item.Password,
+                    Roles = item.Roles,
+                    CartsCount = cart,
+                    OrdersCount = order,
+                    TransactionsCount = trans,
+                    FeedBacksCount = feedBacks
+                };
+                userModelView.Add(view);
             }
-            UserModelView userModelView = new UserModelView { Users = model};
+            
             return View(userModelView);
         }
 
         [HttpPost]
-        public IActionResult Index(UserModelView user)
+        public IActionResult Index(string name)
         {
-            try
+            var model = JsonConvert.DeserializeObject<IEnumerable<Account>>(httpClient.GetStringAsync(url + "searchbyName/" + name).Result);
+            List<UserModelView> userModelView = new List<UserModelView>();
+            if (model == null)
             {
-                var model = JsonConvert.DeserializeObject<IEnumerable<Account>>(httpClient.GetStringAsync(url + "searchbyName/" + user.Name).Result);
-                UserModelView userModelView = new UserModelView { Users = model };
-                return View(userModelView);
+                return RedirectToAction("Index");
             }
-            catch (Exception)
+            foreach (var item in model)
             {
+                var cart = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + item.Name).Result);
+                var order = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + item.Name).Result);
+                var trans = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + item.Name).Result);
+                var feedBacks = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + item.Name).Result);
+                UserModelView view = new UserModelView
+                {
+                    Name = item.Name,
+                    Password = item.Password,
+                    Roles = item.Roles,
+                    CartsCount = cart,
+                    OrdersCount = order,
+                    TransactionsCount = trans,
+                    FeedBacksCount = feedBacks
+                };
+                userModelView.Add(view);
+            }
+            
+            return View(userModelView);
 
-                return View("Error");
-            }
         }
 
         public IActionResult Delete(string name)
@@ -79,19 +103,25 @@ namespace ArtGallery.AdminApp.Controllers
                 var model = JsonConvert.DeserializeObject<Account>(httpClient.GetStringAsync(url + name).Result);
 
                 var profile = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(urlProfile + "getProfileUser/" + name).Result);
-                var carts = JsonConvert.DeserializeObject<IEnumerable<Cart>>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + model.Name).Result);
-                var orders = JsonConvert.DeserializeObject<IEnumerable<Order>>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + model.Name).Result);
-                var transactions = JsonConvert.DeserializeObject<IEnumerable<Transaction>>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + model.Name).Result);
-                var feedBacks = JsonConvert.DeserializeObject<IEnumerable<FeedBack>>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + model.Name).Result);
-                UserModelView userModelView = new UserModelView
+                var carts = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + model.Name).Result);
+                var orders = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + model.Name).Result);
+                var transactions = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + model.Name).Result);
+                var feedBacks = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + model.Name).Result);
+                ProfileUserModelView userModelView = new ProfileUserModelView
                 {
-                    Name = model.Name,
-                    User = model,
-                    ProfileUser = profile,
-                    Carts = carts,
-                    Orders = orders,
-                    Transactions = transactions,
-                    FeedBacks = feedBacks
+                    FullName = profile.FullName,
+                    Gender = profile.Gender,
+                    Address = profile.Address,
+                    Hobby = profile.Hobby,
+                    Avatar = profile.Avatar,
+                    Email = profile.Email,
+                    PhoneNumber = profile.PhoneNumber,
+                    DOB = profile.DOB,
+                    AccountId = profile.AccountId,
+                    CartsCount = carts,
+                    OrdersCount = orders,
+                    TransactionsCount = transactions,
+                    FeedBacksCount = feedBacks
                 };
                 return View(userModelView);
             }
@@ -106,15 +136,11 @@ namespace ArtGallery.AdminApp.Controllers
         public IActionResult Edit(string name)
         {
             var profile = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(urlProfile + "getProfileUser/" + name).Result);
-            ProfileUserModelView PuserModelView = new ProfileUserModelView
+            EditProfileReq PuserModelView = new EditProfileReq
             {
-                Id = profile.Id,
                 FullName = profile.FullName,
                 Gender = profile.Gender,
                 Address = profile.Address,
-                District = profile.District,
-                Wards = profile.Wards,
-                City = profile.City,
                 Hobby = profile.Hobby,
                 Avatar = profile.Avatar,
                 Email = profile.Email,
@@ -123,16 +149,28 @@ namespace ArtGallery.AdminApp.Controllers
                 AccountId = profile.AccountId
             };
 
-            return View(profile);
+            return View(PuserModelView);
 
         }
 
         [HttpPost]
-        public IActionResult Edit(ProfileUser puser)
+        public IActionResult Edit(EditProfileReq puser)
         {
             try
             {
-                var profile = httpClient.PutAsJsonAsync(urlProfile+ "UpdateProfile/",puser).Result;
+                ProfileUser pro = new ProfileUser 
+                { 
+                    FullName = puser.FullName,
+                    Gender = puser.Gender,
+                    Address = puser.Address,
+                    Hobby = puser.Hobby,
+                    Email = puser.Email,
+                    PhoneNumber = puser.PhoneNumber,
+                    DOB = puser.DOB,
+                    AccountId = puser.AccountId
+                };
+                
+                var profile = httpClient.PutAsJsonAsync(urlProfile+ "UpdateProfile/",pro).Result;
 
                 if (profile.IsSuccessStatusCode)
                 {
