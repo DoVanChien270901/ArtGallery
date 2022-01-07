@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArtGallery.Application.System.Admin
+namespace ArtGallery.Application.Catalog.Categories
 {
     public interface ICategoryServices
     {

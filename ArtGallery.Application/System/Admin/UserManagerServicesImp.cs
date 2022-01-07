@@ -1,5 +1,7 @@
 ﻿using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
+using ArtGallery.Data.Enum;
+using ArtGallery.ViewModel.System.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Application.System.Admin
 {
-    public class UserServicesImp : IUserServices
+    public class UserManagerServicesImp : IUserManagerServices
     {
         private readonly ArtGalleryDbContext context;
-        public UserServicesImp(ArtGalleryDbContext context)
+        public UserManagerServicesImp(ArtGalleryDbContext context)
         {
             this.context = context;
         }
 
-        public async Task<bool> CreateUser(string name, string pass)
+        public async Task<bool> CreateUser(string name, string pass, Roleposition role)
         {
             var us = context.Accounts.SingleOrDefault(c => c.Name.Equals(name));
             if (us == null)
             {
-                Account user = new Account { Name = name, Password = pass};
+                Account user = new Account { Name = name, Password = pass, Roles = role};
                 await context.Accounts.AddAsync(user);
                 await context.SaveChangesAsync();
                 return true;
@@ -43,7 +45,8 @@ namespace ArtGallery.Application.System.Admin
 
         public async Task<Account> GetUser(string uname)
         {
-            return context.Accounts.SingleOrDefault(u=>u.Name.Equals(uname));
+            var model = context.Accounts.SingleOrDefault(a=>a.Name.Equals(uname));
+            return model;
         }
 
         public async Task<IEnumerable<Account>> GetUsers()
@@ -67,5 +70,6 @@ namespace ArtGallery.Application.System.Admin
             }
             return false;
         }
+
     }
 }

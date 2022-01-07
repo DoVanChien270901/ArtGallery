@@ -1,4 +1,4 @@
-﻿using ArtGallery.Application.System.Admin;
+﻿using ArtGallery.Application.Catalog.Categories;
 using ArtGallery.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

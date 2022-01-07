@@ -1,3 +1,4 @@
+using ArtGallery.Application.Catalog.Categories;
 using ArtGallery.Application.System.Admin;
 using ArtGallery.Application.System.Users;
 using ArtGallery.Data.EF;
@@ -36,8 +37,10 @@ namespace ArtGallery.BackendApi
 
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
-            services.AddTransient<IUserServices, UserServicesImp>();
+          services.AddTransient<IUserServices, UserServicesImp>();
             services.AddTransient<IProductServices, ProductServicesImp>();
+          services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
+            services.AddTransient<IProfileUserManager, ProfileUserManagerImp>();
             //
 
             services.AddControllers();
