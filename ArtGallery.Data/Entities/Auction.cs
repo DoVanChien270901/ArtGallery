@@ -9,10 +9,12 @@ namespace ArtGallery.Data.Entities
     public class Auction
     {
         public int Id { get; set; }
+        public decimal StartingPrice { get; set; }
+        public decimal PriceStep { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        public List<AmountAuction> AmountAcctions { get; set; }
+        public List<AmountInAuction> AmountInAcctions { get; set; }
     }
 }

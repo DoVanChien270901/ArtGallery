@@ -17,5 +17,6 @@ namespace ArtGallery.Data.Entities
         public List<FeedBack> FeedBacks { get; set; }
         public List<Transaction> Transactions { get; set; }
         public List<Order> Orders { get; set; }
+        public List<AmountInAuction> AmountInAcctions { get; set; }
     }
 }

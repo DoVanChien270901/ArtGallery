@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    [Migration("20211230101255_asda")]
-    partial class asda
+    [Migration("20220106130331_newww")]
+    partial class newww
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,7 @@ namespace ArtGallery.Data.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.AmountAuction", b =>
+            modelBuilder.Entity("ArtGallery.Data.Entities.AmountInAuction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,14 +56,9 @@ namespace ArtGallery.Data.Migrations
                     b.Property<decimal>("NewPrice")
                         .HasColumnType("decimal(15,2)");
 
-                    b.Property<int>("ProfileUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AuctionId");
-
-                    b.HasIndex("ProfileUserId");
 
                     b.ToTable("AmountInActions");
                 });
@@ -80,11 +75,17 @@ namespace ArtGallery.Data.Migrations
                     b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("PriceStep")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("StartingPrice")
+                        .HasColumnType("decimal(15,2)");
 
                     b.HasKey("Id");
 
@@ -238,7 +239,7 @@ namespace ArtGallery.Data.Migrations
 
                     b.Property<string>("Description")
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(15,2)");
@@ -347,8 +348,9 @@ namespace ArtGallery.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("Wards")
                         .HasMaxLength(20)
@@ -388,7 +390,7 @@ namespace ArtGallery.Data.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.AmountAuction", b =>
+            modelBuilder.Entity("ArtGallery.Data.Entities.AmountInAuction", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Auction", "Auction")
                         .WithMany("AmountAcctions")
@@ -396,15 +398,7 @@ namespace ArtGallery.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ArtGallery.Data.Entities.ProfileUser", "ProfileUser")
-                        .WithMany("AmountInAcctions")
-                        .HasForeignKey("ProfileUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Auction");
-
-                    b.Navigation("ProfileUser");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Auction", b =>
@@ -563,11 +557,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("ProductImages");
 
                     b.Navigation("ProductInCarts");
-                });
-
-            modelBuilder.Entity("ArtGallery.Data.Entities.ProfileUser", b =>
-                {
-                    b.Navigation("AmountInAcctions");
                 });
 #pragma warning restore 612, 618
         }

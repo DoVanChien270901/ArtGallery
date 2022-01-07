@@ -506,6 +506,7 @@ a.quickview:hover {
     font-size: 15px;
     font-weight: 300;
     line-height: 18px;
+    margin-bottom: 155px;
 }
 .price-new {
     color: #e84c4c;
@@ -916,7 +917,7 @@ ul.ref-search {
     display: none;
 }
 .caption{
-    // min-height: 190px;
+     /*min-height: 190px;*/
 }
 ul.price-list span.price-new {
     font-size: 25px;

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    [Migration("20211231122223_v")]
-    partial class v
+    [Migration("20220107111045_db7-2")]
+    partial class db72
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,7 @@ namespace ArtGallery.Data.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.AmountAuction", b =>
+            modelBuilder.Entity("ArtGallery.Data.Entities.AmountInAuction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,20 +50,20 @@ namespace ArtGallery.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("AuctionId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("NewPrice")
                         .HasColumnType("decimal(15,2)");
 
-                    b.Property<int>("ProfileUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AuctionId");
+                    b.HasIndex("AccountId");
 
-                    b.HasIndex("ProfileUserId");
+                    b.HasIndex("AuctionId");
 
                     b.ToTable("AmountInActions");
                 });
@@ -80,11 +80,17 @@ namespace ArtGallery.Data.Migrations
                     b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("PriceStep")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("StartingPrice")
+                        .HasColumnType("decimal(15,2)");
 
                     b.HasKey("Id");
 
@@ -347,8 +353,9 @@ namespace ArtGallery.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("Wards")
                         .HasMaxLength(20)
@@ -388,23 +395,21 @@ namespace ArtGallery.Data.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.AmountAuction", b =>
+            modelBuilder.Entity("ArtGallery.Data.Entities.AmountInAuction", b =>
                 {
+                    b.HasOne("ArtGallery.Data.Entities.Account", "Account")
+                        .WithMany("AmountInAcctions")
+                        .HasForeignKey("AccountId");
+
                     b.HasOne("ArtGallery.Data.Entities.Auction", "Auction")
-                        .WithMany("AmountAcctions")
+                        .WithMany("AmountInAcctions")
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ArtGallery.Data.Entities.ProfileUser", "ProfileUser")
-                        .WithMany("AmountInAcctions")
-                        .HasForeignKey("ProfileUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Account");
 
                     b.Navigation("Auction");
-
-                    b.Navigation("ProfileUser");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Auction", b =>
@@ -523,6 +528,8 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Account", b =>
                 {
+                    b.Navigation("AmountInAcctions");
+
                     b.Navigation("Carts");
 
                     b.Navigation("FeedBacks");
@@ -536,7 +543,7 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Auction", b =>
                 {
-                    b.Navigation("AmountAcctions");
+                    b.Navigation("AmountInAcctions");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Cart", b =>
@@ -563,11 +570,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("ProductImages");
 
                     b.Navigation("ProductInCarts");
-                });
-
-            modelBuilder.Entity("ArtGallery.Data.Entities.ProfileUser", b =>
-                {
-                    b.Navigation("AmountInAcctions");
                 });
 #pragma warning restore 612, 618
         }

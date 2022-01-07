@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Data.Entities
 {
-    public class AmountAuction
+    public class AmountInAuction
     {
         public int Id { get; set; }
         public decimal NewPrice { get; set; }
         public int AuctionId { get; set; }
         public Auction Auction { get; set; }
-        public int ProfileUserId { get; set; }
-        public ProfileUser ProfileUser { get; set; }
+        public string AccountId { get; set; }
+        public Account Account { get; set; }
     }
 }

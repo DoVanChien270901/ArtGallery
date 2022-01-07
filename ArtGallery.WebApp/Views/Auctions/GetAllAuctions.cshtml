@@ -1,0 +1,299 @@
+﻿@using ArtGallery.Data.Entities
+@{
+    Layout = "_Layout";
+}
+<!--middle content-->
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--left sidebar---->
+            <aside class="col-sm-3 left-sidebar">
+                <div class="box category">
+                    <div class="box-heading">
+                        <h3>Categories <i class="fa fa-angle-up"></i></h3>
+                    </div>
+
+                    <div class="box-content test">
+                        <div class="box-category">
+                            <ul class="menu">
+                                <li><a class="custom_hover">Antic images</a></li>
+                                <li>
+                                    <a class="custom_hover">Drawing</a>
+                                    <i class="fa fa-plus"></i>
+                                    <ul>
+                                        <li>
+                                            <a class="parent" href="product.html">Praesent imperdiet</a><i class="fa fa-plus"></i>
+                                            <ul>
+                                                <li><a>Aliquam eget</a></li>
+                                                <li><a>Lorem ipsum</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Aenean viverra</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="custom_hover">New Media</a></li>
+                                <li><a class="custom_hover">painting</a></li>
+                                <li><a class="custom_hover">Fine art</a></li>
+                                <li><a class="custom_hover">Photography</a></li>
+                                <li><a class="custom_hover">Decorative art</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box special">
+                    <div class="box-heading">
+                        <h3>Special</h3>
+                    </div>
+                    <div class="box-content">
+                        <div class="product-layout">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <div class="product-thumb transiction">
+                                        <a class="compare-button"><i class="fa fa-retweet"></i></a>
+                                        <a class="wishlist-button"><i class="fa fa-heart-o"></i></a>
+                                        <div class="image"><a href="single-product.html"><img src="images/img1.jpg" class="img-responsive"></a></div>
+                                        <div class="caption">
+                                            <div class="product-name"><a>Texture Design</a></div>
+                                            <div class="price">
+                                                <span class="price-new">$34.90</span>
+                                                <span class="price-old">$49.50</span>
+                                            </div>
+                                        </div>
+                                        <div class="cart-button">
+                                            <a class="btn btn-add-cart" href="cart.html">
+                                                <span>
+                                                    Add to Cart
+                                                </span>
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="product-thumb transiction">
+                                        <a class="compare-button"><i class="fa fa-retweet"></i></a>
+                                        <a class="wishlist-button"><i class="fa fa-heart-o"></i></a>
+                                        <div class="image"><a href="single-product.html"><img src="images/img6.jpg" class="img-responsive"></a></div>
+                                        <div class="caption">
+                                            <div class="product-name"><a>Soft Panting </a></div>
+                                            <div class="price">
+                                                <span class="price-new">$34.90</span>
+                                                <span class="price-old"></span>
+                                            </div>
+                                        </div>
+                                        <div class="cart-button">
+                                            <a class="btn btn-add-cart" href="cart.html">
+                                                <span>
+                                                    Add to Cart
+                                                </span>
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!--end sidebar-->
+            <!--main content-->
+            <div class="col-sm-9" id="content">
+                <ul class="breadcrumb">
+                    <li><a href="home.html"><i class="fa fa-home"></i></a></li>
+                    <li><a href="product-list.html">Auction List</a></li>
+                </ul>
+                
+                <div class="row ref-search">
+                    <div class="col-sm-2 col-xs-12"><img class="img-thumbnail" src="images/art22.jpg"></div>
+                    <div class="col-sm-10 col-xs-12">
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <h3>Refine Search</h3>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="ref-search">
+                            <li><a>Paint soft (0)</a></li>
+                            <li><a>paint overlay</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="product-filter clearfix">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="input-sort" class="control-label">Sort By:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id="input-sort">
+                                <option selected="selected">Default</option>
+                                <option>Name (A - Z)</option>
+                                <option>Name (Z - A)</option>
+                                <option>Price (Low &gt; High)</option>
+                                <option>Price (High &gt; Low)</option>
+                                <option>Rating (Highest)</option>
+                                <option>Rating (Lowest)</option>
+                                <option>Model (A - Z)</option>
+                                <option>Model (Z - A)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="input-limit" class="control-label">Show:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id="input-limit">
+                                <option selected="selected">15</option>
+                                <option>25</option>
+                                <option>50</option>
+                                <option>75</option>
+                                <option>100</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-md-2 text-right">
+                            <div class="button-view">
+                                <a class="active" id="list-view" href="product-list.html"><i class="fa fa-th-list"></i></a>
+                                <a id="grid-view" href="product.html"><i class="fa fa-th"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-cat-top clearfix">
+                    <div class="pull-left"></div>
+                    <div class="pull-left result-page">Showing 1 to 12 of 12 (1 Pages)</div>
+                    <div class="pull-right">
+
+                        <a class="btn special-button" id="compare-total">
+                            <span>Product Compare (1)</span>
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row product-gallery-list-block">
+                    <h2>Auction Going</h2>
+                    @if (ViewBag.aucGoing != null)
+                    {
+                        foreach (var item in ViewBag.aucGoing as IEnumerable<Auction>)
+                        {
+                            <div class="product-layout product-list col-xs-12">
+                                <div class="product-thumb">
+                                    <div class="image">
+                                        <a href="single-product.html"><img class="img-responsive" src="images/art1.jpg"></a>
+                                    </div>
+                                    <div>
+                                        <div class="caption">
+                                            <h4><a asp-controller="Auctions" asp-action="AuctionRoom" asp-route-id="@item.Id">@item.Product.Title</a></h4><br />
+                                            <p class="price">
+                                                <span class="price-tax">Starting price: @item.Product.Price</span>
+                                                @*<span class="price-old">$122.00</span>
+                                    <span class="price-tax">Ex Tax: $90.00</span>*@
+                                            </p>
+                                            <p>Start time: @item.StartDateTime</p>
+                                            <p>End time: @item.EndDateTime</p>
+                                        </div>
+                                        <div class="button-group">
+                                            <a class="btn special-button" href="cart.html"><i class="fa fa-shopping-cart"></i> <span>Add to Cart</span></a>
+                                            <button class="btn special-button" type="button"><i class="fa fa-heart"></i></button>
+                                            <button class="btn special-button" type="button"><i class="fa fa-exchange"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else if (ViewBag.aucGoing == null)
+                    {
+                        <h4>There are no auction rooms available</h4>
+                    }
+                    <h2>Auction Comming</h2>
+                    @if (ViewBag.aucComming.Count != 0)
+                    {
+                        foreach (var item in ViewBag.aucComming as IEnumerable<Auction>)
+                        {
+                            <div class="product-layout product-list col-xs-12">
+                                <div class="product-thumb">
+                                    <div class="image">
+                                        <a href="single-product.html"><img class="img-responsive" src="images/art1.jpg"></a>
+                                    </div>
+                                    <div>
+                                        <div class="caption">
+                                            <h4><a asp-controller="Auctions" asp-action="AuctionRoom" asp-route-id="@item.Id">@item.Product.Title</a></h4><br />
+                                            <p class="price">
+                                                <span class="price-tax">Starting price: @item.Product.Price</span>
+                                                @*<span class="price-old">$122.00</span>
+                                    <span class="price-tax">Ex Tax: $90.00</span>*@
+                                            </p>
+                                            <p>Start time: @item.StartDateTime</p>
+                                            <p>End time: @item.EndDateTime</p>
+                                        </div>
+                                        <div class="button-group">
+                                            <a class="btn special-button" href="cart.html"><i class="fa fa-shopping-cart"></i> <span>Add to Cart</span></a>
+                                            <button class="btn special-button" type="button"><i class="fa fa-heart"></i></button>
+                                            <button class="btn special-button" type="button"><i class="fa fa-exchange"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h4>There are no auction rooms available</h4>
+                    }
+                    <h2>Auction Ended</h2>
+                    @if(ViewBag.aucEnded.Count != 0)
+                        {
+                            foreach (var item in ViewBag.aucEnded as IEnumerable<Auction>)
+                            {
+                            <div class="product-layout product-list col-xs-12">
+                                <div class="product-thumb">
+                                    <div class="image">
+                                        <a href="single-product.html"><img class="img-responsive" src="images/art1.jpg"></a>
+                                    </div>
+                                    <div>
+                                        <div class="caption">
+                                            <h4><a asp-controller="Auctions" asp-action="AuctionRoom" asp-route-id="@item.Id">@item.Product.Title</a></h4><br />
+                                            <p class="price">
+                                                <span class="price-tax">Starting price: @item.Product.Price</span>
+                                                @*<span class="price-old">$122.00</span>
+                                    <span class="price-tax">Ex Tax: $90.00</span>*@
+                                            </p>
+                                            <p>Start time: @item.StartDateTime</p>
+                                            <p>End time: @item.EndDateTime</p>
+                                        </div>
+                                        <div class="button-group">
+                                            <a class="btn special-button" href="cart.html"><i class="fa fa-shopping-cart"></i> <span>Add to Cart</span></a>
+                                            <button class="btn special-button" type="button"><i class="fa fa-heart"></i></button>
+                                            <button class="btn special-button" type="button"><i class="fa fa-exchange"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <h4>There are no auction rooms available</h4>
+                        }
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 text-left"></div>
+                    <div class="col-sm-6 text-right">Showing 1 to 12 of 12 (1 Pages)</div>
+                </div>
+            </div>
+            <!--end main content-->
+        </div>
+    </div>
+</div>
+<!--End of middle content-->

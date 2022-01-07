@@ -60,6 +60,7 @@ namespace ArtGallery.BackendApi.Controllers
         [HttpGet("profile/{userId}")]
         public async Task<ProfileUser> Profile(string userId)
         {
+            var date = DateTime.Now;
             return await _userService.GetProfile(userId);
         }
     }
