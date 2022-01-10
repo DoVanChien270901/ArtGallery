@@ -92,6 +92,7 @@ namespace ArtGallery.WebApp.Controllers
             };
             return View(result.Message);
         }
+
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
