@@ -14,7 +14,7 @@ namespace ArtGallery.ViewModel.System.Admin
         {
             RuleFor(c => c.Name).NotNull()
                 .WithMessage("Name is requred !!")
-                .Length(50)
+                .MaximumLength(50)
                 .WithMessage("Name is maximun length 50");
         }
     }

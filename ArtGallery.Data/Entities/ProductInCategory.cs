@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Data.Entities
 {
-    public class ProductImage
+    public class ProductInCategory
     {
-        public int Id { get; set; }
-        public string ImagePath { get; set; }
-        public string Caption { get; set; }
-        public string Thumbnail { get; set; }
         public int ProductId { get; set; }
+        public int CategoryId { get; set; }
         public Product Product { get; set; }
-
+        public Category Category { get; set; }
     }
 }
