@@ -156,7 +156,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditProfileReq puser, IFormFile file)
+        public IActionResult Edit(EditProfileReq puser)
         {
             try
             {
