@@ -107,5 +107,18 @@ namespace ArtGallery.Application.System.Users
             ProfileUser profile = _db.ProfileUsers.SingleOrDefault(c => c.AccountId == UserId);
             return profile;
         }
+
+        public async Task<ProfileUser> UpdateProfile(ProfileUser profileUser)
+        {
+            var profile = _db.ProfileUsers.SingleOrDefault(c=>c.AccountId.Equals(profileUser.AccountId));
+            profile.FullName = profileUser.FullName;
+            profile.Gender = profileUser.Gender;
+            profile.Address = profileUser.Address;
+            profile.Email = profileUser.Email;
+            profile.DOB = profileUser.DOB;
+            profile.PhoneNumber = profileUser.PhoneNumber;
+            await _db.SaveChangesAsync();
+            return profileUser;
+        }
     }
 }

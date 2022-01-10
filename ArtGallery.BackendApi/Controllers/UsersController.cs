@@ -57,10 +57,17 @@ namespace ArtGallery.BackendApi.Controllers
                 Data = resultToken
             };
         }
+
         [HttpGet("profile/{userId}")]
         public async Task<ProfileUser> Profile(string userId)
         {
             return await _userService.GetProfile(userId);
+        }
+
+        [HttpPut("updateprofile")]
+        public async Task<ProfileUser> UpdateProfile(ProfileUser profileUser)
+        {
+            return await _userService.UpdateProfile(profileUser);
         }
     }
 }

@@ -105,5 +105,19 @@ namespace ArtGallery.WebApp.Controllers
             result.ToString();
             return View(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileUser profileUser)
+        {
+            string UserId = "";
+            foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
+            {
+                UserId = item.Value.ToString();
+            }
+            profileUser.AccountId = UserId;
+            var result = httpClient.PutAsJsonAsync(url + "updateprofile", profileUser).Result;
+            result.ToString();
+            return View();
+        }
     }
 }
