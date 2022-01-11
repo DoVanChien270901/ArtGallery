@@ -4,7 +4,6 @@ using ArtGallery.Data.Entities;
 using ArtGallery.ViewModel.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -14,14 +13,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArtGallery.WebApp.Controllers
+namespace ArtGallery.AdminApp.Controllers
 {
-    public class UsersController : Controller
+    public class AccountsController : Controller
     {
         private readonly string url = "http://localhost:5000/api/Users/";
         private HttpClient httpClient = new HttpClient();
-        public  ITokenService _function;
-        public UsersController(ITokenService function)
+        public ITokenService _function;
+        public AccountsController(ITokenService function)
         {
             _function = function;
         }
@@ -37,7 +36,7 @@ namespace ArtGallery.WebApp.Controllers
             if (!ModelState.IsValid) return View();
             var json = JsonConvert.SerializeObject(loginRequest);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            ResponseApi result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsync(url+ "authenticate", httpContent).Result.Content.ReadAsStringAsync());
+            ResponseApi result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsync(url + "authenticate", httpContent).Result.Content.ReadAsStringAsync());
             if (result.Success)
             {
                 var token = result.Data.ToString();
@@ -52,7 +51,7 @@ namespace ArtGallery.WebApp.Controllers
                     userPrincipal,
                     authProperties
                     );
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("loginMessage", result.Message);
             return View();
@@ -73,7 +72,7 @@ namespace ArtGallery.WebApp.Controllers
         {
 
             if (!ModelState.IsValid) return View();
-            var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url+ "register", request).Result.Content.ReadAsStringAsync());
+            var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url + "register", request).Result.Content.ReadAsStringAsync());
             if (result.Success)
             {
                 var token = result.Data.ToString();
@@ -88,22 +87,10 @@ namespace ArtGallery.WebApp.Controllers
                     userPrincipal,
                     authProperties
                     );
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Index", "Home");
             };
             ModelState.AddModelError("registerMessage", result.Message);
             return View();
-        }
-        [HttpGet]
-        public async Task<IActionResult> Profile()
-        {
-            string UserId = "";
-            foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
-            {
-                UserId = item.Value.ToString();
-            }
-            ProfileUser result = JsonConvert.DeserializeObject<ProfileUser>(await httpClient.GetAsync(url + "profile/" + UserId).Result.Content.ReadAsStringAsync());
-            result.ToString();
-            return View(result);
         }
     }
 }

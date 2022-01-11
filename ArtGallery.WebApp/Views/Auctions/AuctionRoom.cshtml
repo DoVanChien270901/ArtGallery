@@ -130,24 +130,22 @@
                             @{
                                 if (ViewBag.auc.AmountInAcctions == null)
                                 {
-                                    <form asp-action="AuctionRoom" asp-controller="Auctions" method="post">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <ul class="list-unstyled product-info">
-                                            <li>Current Price: @ViewBag.auc.StartingPrice</li>
-                                            <li>Price Step: @ViewBag.auc.PriceStep</li>
-                                            <li>Lowest Price: @{decimal lowestPrice = ViewBag.auc.StartingPrice + ViewBag.auc.PriceStep;}@lowestPrice</li>
-                                            <li></li>
-                                        </ul>
-                                        <div class="form-group">
-                                            <label class="text-right cart-qty">Price:</label>
-                                            <input asp-for="NewPrice" type="number" class="text-left cart-product-total" />
-                                            <span asp-validation-for="NewPrice" class="text-danger"></span>
-                                            <input asp-for="LowestPrice" value="@lowestPrice" class="text-left cart-product-total" type="hidden" />
-                                            <input asp-for="AuctionId" value="@ViewBag.auc.Id" class="text-left cart-product-total" type="hidden" />
-                                            <button type="submit" class="btn-success">Set Price</button>
-                                            <br>
-                                        </div>
-                                    </form>
+                                                        <form asp-action="AuctionRoom" asp-controller="Auctions" method="post">
+                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                            <ul class="list-unstyled product-info">
+                                                                <li>Current Price: @ViewBag.auc.StartingPrice</li>
+                                                                <li>Price Step: @ViewBag.auc.PriceStep</li>
+                                                                <li>Lowest Price: @{decimal lowestPrice = ViewBag.auc.StartingPrice + ViewBag.auc.PriceStep;}@lowestPrice</li>
+                                                            </ul>
+                                                            <div class="form-group">
+                                                                <label class="text-right cart-qty">Price:</label>
+                                                                <input asp-for="NewPrice" type="number" class="text-left cart-product-total" />
+                                                                <input asp-for="LowestPrice" value="@lowestPrice" class="text-left cart-product-total" type="hidden" />
+                                                                <input asp-for="AuctionId" value="@ViewBag.auc.Id" class="text-left cart-product-total" type="hidden" />
+                                                                <button type="submit" class="btn-success">Set Price</button>
+                                                                <br>
+                                                            </div>
+                                                        </form>
                                 }
                                 else
                                 {
@@ -162,7 +160,7 @@
                                         <div class="form-group">
                                             <label class="text-right cart-qty">Price:</label>
                                             <input asp-for="NewPrice" type="number" class="text-left cart-product-total" />
-                                            <label asp-validation-for="NewPrice" class="text-danger"></label>
+                                            <span asp-validation-for="NewPrice" class="text-danger"></span>
                                             <input asp-for="LowestPrice" value="@lowestPrice" class="text-left cart-product-total" type="hidden" />
                                             <input asp-for="AuctionId" value="@ViewBag.auc.Id" class="text-left cart-product-total" type="hidden" />
                                             <button type="submit" class="btn-success">Set Price</button>
@@ -203,53 +201,77 @@
                             <li class="active"><a data-toggle="tab" href="#tab-description">Description</a></li>
                             <li><a data-toggle="tab" href="#tab-review">Reviews (0)</a></li>
                         </ul>
-                        <div class="tab-content">
-                            <div id="tab-description" class="tab-pane active">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div id="tab-review" class="tab-pane">
-                                <form id="form-review" class="form-horizontal">
-                                    <div id="review">
-                                        <p>There are no reviews for this product.</p>
-                                    </div>
-                                    <h2>Write a review</h2>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label for="input-name" class="control-label">Your Name</label>
-                                            <input type="text" class="form-control" id="input-name" value="" name="name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label for="input-review" class="control-label">Your Review</label>
-                                            <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
-                                            <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label class="control-label">Rating</label>
-                                            &nbsp;&nbsp;&nbsp; Bad&nbsp;
-                                            <input type="radio" value="1" name="rating">
-                                            &nbsp;
-                                            <input type="radio" value="2" name="rating">
-                                            &nbsp;
-                                            <input type="radio" value="3" name="rating">
-                                            &nbsp;
-                                            <input type="radio" value="4" name="rating">
-                                            &nbsp;
-                                            <input type="radio" value="5" name="rating">
-                                            &nbsp;Good
-                                        </div>
-                                    </div>
-                                    <div class="buttons clearfix">
-                                        <div class="pull-right">
-                                            <button class="btn btn-primary" id="button-review" type="button">Continue</button>
-                                        </div>
-                                    </div>
-                                </form>
+                        <!-- Draft Countdown -->
+                        <div class="timer">
+                            <h1>this is timer</h1>
+                            <div class="countdown-container">
+                                <div class="countdown-el days-c">
+                                    <p class="big-text" id="days">0</p>
+                                    <span>days</span>
+                                </div>
+                                <div class="countdown-el hours-c">
+                                    <p class="big-text" id="hours">0</p>
+                                    <span>hours</span>
+                                </div>
+                                <div class="countdown-el mins-c">
+                                    <p class="big-text" id="mins">0</p>
+                                    <span>mins</span>
+                                </div>
+                                <div class="countdown-el seconnds-c">
+                                    <p class="big-text" id="seconsd">0</p>
+                                    <span>seconsd</span>
+                                </div>
                             </div>
                         </div>
+
+
+                        @*<div class="tab-content">
+            <div id="tab-description" class="tab-pane active">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div id="tab-review" class="tab-pane">
+                <form id="form-review" class="form-horizontal">
+                    <div id="review">
+                        <p>There are no reviews for this product.</p>
+                    </div>
+                    <h2>Write a review</h2>
+                    <div class="form-group required">
+                        <div class="col-sm-12">
+                            <label for="input-name" class="control-label">Your Name</label>
+                            <input type="text" class="form-control" id="input-name" value="" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <div class="col-sm-12">
+                            <label for="input-review" class="control-label">Your Review</label>
+                            <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
+                            <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <div class="col-sm-12">
+                            <label class="control-label">Rating</label>
+                            &nbsp;&nbsp;&nbsp; Bad&nbsp;
+                            <input type="radio" value="1" name="rating">
+                            &nbsp;
+                            <input type="radio" value="2" name="rating">
+                            &nbsp;
+                            <input type="radio" value="3" name="rating">
+                            &nbsp;
+                            <input type="radio" value="4" name="rating">
+                            &nbsp;
+                            <input type="radio" value="5" name="rating">
+                            &nbsp;Good
+                        </div>
+                    </div>
+                    <div class="buttons clearfix">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" id="button-review" type="button">Continue</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>*@
                     </div>
                 </div>
                 <!--related product-->
@@ -331,4 +353,34 @@
         </div>
     </div>
 </div>
+
+<!--timer-->
+<script>
+            //const newYears = '1 Jan 2023'
+            const newYears = '@(System.Web.HttpUtility.HtmlEncode(ViewBag.auc.EndDateTime))';
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minsEl = document.getElementById('mins');
+            const seconsdEl = document.getElementById('seconsd');
+            function countdown(){
+
+                const newYearsDate = new Date(newYears);
+                const currentDate = new Date();
+                const totalSeconsds= (newYearsDate - currentDate) / 1000;
+                const days = Math.floor(totalSeconsds / 3600/ 24);
+                const hours = Math.floor((totalSeconsds / 3600) % 24);
+                const mins = Math.floor(totalSeconsds / 60) % 60 ;
+                const seconsd = Math.floor(totalSeconsds) % 60;
+
+                daysEl.innerHTML = days;
+                hoursEl.innerHTML = hours;
+                minsEl.innerHTML = mins;
+                seconsdEl.innerHTML = seconsd;
+                if (totalSeconsds == 0) {
+                    window.location.href = "vanchien.html";
+                }
+            }
+            countdown();
+            setInterval(countdown, 1000);
+</script>
 <!--End of middle content-->

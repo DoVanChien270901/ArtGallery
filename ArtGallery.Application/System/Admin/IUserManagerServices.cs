@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Data.Entities;
+using ArtGallery.ViewModel.System.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace ArtGallery.Application.System.Admin
         Task<bool> UpdateUser(Account uname);
         Task<bool> DeleteUser(string uname);
         Task<IEnumerable<Account>> SearchUsers(string uname);
+        Task<string> Authencate(LoginRequest loginRequest);
+        Task<string> Register(RegisterRequest registerRequest);
     }
 }

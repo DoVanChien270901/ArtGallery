@@ -13,5 +13,8 @@ namespace ArtGallery.Application.Catalog.Auctions
         public Task<IEnumerable<Auction>> GetAllAuctions();
         public Task<Auction> GetAuctionById(int Id);
         public Task<bool> InsertAmount(InsertAmountInAuctionRequest request);
+        public Task<bool> DeleteAuction(int Id);
+        public Task<bool> UpdateAuction(UpdateAuctionRequest request);
+        public Task<ProfileUser> WinnerInformation(int aucId);
     }
 }

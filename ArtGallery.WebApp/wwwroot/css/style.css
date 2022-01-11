@@ -10,7 +10,7 @@ body{
     font-family: 'Lato', sans-serif;
 }
 a{
-    // transition: all 0.3s ease 0s;
+    
 }
 a{
     cursor: pointer;
@@ -64,7 +64,7 @@ a:hover{
     color: #333333;
 }
 select.form-control, textarea.form-control, input.form-control[type="text"], input.form-control[type="password"], input.form-control[type="datetime"], input.form-control[type="datetime-local"], input.form-control[type="date"], input.form-control[type="month"], input.form-control[type="time"], input.form-control[type="week"], input.form-control[type="number"], input.form-control[type="email"], input.form-control[type="url"], input.form-control[type="search"], input.form-control[type="tel"], input.form-control[type="color"] {
-    // border-radius: 0;
+    
     font-size: 12px;
 }
 ul.breadcrumb li:first-child a {
@@ -106,8 +106,7 @@ ul.breadcrumb li:first-child a {
     position: fixed;
     width: 100%;
     z-index: 91;
-    // animation: 1s cubic-bezier(1, -0.01, 0, 0.99) 0s normal none 1 running alert-anim;
-    // transition: all 0.9s ease 0s;
+    
 }
 .alert-success {
     background-color: #27AE60;
@@ -122,7 +121,7 @@ ul.breadcrumb li:first-child a {
     color: #fff;
     font-weight: bold;
     padding: 10px 10px 13px;
-    //  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    
 }
 .alert a{
     color: #fff;
@@ -163,7 +162,7 @@ header .top-line{
 }
 .language-block .toggle, .currency-block .toggle {
     border-left: 1px solid #d4d4d4;
-    //  border-right: 1px solid #d4d4d4;
+   
     cursor: pointer;
     display: block;
     font-size: 14px;
@@ -182,7 +181,7 @@ header .top-line{
 }
 header ul.social-list{
     list-style: none;
-    //float: left;
+    
     padding-left: 0;
     margin-bottom: 0;
 }
@@ -250,7 +249,7 @@ header .top-line + div{
     background: #f0eeee none repeat scroll 0 0;
     border: medium none;
     border-radius: 0 20px 20px 0;
-    //line-height: 0;
+    
 }
 header .form-control:focus {
     /*    border-color: red;
@@ -420,7 +419,7 @@ aside .box.category h3{
 }
 a.compare-button, a.wishlist-button{
     transition: all 0.6s ease 0s; 
-    //  opacity: 0;
+    
 
     transition-duration: 0.8s;
     transition-timing-function: cubic-bezier(1, -0.53, 0.405, 1.425);
@@ -452,7 +451,7 @@ a.quickview {
     line-height: 28px;
     margin-left: -57px;
     opacity: 0;
-    //  padding: 5px;
+    
     padding: 3px 20px;
     position: absolute;
     text-align: center;
@@ -460,7 +459,7 @@ a.quickview {
     top: 0;
     vertical-align: top;
     visibility: hidden;
-    //  width: 107px;
+    
     z-index: 5;
 }
 .product-thumb .image {
@@ -469,7 +468,7 @@ a.quickview {
     text-align: center;
 }
 .product-thumb .image a {
-    // border: 1px solid #efefef;
+    
     display: block;
     overflow: hidden;
 }
@@ -634,7 +633,7 @@ a.compare-button, a.wishlist-button {
     line-height: 28px;
     margin-left: -53px;
     opacity: 0;
-    //  padding: 5px;
+    
     padding: 2px 12px;
     position: absolute;
     text-align: center;
@@ -642,18 +641,18 @@ a.compare-button, a.wishlist-button {
     top: 0;
     vertical-align: top;
     visibility: hidden;
-    //  width: 40px;
+    
     z-index: 5;
 }
 a.wishlist-button{
-    //left: 72%;
+    
     margin-left: -10px;
 }
 .product-thumb:hover a.compare-button, .product-thumb:hover a.wishlist-button{
     opacity: 1;
     top: 35%;
     visibility: visible;
-    //  transform: scale(0.5, 0.5);
+    
 }
 a.compare-button:hover, a.wishlist-button:hover {
     background-color: rgba(51,51,51,0.5);
@@ -803,13 +802,13 @@ ul.thumbnails li:nth-child(2) {
 }
 
 .single-product ul li a.thumbnail{
-    // border: none;
+    
     border-radius: 0;
     border-color: transparent;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
 }
 .single-product ul li a.thumbnail:hover{
-    // border: 1px solid #e10302;
+    
     border: 1px solid rgba(225, 3, 2, 0.2);
 }
 ul.price-list li span:first-child {
@@ -844,7 +843,7 @@ ul.price-list {
     display: inline-block;
     font-size: 12px;
     line-height: 14px;
-    // margin-left: 10px;
+    
     padding: 0;
     text-transform: uppercase;
 }
@@ -904,7 +903,7 @@ ul.ref-search {
     padding: 0;
 }
 .ref-search li {
-    //  background: #333 none repeat scroll 0 0;
+    
     display: inline-block;
     padding: 5px 10px 5px 0;
 }
@@ -964,9 +963,7 @@ select.form-control {
 }
 
 select:-moz-focusring {
-    // color: transparent;
-    // text-shadow: 0 0 0 #000;
-    //outline: none !important;
+    
 }
 .quick_information{
     display: none;
@@ -978,10 +975,7 @@ select:-moz-focusring {
     visibility: visible;
 }
 .latest-product-heading .product-thumb:hover a.compare-button, .latest-product-heading .product-thumb:hover a.wishlist-button{
-    //  opacity: 1;
-    //  top: 55%;
-    //  visibility: visible;
-    //  transform: scale(0.5, 0.5);
+    
 }
 .latest-product-heading .product-thumb{
     margin-bottom: 0;
@@ -1004,7 +998,7 @@ h2.manufacture_title > span{
 
     line-height: 40px;
     text-align: center;
-    // width: 40px;
+    
 }
 .bx-prev {
     left: -37px !important;
@@ -1049,17 +1043,15 @@ ul.menu li:hover:after {
 }*/
 /*animation*/
 ul.social-list li a i{
-    //transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s, -webkit-transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+    
 }
 ul.social-list li a i:hover{
-    //transform: rotate(45deg);
+    
 }
 .image img{
-    // transform: scale(1);
-    // transform-style: preserve-3d;
-    // transition: transform 0.15s linear 0s;
+    
 }
-.image img:hover { // transform: scale(1.05); 
+.image img:hover { 
 }
 
 /*.image::before {
@@ -1075,10 +1067,10 @@ ul.social-list li a i:hover{
     z-index: 1
 }*/
 .image:hover::before {
-    //   transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0px, 110%, 0px);
+    
 }
 .image{
-    //  position: relative;
+    
 }
 /*footer*/
 .bottom-block h4 i{
@@ -1197,3 +1189,36 @@ ul.social-list li a i:hover{
 .dropdown-menu > li > a {
     text-transform: uppercase;
 }
+/*timer*/
+.countdown-container {
+    display: flex;
+    justify-content: center;
+}
+
+.timer {
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+}
+
+    .timer > h1 {
+        color: red;
+        font-size: 3rem;
+        font-weight: normal;
+        margin-bottom: 0px;
+        text-align: center;
+    }
+
+.big-text {
+    font-size: 4rem;
+    margin-right: 2.5rem;
+    text-align: center;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+.countdown-el span {
+    margin-left: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+

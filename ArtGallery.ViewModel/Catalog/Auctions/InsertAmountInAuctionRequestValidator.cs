@@ -12,8 +12,15 @@ namespace ArtGallery.ViewModel.Catalog.Auctions
     {
         public InsertAmountInAuctionRequestValidator()
         {
-            RuleFor(c => c.NewPrice).Null().WithMessage("Please give your price number")
-                .When(c => c.NewPrice < c.LowestPrice).WithMessage("Please give an amount greater than the lowest amount");
+            //RuleFor(c => c.NewPrice).NotEmpty().WithMessage("Please give your price number")
+            //    .When(c => c.NewPrice < c.LowestPrice).WithMessage("Please give an amount greater than the lowest amount");
+            When(c => c.NewPrice < c.LowestPrice, () =>
+            {
+                RuleFor(c => c.NewPrice).NotEqual(0)
+                .WithMessage("Please give your price number");
+                RuleFor(c=>c.NewPrice).GreaterThan(c=>c.LowestPrice)
+                .WithMessage("Please give an amount greater than the lowest amount");
+            });
         }
     }
 }

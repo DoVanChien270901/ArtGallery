@@ -35,5 +35,20 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return _aucService.GetAuctionById(id);
         }
+        [HttpPut("UpdateAuction")]
+        public Task<bool> UpdateAuction(UpdateAuctionRequest request)
+        {
+            return _aucService.UpdateAuction(request);
+        }
+        [HttpDelete("DeleteAuction/{id}")]
+        public Task<bool> DeleteAuction(int id)
+        {
+            return _aucService.DeleteAuction(id);
+        }
+        [HttpGet("GetWinner/{id}")]
+        public Task<ProfileUser> GetWiner(int id)
+        {
+            return _aucService.WinnerInformation(id);
+        }
     }
 }

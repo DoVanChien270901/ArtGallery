@@ -25,6 +25,7 @@ namespace ArtGallery.Application.Catalog.Auctions
                     in _db.Auctions join pro in _db.Products on auc.ProductId equals pro.Id
                     select new Auction
                     {
+                        StartingPrice = auc.StartingPrice,
                         Id = auc.Id,
                         StartDateTime = auc.StartDateTime,
                         ProductId = auc.ProductId,
@@ -51,7 +52,7 @@ namespace ArtGallery.Application.Catalog.Auctions
         }
         public async Task<Auction> GetAuctionById(int Id)
         {
-            if (_db.AmountInAuctions.Where(c=>c.AuctionId.Equals(Id))==null)
+            if (_db.AmountInAuctions.FirstOrDefault(c => c.AuctionId.Equals(Id)) == null)
             {
                 IEnumerable<Auction> auction1 = from auc
                     in _db.Auctions
@@ -104,6 +105,37 @@ namespace ArtGallery.Application.Catalog.Auctions
                     };
             return auction.First();
 
+        }
+
+        public async Task<bool> DeleteAuction(int Id)
+        {
+            Auction auc = await _db.Auctions.FindAsync(Id);
+            if (auc == null) return false;
+            _db.Auctions.Remove(auc);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateAuction(UpdateAuctionRequest request)
+        {
+            Auction auc = await _db.Auctions.FindAsync(request.Id);
+            if (auc == null) return false;
+            auc.StartingPrice = request.StartingPrice;
+            auc.PriceStep = request.PriceStep;
+            auc.StartDateTime = request.StartDateTime;
+            auc.EndDateTime = request.EndDateTime;
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<ProfileUser> WinnerInformation(int aucId)
+        {
+            decimal maxPrice = _db.AmountInAuctions.Max(c => c.NewPrice);
+            string accId = (from aia in _db.AmountInAuctions
+                           where aia.AuctionId == aucId && aia.NewPrice == maxPrice
+                           select aia.AccountId).Single();
+            ProfileUser profileUser = _db.ProfileUsers.SingleOrDefault(c => c.AccountId.Equals(accId));
+            return profileUser;
         }
     }
 }

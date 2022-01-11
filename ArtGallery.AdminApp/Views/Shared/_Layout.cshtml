@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="/vendors/iconly/bold.css">
 
+
     <link rel="stylesheet" href="/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/app.css">
@@ -19,6 +20,7 @@
 </head>
 
 <body>
+    <div id="blur"></div>
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -76,7 +78,20 @@
                                 </li>
                             </ul>
                         </li>
-
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>Auction Manager</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Auction List", "GetAll", "Auctions")
+                                </li>
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Create Auction", "", "Auctions")
+                                </li>
+                            </ul>
+                        </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-egg-fill"></i>
@@ -95,7 +110,7 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        @*<li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-bar-chart-fill"></i>
                                 <span>Charts</span>
@@ -108,7 +123,7 @@
                                     <a href="ui-chart-apexcharts.html">Apexcharts</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
 
                         <li class="sidebar-item  ">
                             <a href="ui-file-uploader.html" class='sidebar-link'>
@@ -247,7 +262,6 @@
             </footer>
         </div>
     </div>
-
     <script src="/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
 
