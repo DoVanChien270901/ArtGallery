@@ -69,9 +69,9 @@ namespace ArtGallery.WebApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request, string gender)
         {
-
+            request.Gender = gender;
             if (!ModelState.IsValid) return View();
             var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url+ "register", request).Result.Content.ReadAsStringAsync());
             if (result.Success)

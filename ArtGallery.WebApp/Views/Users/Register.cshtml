@@ -84,7 +84,10 @@
                         <div class="form-group required">
                             <label class="col-sm-4 control-label">Gender</label>
                             <div class="col-sm-8">
-                                <input asp-for="Gender" type="text" class="form-control" placeholder="Gender">
+                                <input type="radio" name="gender" value="Male">
+                                <label>Male</label>
+                                <input type="radio" name="gender" value="Female">
+                                <label>Female</label>
                                 <span asp-validation-for="Gender" class="text-danger"></span>
                             </div>
                         </div>
