@@ -1,13 +1,14 @@
 ﻿@{
     Layout = "_Layout1";
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Contact Us";
 }
+<br />
 <!-- Contact Us -->
 <div class="container contact-us">
     <div class="contact-box">
         <div class="left"></div>
         <div class="right">
-            <h1>Contact Us</h1><br>
+            <h1>@ViewData["Title"]</h1><br>
             <input type="text" class="field" placeholder="Your Email">
             <textarea placeholder="Message" class="field"></textarea>
             <button class="btn">Send</button>
@@ -15,5 +16,13 @@
     </div>
 </div>
 <br>
-<br>
 <!-- End of Contact Us -->
+<!-- Google Map -->
+<div style="padding: 4px;"></div>
+<div class="container">
+    <iframe class="map" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1234.5089245793617!2d106.66596081393604!3d10.786688146789924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd2ecb62e0d050fe9!2zRlBUIEFwdGVjaCBIQ00gLSBI4buHIFRo4buRbmcgxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6puIFF14buRYyBU4bq_IChTaW5jZSAxOTk5KQ!5e0!3m2!1svi!2s!4v1641886564934!5m2!1svi!2s"
+            allowfullscreen="true" loading="lazy"></iframe>
+</div>
+<div style="padding: 10px;"></div>
+<!-- End Google Map-->

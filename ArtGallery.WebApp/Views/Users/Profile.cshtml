@@ -1,7 +1,7 @@
 ﻿@model ArtGallery.Data.Entities.ProfileUser
 @{
     ViewData["Title"] = "Profile";
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!--middle content-->
 <div id="container">
@@ -11,24 +11,18 @@
             <aside class="col-sm-3 left-sidebar">
                 <div class="box category">
                     <div class="box-heading">
-                        <h3>Account <i class="fa fa-angle-up"></i></h3>
+                        <h3>@ViewData["Title"] <i class="fa fa-angle-up"></i></h3>
                     </div>
                     <div class="box-content test">
                         <div class="box-category">
                             <ul class="menu">
-                                <li><a>Login</a></li>
-                                <li><a href="register.html">Register</a></li>
                                 <li><a>Forgotten Password</a></li>
-                                <li><a>My Account</a></li>
-                                <li><a>Address Books</a></li>
                                 <li><a>Order History</a> </li>
-                                <li><a>Returns</a></li>
                                 <li><a>Transactions</a> </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
             </aside>
             <!--end sidebar-->
             <div class="col-sm-9" id="content">
@@ -62,10 +56,9 @@
                             </div>
                         </div>
                         <div class="form-group required">
-
                             <label class="col-sm-4 control-label">Avatar</label>
-                            <div class="col-sm-8">
-                                <input asp-for="Avatar" type="file" class="form-control" lang="en" placeholder="Avatar">
+                            <div class="col-sm-8 custom-file">
+                                <input asp-for="Avatar" type="file" class="form-control" lang="es" placeholder="Avatar">
                                 <span asp-validation-for="Avatar" class="text-danger"></span>
                             </div>
                         </div>
@@ -110,7 +103,7 @@
                     </fieldset> -->
                     <div class="buttons">
                         <div class="pull-right">
-                            I have read and agree to the <a class="agree"><b>Privacy Policy</b></a> <input type="checkbox" value="1" name="agree" style="vertical-align:text-bottom"> &nbsp;
+                            @*I have read and agree to the <a class="agree"><b>Privacy Policy</b></a> <input type="checkbox" value="1" name="agree" style="vertical-align:text-bottom"> &nbsp;*@
                             <button type="submit" class="btn btn-custom">Upload Profile</button>
                         </div>
                     </div>

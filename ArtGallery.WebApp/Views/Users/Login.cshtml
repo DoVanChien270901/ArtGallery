@@ -1,7 +1,7 @@
 ﻿@model ArtGallery.ViewModel.System.Users.LoginRequest
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!--middle content-->
 <div id="container">
@@ -11,7 +11,7 @@
             <aside class="col-sm-3 left-sidebar">
                 <div class="box category">
                     <div class="box-heading">
-                        <h3>Account <i class="fa fa-angle-up"></i></h3>
+                        <h3>@ViewData["Title"] <i class="fa fa-angle-up"></i></h3>
                     </div>
                     <div class="box-content test">
                         <div class="box-category">
@@ -19,10 +19,7 @@
                                 <li><a asp-action="Login" asp-controller="Users">Login</a></li>
                                 <li><a asp-action="Register" asp-controller="Users">Register</a></li>
                                 <li><a>Forgotten Password</a></li>
-                                <li><a>My Account</a></li>
-                                <li><a>Address Books</a></li>
                                 <li><a>Order History</a> </li>
-                                <li><a>Returns</a></li>
                                 <li><a>Transactions</a> </li>
                             </ul>
                         </div>
@@ -68,7 +65,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Password</label>
-                                    <input asp-for="Password" class="form-control" placeholder="Password">
+                                    <input asp-for="Password" type="password" class="form-control" id="ipnPassword" placeholder="Password">
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 <div class="form-group form-check">

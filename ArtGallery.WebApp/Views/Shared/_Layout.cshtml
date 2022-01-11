@@ -1,22 +1,23 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>OAG - Online Art Gallery</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="~/images/favicon.png">
     <!--custom css-->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="/css/site.css" rel="stylesheet" type="text/css" />
-    <link href="/css/loading.css" rel="stylesheet" type="text/css" />
-    <link href="/css/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/loading.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/edit.css" rel="stylesheet" type="text/css" />
     <!--js --->
-    <script src="/js/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/js/custom.js" type="text/javascript"></script>
-    <script src="/js/site.js" type="text/javascript"></script>
+    <script src="~/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/js/custom.js" type="text/javascript"></script>
+    <script src="~/js/site.js" type="text/javascript"></script>
+
 </head>
 <body onload="myFunction()">
     <div id="loader"></div>
@@ -68,7 +69,7 @@
                     </div>
                     <div class="rightside">
                         <div class="top-button">
-                            <a><i class="fa fa-retweet" aria-hidden="true"></i></a>
+                            <a><i class="fa fa-bell" aria-hidden="true"><sub> +0</sub></i></a>
                         </div>
                         <div class="top-button">
                             <a><i class="fa fa-heart-o" aria-hidden="true"></i></a>
@@ -126,7 +127,6 @@
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
                                     </button>
-
                                     <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
                                 </div>
                                 <div class="collapse navbar-collapse" id="myNavbar">
@@ -161,7 +161,6 @@
                                                 <td class="text-right cart-qty"><span> Qty:</span> 1</td>
                                                 <td class="text-left cart-product-total">$122.00</td>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </li>
@@ -188,16 +187,11 @@
                                             </tbody>
                                         </table>
                                         <a class="btn btn-add-cart" href="cart.html">
-                                            <span>
-                                                View
-                                            </span>
+                                            <span>View</span>
                                             <i class="fa fa-shopping-cart"></i>
                                         </a>
-
                                         <a class="btn btn-add-cart" href="checkout.html">
-                                            <span>
-                                                Checkout
-                                            </span>
+                                            <span>Checkout</span>
                                             <i class="fa fa-share"></i>
                                         </a>
                                     </div>
@@ -247,7 +241,7 @@
                         <div class="footer-block">
                             <h4>Information <i class="fa fa-angle-up"></i></h4>
                             <ul class="list-unstyled">
-                                <li><a>About Us</a></li>
+                                <li>@Html.ActionLink("About Us", "AboutUs", "Home")</li>
                                 <li><a>Privacy Policy</a></li>
                                 <li><a>Terms &amp; Conditions</a></li>
                             </ul>
