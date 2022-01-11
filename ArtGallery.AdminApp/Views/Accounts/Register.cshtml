@@ -44,10 +44,11 @@
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input asp-for="Gender" type="text" class="form-control form-control-xl" placeholder="Gender">
-                    <div class="form-control-icon">
-                        <i class="bi bi-shield-lock"></i>
-                    </div>
+                    <p>Gender</p>
+                    <input type="radio" name="gender" value="Male">
+                    <label>Male</label>
+                    <input type="radio" name="gender" value="Female">
+                    <label>Female</label>
                     <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
