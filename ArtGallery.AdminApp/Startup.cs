@@ -42,8 +42,8 @@ namespace ArtGallery.AdminApp
             //configuration fluent validator
             services.AddMvc()
                 .AddFluentValidation(fv => {
-                    fv.RegisterValidatorsFromAssemblyContaining<UpdateAuctionRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<UpdateAuctionRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
                 });
             //
