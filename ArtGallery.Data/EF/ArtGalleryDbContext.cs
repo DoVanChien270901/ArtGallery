@@ -40,7 +40,7 @@ namespace ArtGallery.Data.EF
         }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<AmountAuction> AmountAuctions { get; set; }
+        public DbSet<AmountInAuction> AmountInAuctions { get; set; }
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }

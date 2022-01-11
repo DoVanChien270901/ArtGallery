@@ -16,7 +16,12 @@
     <script src="/js/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/js/custom.js" type="text/javascript"></script>
+
+    <script src="/js/custom.js" type="text/javascript"></script>
+
+
     <script src="/js/site.js" type="text/javascript"></script>
+
 </head>
 <body onload="myFunction()">
     <div id="loader"></div>
@@ -127,6 +132,17 @@
                                         <span class="icon-bar"></span>
                                     </button>
 
+
+                                <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
+                            </div>
+                            <div class="collapse navbar-collapse" id="myNavbar">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="home.html">Home</a></li>
+                                    <li><a>About Us</a></li>
+                                    <li><a href="product.html">Gallery</a></li>
+                                    <li><a>Contact</a></li>
+                                    <li><a asp-action="GetAllAuctions" asp-controller="Auctions">Auctions</a></li>
+
                                     <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
                                 </div>
                                 <div class="collapse navbar-collapse" id="myNavbar">
@@ -137,6 +153,7 @@
                                         <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                                     </ul>
                                 </div>
+
                             </div>
                         </nav>
                     </div>

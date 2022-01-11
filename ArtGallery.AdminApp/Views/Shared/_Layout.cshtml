@@ -8,12 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/vendors/iconly/bold.css">
+
     <link rel="stylesheet" href="/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/app.css">
     @*<link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon">*@
 </head>
 <body>
+    <div id="blur"></div>
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -68,6 +70,21 @@
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>Auction Manager</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Auction List", "GetAll", "Auctions")
+                                </li>
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Create Auction", "", "Auctions")
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
                                 <i class="bi bi-clipboard-check"></i>
                                 <span>Product Manager</span>
                             </a>
@@ -83,6 +100,9 @@
                                 </li>*@
                             </ul>
                         </li>
+
+                        @*<li class="sidebar-item  has-sub">
+
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-cash-stack"></i>
@@ -93,6 +113,16 @@
                                     @Html.ActionLink("List", "Index", "TransactionManager")
                                 </li>*@
                             </ul>
+                        </li>*@
+
+                        <li class="sidebar-item  ">
+                            <a href="ui-file-uploader.html" class='sidebar-link'>
+                                <i class="bi bi-cloud-arrow-up-fill"></i>
+                                <span>File Uploader</span>
+                            </a>
+                        </li>
+
+
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>

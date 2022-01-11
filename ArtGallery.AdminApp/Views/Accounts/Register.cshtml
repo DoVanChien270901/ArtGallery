@@ -1,0 +1,98 @@
+﻿@model ArtGallery.ViewModel.System.Users.RegisterRequest
+
+@{
+    Layout = "_Layout_admin";
+    ViewData["Title"] = "Register-Admin";
+}
+<div class="row h-100">
+    <div class="col-lg-5 col-12">
+        <div id="auth-left">
+            <div class="auth-logo">
+                <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo"></a>
+            </div>
+            <h1 class="auth-title">Sign Up</h1>
+            <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
+
+            <form asp-action="Register" asp-controller="Accounts" method="post">
+                <span class="text-danger">@Html.ValidationMessage("registerMessage")</span>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="Name" type="text" class="form-control form-control-xl" placeholder="Email">
+                    <div class="form-control-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="Password" type="password" class="form-control form-control-xl" placeholder="Password">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="ConfirmPassword" type="password" class="form-control form-control-xl" placeholder="Confirm Password">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="FullName" type="text" class="form-control form-control-xl" placeholder="Full Name">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="Gender" type="text" class="form-control form-control-xl" placeholder="Gender">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="DOB" type="date" class="form-control form-control-xl" placeholder="Day of birth">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="DOB" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="Address" type="text" class="form-control form-control-xl" placeholder="Address">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="Email" type="email" class="form-control form-control-xl" placeholder="Email">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input asp-for="PhoneNumber" type="number" class="form-control form-control-xl" placeholder="Phone Number">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" type="submit">Sign Up</button>
+            </form>
+            <div class="text-center mt-5 text-lg fs-4">
+                <p class='text-gray-600'>
+                    Already have an account? <a href="auth-login.html" class="font-bold">
+                        Log
+                        in
+                    </a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7 d-none d-lg-block">
+        <div id="auth-right">
+
+        </div>
+    </div>
+</div>

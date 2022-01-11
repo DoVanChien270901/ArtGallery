@@ -44,6 +44,7 @@
                     <a asp-action="Login" asp-controller="Users">login page</a>.
                 </p>
                 <form class="form-horizontal" asp-action="Register" asp-controller="Users" method="post">
+                    <span class="text-danger">@Html.ValidationMessage("registerMessage")</span>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     @*Account*@
                     <fieldset>

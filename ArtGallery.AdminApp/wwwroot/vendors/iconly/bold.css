@@ -325,3 +325,52 @@
 .iconly-boldWork:before {
   content: "\e963";
 }
+/*form-blur*/
+/*.formform {
+    position: absolute;
+    z-index: 3;
+    display: none;
+    border-radius: 10px;
+    width: 25%;
+    height: 50%;
+    background-color: #a1b3df;
+
+    margin-right: 70%;
+    margin-left: 30%;
+
+    margin-left: 600px;
+}
+
+    #blur {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#blur {
+    background: black;
+    backdrop-filter: blur(4px);
+    opacity: 0.4;
+    z-index: 2;
+    display: none;
+}
+#label{
+    color:black;
+    margin-left: 70px;
+    margin-top:20px;
+}
+#input {
+    margin-left: 70px;
+}
+#cancel {
+    text-align: center;
+    color: black;
+    margin-left: 7%;
+    margin-top: 5%;
+}
+#button {
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 30%;
+}
+*/

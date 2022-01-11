@@ -20,6 +20,5 @@ namespace ArtGallery.Data.Entities
         public DateTime DOB { get; set; }
         public string AccountId { get; set; }
         public Account Account { get; set; }
-        public List<AmountAuction> AmountInAcctions { get; set; }
     }
 }

@@ -60,7 +60,9 @@ namespace ArtGallery.Application.System.Users
 
         public async Task<string> Register(RegisterRequest registerRequest)
         {
-            Account acc = new Account
+            Account acc = await _db.Accounts.FindAsync(registerRequest.Name);
+            if (acc != null) return null;
+            acc = new Account
             {
                 Name = registerRequest.Name,
                 Password = registerRequest.Password,
@@ -71,8 +73,7 @@ namespace ArtGallery.Application.System.Users
                 AccountId = registerRequest.Name,
                 FullName=registerRequest.FullName,
                 Gender=registerRequest.Gender,
-                Address = registerRequest.Address,
-                //Avatar = registerRequest.Avatar.FileName,
+                Address = registerRequest.Address, 
                 Email = registerRequest.Email,
                 PhoneNumber = registerRequest.PhoneNumber,
                 DOB = registerRequest.DOB

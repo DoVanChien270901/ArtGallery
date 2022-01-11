@@ -1,4 +1,5 @@
 using ArtGallery.Application.Common;
+using ArtGallery.ViewModel.Catalog.Auctions;
 using ArtGallery.ViewModel.System.Users;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,8 +40,10 @@ namespace ArtGallery.WebApp
                 .AddFluentValidation(fv => {
                     fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<InsertAmountInAuctionRequestValidator>();
                     });
             //
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +62,8 @@ namespace ArtGallery.WebApp
             app.UseAuthentication();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
