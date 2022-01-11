@@ -13,7 +13,7 @@ namespace ArtGallery.AdminApp.Controllers
     public class CategoryManagerController : Controller
     {
         //check neu khong chay
-        private readonly string url = "http://localhost:5000/api/CategoriesManager/";
+        private readonly string url = "http://localhost:4086/api/CategoriesManager/";
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]

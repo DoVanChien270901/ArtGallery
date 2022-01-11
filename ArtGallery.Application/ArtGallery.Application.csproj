@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -11,6 +11,10 @@
 
   <ItemGroup>
     <Folder Include="Catalog\Products\" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <FrameworkReference Include="Microsoft.AspNetCore.App"></FrameworkReference>
   </ItemGroup>
 
 </Project>

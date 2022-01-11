@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtGallery.Data.Entities;
+using Microsoft.AspNetCore.Http;
 
-namespace ArtGallery.ViewModel.Catalog.Products
+namespace ArtGallery.ViewModel.Catalog.ProductImages
 {
     public class ProductImageModelView
     {
@@ -16,6 +17,6 @@ namespace ArtGallery.ViewModel.Catalog.Products
         public int ProductId { get; set; }
         public IEnumerable<ProductImage> ProductImages { get; set; }
         public ProductImage ProductImage { get; set; }
-        //public List<Product> Product { get; set; }
+        public IFormFile ImageFile { get; set; }
     }
 }

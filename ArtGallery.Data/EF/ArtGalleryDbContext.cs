@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,5 +54,5 @@ namespace ArtGallery.Data.EF
         public DbSet<ProfileUser> ProfileUsers { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<ProductInCategory>  ProductInCategories { get; set; }
-    }
+    }    
 }

@@ -11,5 +11,6 @@ namespace ArtGallery.Application.Common
     {
         Task SaveFile(IFormFile file);
         Task DeleteFile(string filenamme);
+     
     }
 }

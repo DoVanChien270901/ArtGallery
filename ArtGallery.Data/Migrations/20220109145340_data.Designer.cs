@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    [Migration("20220105061053_newdata")]
-    partial class newdata
+    [Migration("20220109145340_data")]
+    partial class data
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -230,9 +230,6 @@ namespace ArtGallery.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -342,16 +339,8 @@ namespace ArtGallery.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("City")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("District")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(100)
@@ -372,10 +361,6 @@ namespace ArtGallery.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
-
-                    b.Property<string>("Wards")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
