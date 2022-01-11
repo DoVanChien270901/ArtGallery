@@ -93,6 +93,7 @@ namespace ArtGallery.WebApp.Controllers
             ModelState.AddModelError("registerMessage", result.Message);
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
@@ -104,6 +105,20 @@ namespace ArtGallery.WebApp.Controllers
             ProfileUser result = JsonConvert.DeserializeObject<ProfileUser>(await httpClient.GetAsync(url + "profile/" + UserId).Result.Content.ReadAsStringAsync());
             result.ToString();
             return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileUser profileUser)
+        {
+            string UserId = "";
+            foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
+            {
+                UserId = item.Value.ToString();
+            }
+            profileUser.AccountId = UserId;
+            var result = httpClient.PutAsJsonAsync(url + "updateprofile", profileUser).Result;
+            result.ToString();
+            return View();
         }
     }
 }

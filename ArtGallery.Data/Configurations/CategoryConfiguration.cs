@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Data.Configurations
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    public class CategoryConfiguration: IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
@@ -17,6 +17,7 @@ namespace ArtGallery.Data.Configurations
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).UseIdentityColumn();
             builder.Property(c => c.Name).HasMaxLength(50);
+            builder.Property(c => c.Description).HasColumnType("text");
         }
     }
 }

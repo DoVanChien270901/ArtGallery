@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.WebApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,15 +19,25 @@ namespace ArtGallery.WebApp.Controllers
         {
             _logger = logger;
         }
-        [Authorize(Roles ="User")]
+        //[Authorize(Roles ="User")]
         public IActionResult Home()
         {
-            var user = User.Claims.ToList();
-            var a = user[2].Value;
+            //var user = User.Claims.ToList();
+            //var a = user[2].Value;
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
         {
             return View();
         }

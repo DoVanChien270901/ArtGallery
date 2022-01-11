@@ -1,5 +1,4 @@
 ﻿@model ArtGallery.ViewModel.System.Users.LoginRequest
-
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Login";
@@ -14,23 +13,17 @@
                     <div class="box-heading">
                         <h3>Account <i class="fa fa-angle-up"></i></h3>
                     </div>
-
                     <div class="box-content test">
                         <div class="box-category">
                             <ul class="menu">
-                                <li><a>Login</a></li>
+                                <li><a asp-action="Login" asp-controller="Users">Login</a></li>
                                 <li><a asp-action="Register" asp-controller="Users">Register</a></li>
                                 <li><a>Forgotten Password</a></li>
                                 <li><a>My Account</a></li>
                                 <li><a>Address Books</a></li>
-                                <li><a>Wish List</a> </li>
                                 <li><a>Order History</a> </li>
-                                <li><a>Downloads</a></li>
-                                <li><a>Reward Points</a></li>
                                 <li><a>Returns</a></li>
                                 <li><a>Transactions</a> </li>
-                                <li><a>Newsletter</a></li>
-                                <li><a>Recurring payments</a></li>
                             </ul>
                         </div>
                     </div>
@@ -54,7 +47,7 @@
                                 </div>
                             </div>
                             <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-                            <a class="btn btn-custom" href="register.html">Continue</a>
+                            <a class="btn btn-custom" asp-action="Register" asp-controller="Users">Continue</a>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -80,7 +73,7 @@
                                 </div>
                                 <div class="form-group form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" asp-for="RememberMe" />Remember Me
+                                        <input class="form-check-input" asp-for="RememberMe" /> Remember Me
                                     </label>
                                     <br>
                                     <a>Forgotten Password</a>

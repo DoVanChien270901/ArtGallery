@@ -1,6 +1,7 @@
 ﻿using ArtGallery.Application.System.Users;
 using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
+using ArtGallery.Data.Enum;
 using ArtGallery.ViewModel.System.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -64,7 +65,8 @@ namespace ArtGallery.Application.System.Users
             acc = new Account
             {
                 Name = registerRequest.Name,
-                Password = registerRequest.Password
+                Password = registerRequest.Password,
+                Roles = Roleposition.User
             };
             ProfileUser pro = new ProfileUser
             {
@@ -105,6 +107,19 @@ namespace ArtGallery.Application.System.Users
         {
             ProfileUser profile = _db.ProfileUsers.SingleOrDefault(c => c.AccountId == UserId);
             return profile;
+        }
+
+        public async Task<ProfileUser> UpdateProfile(ProfileUser profileUser)
+        {
+            var profile = _db.ProfileUsers.SingleOrDefault(c=>c.AccountId.Equals(profileUser.AccountId));
+            profile.FullName = profileUser.FullName;
+            profile.Gender = profileUser.Gender;
+            profile.Address = profileUser.Address;
+            profile.Email = profileUser.Email;
+            profile.DOB = profileUser.DOB;
+            profile.PhoneNumber = profileUser.PhoneNumber;
+            await _db.SaveChangesAsync();
+            return profileUser;
         }
     }
 }

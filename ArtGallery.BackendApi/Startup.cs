@@ -2,6 +2,8 @@ using ArtGallery.Application.Catalog.Categories;
 using ArtGallery.Application.Catalog.Auctions;
 using ArtGallery.Application.System.Admin;
 using ArtGallery.Application.System.Users;
+using ArtGallery.Application.Catalog.Products;
+using ArtGallery.Application;
 using ArtGallery.Data.EF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,7 +41,10 @@ namespace ArtGallery.BackendApi
 
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
-            services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
+            services.AddTransient<IProductServices, ProductServicesImp>();
+          services.AddTransient<IProductImageServices, ProductImageServicesImp>();
+          services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
+            services.AddTransient<IProfileUserManager, ProfileUserManagerImp>();
             //
 
             services.AddControllers();

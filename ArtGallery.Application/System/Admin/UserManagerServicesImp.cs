@@ -1,8 +1,13 @@
 ﻿using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
+
 using ArtGallery.ViewModel.System.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+
+using ArtGallery.Data.Enum;
+using ArtGallery.ViewModel.System.Admin;
+
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -23,45 +28,13 @@ namespace ArtGallery.Application.System.Admin
             this.context = context;
         }
 
-        public async Task<string> Authencate(LoginRequest loginRequest)
-        {
-            Account user = context.Accounts.SingleOrDefault(c => c.Name == loginRequest.Name && c.Password == loginRequest.Password);
-            if (user == null)
-            {
-                return null;
-            }
-            ProfileUser profile = context.ProfileUsers.SingleOrDefault(c => c.AccountId == user.Name);
-            if (user.Roles.ToString() == null)
-            {
-                user.Roles = Data.Enum.Roleposition.User;
-            }
-            //Discription token
-            var clearms = new[]
-            {
-                    new Claim(ClaimTypes.Name, profile.FullName),
-                    new Claim("UserId", profile.AccountId),
-                    new Claim(ClaimTypes.Email, profile.Email),
-                    new Claim(ClaimTypes.MobilePhone, profile.PhoneNumber.ToString()),
-                    new Claim(ClaimTypes.Role, user.Roles.ToString()),
-                    new Claim("TokenId", Guid.NewGuid().ToString())
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));// Minimun size of key(KeySize) = 126bits(16byte)
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                clearms,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds);
-            //pare jwtSecurityToken to string
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
 
-        public async Task<bool> CreateUser(string name, string pass)
+        public async Task<bool> CreateUser(string name, string pass, Roleposition role)
         {
             var us = context.Accounts.SingleOrDefault(c => c.Name.Equals(name));
             if (us == null)
             {
-                Account user = new Account { Name = name, Password = pass};
+                Account user = new Account { Name = name, Password = pass, Roles = role};
                 await context.Accounts.AddAsync(user);
                 await context.SaveChangesAsync();
                 return true;
@@ -83,54 +56,13 @@ namespace ArtGallery.Application.System.Admin
 
         public async Task<Account> GetUser(string uname)
         {
-            return context.Accounts.SingleOrDefault(u=>u.Name.Equals(uname));
+            var model = context.Accounts.SingleOrDefault(a=>a.Name.Equals(uname));
+            return model;
         }
 
         public async Task<IEnumerable<Account>> GetUsers()
         {
             return context.Accounts.ToList();
-        }
-
-        public async Task<string> Register(RegisterRequest registerRequest)
-        {
-            Account acc = new Account
-            {
-                Name = registerRequest.Name,
-                Password = registerRequest.Password
-            };
-            ProfileUser pro = new ProfileUser
-            {
-                AccountId = registerRequest.Name,
-                FullName = registerRequest.FullName,
-                Gender = registerRequest.Gender,
-                Address = registerRequest.Address,
-                Email = registerRequest.Email,
-                PhoneNumber = registerRequest.PhoneNumber,
-                DOB = registerRequest.DOB
-            };
-            await context.Accounts.AddAsync(acc);
-            await context.ProfileUsers.AddAsync(pro);
-            await context.SaveChangesAsync();
-            //Discription token
-            var clearms = new[]
-            {
-                    new Claim(ClaimTypes.Name, registerRequest.FullName),
-                    new Claim("UserId", registerRequest.Name),
-                    new Claim(ClaimTypes.Email, registerRequest.Email),
-                    new Claim(ClaimTypes.MobilePhone, registerRequest.PhoneNumber.ToString()),
-                    new Claim(ClaimTypes.Role, Data.Enum.Roleposition.User.ToString()),
-                    new Claim("TokenId", Guid.NewGuid().ToString())
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));// Minimun size of key(KeySize) = 126bits(16byte)
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            //create token
-            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                clearms,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds);
-            //pare jwtSecurityToken to string
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         public async Task<IEnumerable<Account>> SearchUsers(string uname)
@@ -149,5 +81,6 @@ namespace ArtGallery.Application.System.Admin
             }
             return false;
         }
+
     }
 }

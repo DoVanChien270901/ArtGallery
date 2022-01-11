@@ -23,10 +23,6 @@ namespace ArtGallery.ViewModel.System.Users
                 .MaximumLength(200).WithMessage("Full Name can not over 200 character");
             RuleFor(c => c.Gender).NotEmpty().WithMessage("Gender is required");
             RuleFor(c => c.Address).NotEmpty().WithMessage("Address is required");
-            //RuleFor(c => c.District).NotEmpty().WithMessage("District is required");
-            //RuleFor(c => c.Wards).NotEmpty().WithMessage("Wards is required");
-            //RuleFor(c => c.City).NotEmpty().WithMessage("Wards is required");
-            //RuleFor(c => c.Avatar).NotEmpty().WithMessage("Chose Avatar");
             RuleFor(c => c.Email).NotEmpty().WithMessage("Email is required")
                 .Matches(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$").WithMessage("Email format not match");
             RuleFor(c => c.DOB).GreaterThan(DateTime.Now.AddYears(-100)).WithMessage("Birthday can not gearter than 100 years");

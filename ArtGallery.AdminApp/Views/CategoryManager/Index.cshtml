@@ -1,20 +1,21 @@
-﻿@using ArtGallery.ViewModel.System.Admin;
+@using ArtGallery.ViewModel.System.Admin;
 @model CategoryModelView
 @{
     ViewData["Title"] = "Category List";
 }
+
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Category</h3>
+                <p class="text-subtitle text-muted">For admin to check they list</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                        <li class="breadcrumb-item active" aria-current="page">CategoryManager</li>
                     </ol>
                 </nav>
             </div>
@@ -23,43 +24,64 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                Category List
+                Category Function
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div>
                     <div class="row mb-3">
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-4">
                             <div class="dataTables_length" id="table1_length">
                                 <form asp-action="Create" asp-controller="CategoryManager" method="post">
                                     <h6>Category Name</h6>
-                                    <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
+                                    <input class="form-control form-control-lg" type="text" asp-for="Name" placeholder="Name">
+                                    <br />
+                                    <div>
+                                        <h6>Description</h6>
+                                        <textarea class="form-control form-control-lg" asp-for="Description" rows="3" style="height: auto" placeholder="Description"></textarea>
+                                    </div>
                                     <br />
                                     <input type="submit" value="Create" class="btn btn-success rounded-pill" />
                                     <span asp-validation-for="Name"></span>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-3"></div>
-
                         <div class="col-sm-12 col-md-3">
+
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div id="PlaceHolderHere"></div>
                             <form asp-action="Index" asp-controller="CategoryManager" method="post">
                                 <h6>Search by Name</h6>
-                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
+                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Name">
 
                                 <br />
                                 <input type="submit" value="Search" class="btn btn-success rounded-pill" />
                                 <span asp-validation-for="Name"></span>
                             </form>
                         </div>
-                        <div class="col-sm-12 col-md-3"></div>
+                        <div class="col-sm-12 col-md-3">
+
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                Category List
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
                     <table class="table table-light mb-0">
                         <thead>
                             <tr>
-                                <th class="col-3">@Html.DisplayNameFor(c => c.Id)</th>
-                                <th class="col-3">@Html.DisplayNameFor(c => c.Name)</th>
-                                <th class="col-3">Action</th>
-                                <th class="col-3"></th>
+
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Name)</th>
+                                <th class="col-8">@Html.DisplayNameFor(c => c.Description)</th>
+                                <th class="col-4">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,17 +90,14 @@
                                 <tr>
                                     <td class="text-bold-500">@item.Id</td>
                                     <td>@item.Name</td>
+                                    <td class="post">
+                                        <p class="content">@item.Description</p>
+                                        <button onclick="readMore(this)" hidden="hidden"></button>
+                                    </td>
+
                                     <td>
                                         @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = item.Id }, new { @class = "btn btn-danger" })
-                                        <a class="btn btn-success" onClick="$('#@item.Id').toggle(1);">Update</a>
-                                    </td>
-                                    <td>
-                                        <form id="@item.Id" style="display:none;" asp-action="Update" asp-controller="CategoryManager" method="post">
-                                            <input type="text" placeholder="@item.Name" name="name" />
-                                            <span asp-validation-for="@item.Name"></span>
-                                            <input type="hidden" name="id" value="@item.Id" />
-                                            <input type="submit" class="btn btn-success" />
-                                        </form>
+                                        @Html.ActionLink("Details", "Update", "CategoryManager", new { id = item.Id }, new { @class = "btn btn-danger" })
                                     </td>
                                 </tr>
                             }
@@ -90,9 +109,47 @@
         </div>
     </section>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    let noOfCharac = 200;
+    let contents = document.querySelectorAll(".content");
+    contents.forEach(content => {
+        //If text length is less that noOfCharac... then hide the read more button
+        if (content.textContent.length < noOfCharac) {
+            content.nextElementSibling.style.display = "none";
+        }
+        else {
+            let displayText = content.textContent.slice(0, noOfCharac);
+            let moreText = content.textContent.slice(noOfCharac);
+            content.innerHTML = `${displayText}<span class="dots">...</span><span class="hide more">${moreText}</span>`;
+        }
+    });
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+    function readMore(btn) {
+        let post = btn.parentElement;
+    }
+</script>
+<style>
+    .post {
+        font-family: "Poppins",sans-serif;
+    }
 
-<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-<script src="assets/js/mazer.js"></script>
+        .post p {
+            font-size: 14px;
+        }
+
+        .post button {
+            padding: 5px;
+            background-color: #ff0268;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .post:not(:last-child) {
+            margin-bottom: 50px;
+        }
+
+    .hide {
+        display: none;
+    }
+</style>

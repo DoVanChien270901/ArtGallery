@@ -61,6 +61,7 @@ namespace ArtGallery.Application.Catalog.Categories
             var cate = context.Categories.SingleOrDefault(c=>c.Id.Equals(cateid.Id));
             if (cate != null)
             {
+                cate.Description = cateid.Description;
                 cate.Name = cateid.Name;
                 context.SaveChanges();
                 return true;
