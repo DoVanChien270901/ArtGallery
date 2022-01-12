@@ -25,6 +25,8 @@ namespace ArtGallery.Application.System.Users
             _db = db;
             _config = config;
         }
+
+        // Authencate 
         public async Task<string> Authencate(LoginRequest loginRequest)
         {
             Account user =_db.Accounts.SingleOrDefault(c=>c.Name==loginRequest.Name && c.Password == loginRequest.Password);
@@ -58,6 +60,7 @@ namespace ArtGallery.Application.System.Users
             return new JwtSecurityTokenHandler().WriteToken(token);     
         }
 
+        // Register
         public async Task<string> Register(RegisterRequest registerRequest)
         {
             Account acc = await _db.Accounts.FindAsync(registerRequest.Name);
@@ -103,12 +106,14 @@ namespace ArtGallery.Application.System.Users
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        // Get Profile
         public async Task<ProfileUser> GetProfile(string UserId)
         {
             ProfileUser profile = _db.ProfileUsers.SingleOrDefault(c => c.AccountId == UserId);
             return profile;
         }
 
+        // Update Profile
         public async Task<ProfileUser> UpdateProfile(ProfileUser profileUser)
         {
             var profile = _db.ProfileUsers.SingleOrDefault(c=>c.AccountId.Equals(profileUser.AccountId));

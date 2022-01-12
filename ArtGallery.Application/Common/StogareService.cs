@@ -13,7 +13,6 @@ namespace ArtGallery.Application.Common
         {
             throw new NotImplementedException();
         }
-
         public Task SaveFile(IFormFile file)
         {
             throw new NotImplementedException();

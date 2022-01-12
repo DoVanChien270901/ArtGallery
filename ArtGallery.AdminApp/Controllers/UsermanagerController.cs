@@ -40,8 +40,7 @@ namespace ArtGallery.AdminApp.Controllers
                     FeedBacksCount = feedBacks
                 };
                 userModelView.Add(view);
-            }
-            
+            } 
             return View(userModelView);
         }
 
@@ -72,9 +71,7 @@ namespace ArtGallery.AdminApp.Controllers
                 };
                 userModelView.Add(view);
             }
-            
             return View(userModelView);
-
         }
 
         public IActionResult Delete(string name)
@@ -128,7 +125,6 @@ namespace ArtGallery.AdminApp.Controllers
             }
             catch (Exception)
             {
-
                 return View("Error");
             }
         }
@@ -149,9 +145,7 @@ namespace ArtGallery.AdminApp.Controllers
                 DOB = profile.DOB,
                 AccountId = profile.AccountId
             };
-
             return View(PuserModelView);
-
         }
 
         [HttpPost]
@@ -181,7 +175,6 @@ namespace ArtGallery.AdminApp.Controllers
             }
             catch (Exception)
             {
-
                 return View("Error");
             }
         }

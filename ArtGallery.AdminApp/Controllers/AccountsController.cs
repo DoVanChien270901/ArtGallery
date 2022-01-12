@@ -19,17 +19,20 @@ namespace ArtGallery.AdminApp.Controllers
     {
         private readonly string url = "http://localhost:5000/api/Users/";
         private HttpClient httpClient = new HttpClient();
+
         public ITokenService _function;
         public AccountsController(ITokenService function)
         {
             _function = function;
         }
+
         [HttpGet]
         public async Task<IActionResult> Login()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
@@ -56,17 +59,20 @@ namespace ArtGallery.AdminApp.Controllers
             ModelState.AddModelError("loginMessage", result.Message);
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Users");
+            return RedirectToAction("Login", "Accounts");
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterRequest request, string gender)
         {

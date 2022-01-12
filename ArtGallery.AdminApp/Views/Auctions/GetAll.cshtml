@@ -1,26 +1,43 @@
 ﻿@model IEnumerable<ArtGallery.Data.Entities.Auction>
 @{
-    ViewData["Title"] = "Category List";
+    ViewData["Title"] = "Auction List";
 }
 <div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>@ViewData["Title"]</h3>
+                <p class="text-subtitle text-muted">For admin to check they list</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                        <li class="breadcrumb-item active" aria-current="page">Auction</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h1>Auction Manager</h1>
+                <div class="row mb-3">
+                    <h4>Auctions Started</h4>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <h2>Auctions List</h2>
                     <table class="table table-light mb-0">
                         <thead>
                             <tr>
-                                <th class="col-3">Room Id</th>
-                                <th class="col-3">Title Product</th>
-                                <th class="col-3">Starting Price</th>
-                                <th class="col-3">Price Step</th>
+                                <th class="col-1">Room Id</th>
+                                <th class="col-2">Title Product</th>
+                                <th class="col-2">Starting Price</th>
+                                <th class="col-2">Price Step</th>
                                 <th class="col-3">Start DateTime</th>
                                 <th class="col-3">End DateTime</th>
-                                <th class="col-3">Action</th>
+                                <th class="col-1">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,24 +52,35 @@
                                     <td>@item.EndDateTime</td>
                                     <td>
                                         <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
-                                        <a asp-action="Update" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-success">Update</a>
+                                        <a asp-action="Update" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-primary">Update</a>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-               @*ended*@
-                    <h2>Auctions Ended</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <div class="row mb-3">
+                    <h4>Auctions Ended</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
                     <table class="table table-light mb-0">
                         <thead>
                             <tr>
-                                <th class="col-3">Room Id</th>
-                                <th class="col-3">Title Product</th>
-                                <th class="col-3">Starting Price</th>
-                                <th class="col-3">Price Step</th>
+                                <th class="col-1">Room Id</th>
+                                <th class="col-2">Title Product</th>
+                                <th class="col-2">Starting Price</th>
+                                <th class="col-2">Price Step</th>
                                 <th class="col-3">Start DateTime</th>
                                 <th class="col-3">End DateTime</th>
-                                <th class="col-3">Action</th>
+                                <th class="col-1">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +95,7 @@
                                     <td>@item.EndDateTime</td>
                                     <td>
                                         <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
-                                        <a asp-action="WinnerInformation" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-success">Winner information</a>
+                                        <a asp-action="WinnerInformation" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-success">Winner</a>
                                     </td>
                                 </tr>
                             }

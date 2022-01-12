@@ -12,7 +12,7 @@ namespace ArtGallery.AdminApp.Controllers
 {
     public class CategoryManagerController : Controller
     {
-        //check neu khong chay
+        // Check
         private readonly string url = "http://localhost:5000/api/CategoriesManager/";
         private readonly HttpClient httpClient = new HttpClient();
 
@@ -27,9 +27,9 @@ namespace ArtGallery.AdminApp.Controllers
         [HttpPost]
         public IActionResult Index(string name)
         {
-                var model = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(url + name).Result);
-                CategoryModelView categoryModelView = new CategoryModelView { Categories = model };
-                return View(categoryModelView);
+            var model = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(url + name).Result);
+            CategoryModelView categoryModelView = new CategoryModelView { Categories = model };
+            return View(categoryModelView);
         }
 
         [HttpPost]
@@ -61,7 +61,6 @@ namespace ArtGallery.AdminApp.Controllers
             return View();
         }
 
-
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -74,6 +73,7 @@ namespace ArtGallery.AdminApp.Controllers
             };
             return View(category);
         }
+
         [HttpPost]
         public IActionResult Update(CategoryModelView cate)
         {

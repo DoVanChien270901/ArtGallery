@@ -28,7 +28,6 @@ namespace ArtGallery.BackendApi
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -42,8 +41,8 @@ namespace ArtGallery.BackendApi
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
             services.AddTransient<IProductServices, ProductServicesImp>();
-          services.AddTransient<IProductImageServices, ProductImageServicesImp>();
-          services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
+            services.AddTransient<IProductImageServices, ProductImageServicesImp>();
+            services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
             services.AddTransient<IProfileUserManager, ProfileUserManagerImp>();
             //
 

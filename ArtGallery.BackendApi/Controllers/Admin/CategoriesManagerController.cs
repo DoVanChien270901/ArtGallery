@@ -37,7 +37,7 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return await categoryServices.GetCategories();
         }
-        
+
         [HttpGet("{cateN}")]
         public async Task<IEnumerable<Category>> SearchCategory(string cateN)
         {

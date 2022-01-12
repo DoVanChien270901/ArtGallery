@@ -13,7 +13,7 @@ namespace ArtGallery.AdminApp.Controllers
 {
     public class ProductManagerController : Controller
     {
-        private readonly string url = "http://localhost:4086/api/ProductsManager/";
+        private readonly string url = "http://localhost:5000/api/ProductsManager/";
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
@@ -39,7 +39,6 @@ namespace ArtGallery.AdminApp.Controllers
         //    var model = httpClient.PostAsJsonAsync(url, product).Result;
         //    return RedirectToAction("Index");
         //}
-
         public IActionResult Delete(int id)
         {
             try

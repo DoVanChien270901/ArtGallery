@@ -17,6 +17,7 @@ namespace ArtGallery.WebApp.Controllers
     {
         private readonly string url = "http://localhost:5000/api/Auctions/";
         private HttpClient httpClient = new HttpClient();
+
         [HttpGet]
         public IActionResult GetAllAuctions()
         {

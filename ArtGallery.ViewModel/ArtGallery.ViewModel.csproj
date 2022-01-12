@@ -12,4 +12,8 @@
     <ProjectReference Include="..\ArtGallery.Data\ArtGallery.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Catalog\ProductImages\" />
+  </ItemGroup>
+
 </Project>

@@ -8,13 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/vendors/iconly/bold.css">
-
     <link rel="stylesheet" href="/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/app.css">
+    @*<link rel="stylesheet" href="~/css/loading.css" />*@
+    <script src="~/js/site.js" type="text/javascript"></script>
     @*<link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon">*@
 </head>
 <body>
+    @*<div id="loader"></div>
+    <div style="display:none;" id="myDiv" class="animate-bottom">*@
     <div id="blur"></div>
     <div id="app">
         <div id="sidebar" class="active">
@@ -22,7 +25,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#"><img style="width:120px; height:auto; padding:.4rem;" src="~/images/logo/logo3.png" alt="LOGO" srcset=""></a>
+                            <a asp-action="Index"><img style="width:130px; height:auto; padding:.4rem;" src="~/images/logo/logo3.png" alt="LOGO" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -33,7 +36,7 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
                         <li class="sidebar-item active ">
-                            <a href="#" class='sidebar-link'>
+                            <a asp-action="Index" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -41,7 +44,7 @@
                         @*<li class="sidebar-title">Forms &amp; Tables</li>*@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
+                                <i class="bi bi-octagon"></i>
                                 <span>Category Manager</span>
                             </a>
                             <ul class="submenu ">
@@ -60,29 +63,22 @@
                                 <li class="submenu-item ">
                                     @Html.ActionLink("List", "Index", "UserManager")
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-pricing.html">Pricing</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-todolist.html">To-do List</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
+                                <i class="bi bi-stack"></i>
                                 <span>Auction Manager</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    @Html.ActionLink("Auction List", "GetAll", "Auctions")
+                                    @Html.ActionLink("List", "GetAll", "Auctions")
                                 </li>
                                 <li class="submenu-item ">
-                                    @Html.ActionLink("Create Auction", "", "Auctions")
+                                    @Html.ActionLink("Create", "", "Auctions")
                                 </li>
                             </ul>
                         </li>
-
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-clipboard-check"></i>
@@ -92,12 +88,6 @@
                                 <li class="submenu-item ">
                                     @Html.ActionLink("List", "Index", "ProductManager")
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-fontawesome.html">Fontawesome</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-dripicons.html">Dripicons</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
@@ -105,115 +95,47 @@
                                 <i class="bi bi-cash-stack"></i>
                                 <span>Transaction Manager</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    @Html.ActionLink("List", "Index", "TransactionManager")
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  ">
-                            <a href="ui-file-uploader.html" class='sidebar-link'>
-                                <i class="bi bi-cloud-arrow-up-fill"></i>
-                                <span>File Uploader</span>
-                            </a>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-chat-square-dots"></i>
                                 <span>Feedback Manager</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    @Html.ActionLink("List", "Index", "FeedbackManager")
-                                </li>
-                            </ul>
                         </li>
-                        @*<li class="sidebar-item  ">
-                            <a href="application-email.html" class='sidebar-link'>
-                                <i class="bi bi-envelope-fill"></i>
-                                <span>Email Application</span>
-                            </a>
-                        </li>*@
-
-                        @*<li class="sidebar-item  ">
-                            <a href="application-chat.html" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
-                                <span>Chat Application</span>
-                            </a>
-                        </li>*@
-
-                        @*<li class="sidebar-item  ">
-                            <a href="application-gallery.html" class='sidebar-link'>
-                                <i class="bi bi-image-fill"></i>
-                                <span>Photo Gallery</span>
-                            </a>
-                        </li>*@
-
-                        @*<li class="sidebar-item  ">
-                            <a href="application-checkout.html" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Checkout Page</span>
-                            </a>
-                        </li>*@
-
-                        @*<li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>Authentication</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="auth-login.html">Login</a>
+                        <li class="sidebar-title">Settings</li>
+                        @{ var name = User.Identity.Name;
+                            if (name == null)
+                            {
+                                <li class="sidebar-item">
+                                    <a asp-action="Login" asp-controller="Accounts" class='sidebar-link'>
+                                        <i class="bi bi-box-arrow-in-left"></i>
+                                        <span>Login</span>
+                                    </a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
-                                </li>
-                            </ul>
-                        </li>
 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-x-octagon-fill"></i>
-                                <span>Errors</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="error-403.html">403</a>
+                                <li class="sidebar-item">
+                                    <a asp-action="Register" asp-controller="Accounts" class='sidebar-link'>
+                                        <i class="bi bi-person-plus"></i>
+                                        <span>Register</span>
+                                    </a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="error-404.html">404</a>
+                            }
+                            else
+                            {
+                                <li class="sidebar-item">
+                                    <a href="#" class='sidebar-link'>
+                                        <i class="bi bi-person-circle"></i>
+                                        <span>@name</span>
+                                    </a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="error-500.html">500</a>
+                                <li class="sidebar-item">
+                                    <a asp-action="Logout" asp-controller="Accounts" class='sidebar-link'>
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        <span>Logout</span>
+                                    </a>
                                 </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Raise Support</li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://zuramai.github.io/mazer/docs" class='sidebar-link'>
-                                <i class="bi bi-life-preserver"></i>
-                                <span>Documentation</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class='sidebar-link'>
-                                <i class="bi bi-puzzle"></i>
-                                <span>Contribute</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://github.com/zuramai/mazer#donate" class='sidebar-link'>
-                                <i class="bi bi-cash"></i>
-                                <span>Donate</span>
-                            </a>
-                        </li>*@
+                            }
+                        }
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -240,11 +162,11 @@
             </footer>
         </div>
     </div>
+    @*</div>*@
     <script src="/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/vendors/apexcharts/apexcharts.js"></script>
     <script src="/js/pages/dashboard.js"></script>
     <script src="/js/mazer.js"></script>
 </body>
-
 </html>

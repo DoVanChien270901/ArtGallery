@@ -11,8 +11,5 @@ namespace ArtGallery.Application.Catalog.Products
     {
         Task<IEnumerable<ProductImage>> GetProductImages();
         Task<ProductImage> GetProductImage(int Id);
-        //Task<bool> InsertProductImage(ProductImage productImage);
-        //Task<bool> UpdateProductImage(ProductImage Id);
-        //Task<bool> DeleteProductImage(int Id);
     }
 }

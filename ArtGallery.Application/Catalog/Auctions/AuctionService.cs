@@ -17,7 +17,7 @@ namespace ArtGallery.Application.Catalog.Auctions
         {
             _db = db;
         }
-
+        // Get All Auctions
         public async Task<IEnumerable<Auction>> GetAllAuctions()
         {
             //decimal maxprice = _db.AmountInAuctions.Max(c => c.NewPrice);
@@ -41,15 +41,19 @@ namespace ArtGallery.Application.Catalog.Auctions
             //listAuctions = listAuctions.OrderByDescending(c=>c.AmountInAcctions.Max(c=>c.NewPrice)).First();
             return listAuctions;
         }
-
+        // Insert Amount
         public async Task<bool> InsertAmount(InsertAmountInAuctionRequest request)
         {
-            await _db.AmountInAuctions.AddAsync(new AmountInAuction {NewPrice = request.NewPrice,
-                                                                    AuctionId = request.AuctionId,
-                                                                    AccountId = request.AccountId});
+            await _db.AmountInAuctions.AddAsync(new AmountInAuction 
+            {
+                NewPrice = request.NewPrice,                                                         
+                AuctionId = request.AuctionId,
+                AccountId = request.AccountId}
+            );
             await _db.SaveChangesAsync();
             return true;
         }
+        // Get Auction By Id
         public async Task<Auction> GetAuctionById(int Id)
         {
             if (_db.AmountInAuctions.FirstOrDefault(c => c.AuctionId.Equals(Id)) == null)
@@ -104,9 +108,8 @@ namespace ArtGallery.Application.Catalog.Auctions
                         }
                     };
             return auction.First();
-
         }
-
+        // Delete Auction
         public async Task<bool> DeleteAuction(int Id)
         {
             Auction auc = await _db.Auctions.FindAsync(Id);
@@ -115,7 +118,7 @@ namespace ArtGallery.Application.Catalog.Auctions
             await _db.SaveChangesAsync();
             return true;
         }
-
+        // Update Auction
         public async Task<bool> UpdateAuction(UpdateAuctionRequest request)
         {
             Auction auc = await _db.Auctions.FindAsync(request.Id);
@@ -127,7 +130,7 @@ namespace ArtGallery.Application.Catalog.Auctions
             await _db.SaveChangesAsync();
             return true;
         }
-
+        // WinnerInformation
         public async Task<ProfileUser> WinnerInformation(int aucId)
         {
             decimal maxPrice = _db.AmountInAuctions.Max(c => c.NewPrice);

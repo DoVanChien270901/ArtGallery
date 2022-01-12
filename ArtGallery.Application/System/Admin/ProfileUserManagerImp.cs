@@ -16,11 +16,13 @@ namespace ArtGallery.Application.System.Admin
             this.context = context;
         }
 
+        // Get Account 
         public async Task<Account> GetAccount(string name)
         {
             return context.Accounts.SingleOrDefault(a=>a.Name.Equals(name));
         }
 
+        // Get Carts Count
         public async Task<int> GetCartsCount(string name)
         {
             var model = context.Carts.Where(c => c.AccountId.Equals(name)).ToList();
@@ -35,6 +37,7 @@ namespace ArtGallery.Application.System.Admin
             }
         }
 
+        // Get Feedbacks Count
         public async Task<int> GetFeedBacksCount(string name)
         {
             var model = context.FeedBacks.Where(c => c.AccountId.Equals(name)).ToList();
@@ -49,6 +52,7 @@ namespace ArtGallery.Application.System.Admin
             }
         }
 
+        // Get Orders Count
         public async Task<int> GetOrdersCount(string name)
         {
             var model = context.Orders.Where(c => c.AccountId.Equals(name)).ToList();
@@ -63,11 +67,13 @@ namespace ArtGallery.Application.System.Admin
             }
         }
 
+        // Get Profile User
         public async Task<ProfileUser> GetProfileUser(string name)
         {
             return context.ProfileUsers.SingleOrDefault(c => c.AccountId.Equals(name));
         }
 
+        // Get Transactions Count
         public async Task<int> GetTransactionsCount(string name)
         {
             var model = context.Transactions.Where(c => c.AccountId.Equals(name)).ToList();
@@ -78,6 +84,7 @@ namespace ArtGallery.Application.System.Admin
             catch (ArgumentNullException) { return 0; }
         }
 
+        // Update Profile
         public async Task<bool> UpdateProfile(ProfileUser profileUser)
         {
             var model = context.ProfileUsers.SingleOrDefault(p=>p.AccountId.Equals(profileUser.AccountId));

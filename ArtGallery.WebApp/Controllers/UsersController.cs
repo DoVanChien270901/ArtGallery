@@ -20,7 +20,8 @@ namespace ArtGallery.WebApp.Controllers
     {
         private readonly string url = "http://localhost:5000/api/Users/";
         private HttpClient httpClient = new HttpClient();
-        public  ITokenService _function;
+
+        public ITokenService _function;
         public UsersController(ITokenService function)
         {
             _function = function;
@@ -37,7 +38,7 @@ namespace ArtGallery.WebApp.Controllers
             if (!ModelState.IsValid) return View();
             var json = JsonConvert.SerializeObject(loginRequest);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            ResponseApi result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsync(url+ "authenticate", httpContent).Result.Content.ReadAsStringAsync());
+            ResponseApi result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsync(url + "authenticate", httpContent).Result.Content.ReadAsStringAsync());
             if (result.Success)
             {
                 var token = result.Data.ToString();
@@ -73,7 +74,7 @@ namespace ArtGallery.WebApp.Controllers
         {
             request.Gender = gender;
             if (!ModelState.IsValid) return View();
-            var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url+ "register", request).Result.Content.ReadAsStringAsync());
+            var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url + "register", request).Result.Content.ReadAsStringAsync());
             if (result.Success)
             {
                 var token = result.Data.ToString();

@@ -12,7 +12,6 @@ namespace ArtGallery.Application.Catalog.Categories
         Task<IEnumerable<Category>> GetCategories();
         Task<IEnumerable<Category>> SearchCategory(string catename);
         Task<Category> GetCategory(int cateid);
-
         Task<bool> InsertCategory(Category category);
         Task<bool> UpdateCategory(Category cateid);
         Task<bool> DeleteCategory(int cateid);

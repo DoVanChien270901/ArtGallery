@@ -16,6 +16,5 @@ namespace ArtGallery.Application.System.Admin
         Task<int> GetOrdersCount(string name);
         Task<int> GetTransactionsCount(string name);
         Task<int> GetFeedBacksCount(string name);
-
     }
 }

@@ -1,18 +1,66 @@
 ﻿@model ArtGallery.Data.Entities.ProfileUser
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Winner Information";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <form asp-action="Update" asp-controller="Auctions" method="post">
-    <h1>Winner Information</h1>
+    <div class="row">
+        <div class="col-sm-10"><h2>@ViewData["Title"]</h2></div>
+    </div>
+    @*<div class="form-group">
+            <label class="col-sm-4 control-label">Id: <input style="border:none; outline:none" readonly asp-for="Id"></label>
+            <label class="col-sm-4 control-label">Full Name: <input style="border:none; outline:none" readonly asp-for="FullName"></label>
+            <label class="col-sm-4 control-label">Gender: <input style="border:none; outline:none" readonly asp-for="Gender"></label>
+            <label class="col-sm-4 control-label">Address: <input style="border:none; outline:none" readonly asp-for="Address"></label>
+            <label class="col-sm-4 control-label">Email:<input style="border:none; outline:none" readonly asp-for="Email"></label>
+            <label class="col-sm-4 control-label">PhoneNumber: <input style="border:none; outline:none" readonly asp-for="PhoneNumber"></label>
+            <label class="col-sm-4 control-label">Day Of Birth: <input style="border:none; outline:none" readonly asp-for="DOB"></label>
+        </div>*@
     <div class="form-group">
-        <label class="col-sm-4 control-label">Id: <input style="border:none; outline:none" readonly asp-for="Id"></label>
-        <label class="col-sm-4 control-label">Full Name: <input style="border:none; outline:none" readonly asp-for="FullName"></label>
-        <label class="col-sm-4 control-label">Gender: <input style="border:none; outline:none" readonly asp-for="Gender"></label>
-        <label class="col-sm-4 control-label">Address: <input style="border:none; outline:none" readonly asp-for="Address"></label>
-        <label class="col-sm-4 control-label">Email:<input style="border:none; outline:none" readonly asp-for="Email"></label>
-        <label class="col-sm-4 control-label">PhoneNumber: <input style="border:none; outline:none" readonly asp-for="PhoneNumber"></label>
-        <label class="col-sm-4 control-label">Day Of Birth: <input style="border:none; outline:none" readonly asp-for="DOB"></label>
+        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Id</label>
+        <div class="col-xs-8">
+            <input readonly asp-for="Id" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Full Name</label>
+        <div class="col-xs-8">
+            <input readonly asp-for="FullName" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Gender</label>
+        <div class="col-xs-8">
+            <input readonly asp-for="Gender" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Address</label>
+        <div class="col-xs-8">
+            <input readonly asp-for="Address" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Email</label>
+        <div class="col-xs-8">
+            <input readonly asp-for="Email" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Phone Number</label>
+        <div class="col-xs-8">
+            <input readonly asp-for="PhoneNumber" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Date of Birth</label>
+        <div class="col-xs-8">
+            <input readonly asp-for="DOB" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+           <a style="font-size: 22px;" asp-action="GetAll" asp-controller="Auctions">Back To List Auction...</a>
+        </div>
     </div>
 </form>
-<a asp-action="GetAll" asp-controller="Auctions">Back to list auction...</a>

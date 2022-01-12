@@ -1,13 +1,10 @@
 ﻿using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
-
 using ArtGallery.ViewModel.System.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-
 using ArtGallery.Data.Enum;
 using ArtGallery.ViewModel.System.Admin;
-
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -27,7 +24,6 @@ namespace ArtGallery.Application.System.Admin
             _config = config;
             this.context = context;
         }
-
 
         public async Task<bool> CreateUser(string name, string pass, Roleposition role)
         {

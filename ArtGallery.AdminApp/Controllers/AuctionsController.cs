@@ -14,6 +14,7 @@ namespace ArtGallery.AdminApp.Controllers
     {
         private readonly string url = "http://localhost:5000/api/Auctions/";
         private HttpClient httpClient = new HttpClient();
+
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -24,6 +25,7 @@ namespace ArtGallery.AdminApp.Controllers
             ViewBag.aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
             return View();
         }
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -45,6 +47,7 @@ namespace ArtGallery.AdminApp.Controllers
             }
             return View();
         }
+
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -53,6 +56,7 @@ namespace ArtGallery.AdminApp.Controllers
 
             return View(auction);
         }
+
         [HttpPost]
         public IActionResult Update(UpdateAuctionRequest request)
         {
@@ -65,6 +69,7 @@ namespace ArtGallery.AdminApp.Controllers
             var model = httpClient.PutAsJsonAsync(url + "UpdateAuction/", request).Result;
             return RedirectToAction("GetAll");
         }
+
         [HttpGet]
         public IActionResult WinnerInformation(int id)
         {

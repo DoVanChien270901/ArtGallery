@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Profile</h3>
+                <p class="text-subtitle text-muted">For admin to check they list</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                        <li class="breadcrumb-item">@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
                     </ol>
                 </nav>
             </div>
@@ -22,26 +22,20 @@
     </div>
     <section class="section">
         <div class="card">
-            <div class="card-header">
-                User Profile
-            </div>
             <div class="card-body">
                 <div class="container emp-profile">
                     <form method="post">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="profile-img row">
-                                    <img class="col-8" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                                    <img class="col-10" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="profile-head">
-                                    <h5>
-                                        @Model.AccountId
-                                    </h5>
-                                    <h6>
-                                        @Model.Email
-                                    </h6>
+                                    <div style="padding:4px;"></div>
+                                    <h5><i class="bi bi-person"></i> @Model.AccountId</h5>
+                                    <div style="padding:4px;"></div>
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -50,15 +44,18 @@
                                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
                                         </li>
                                     </ul>
+                                    <div style="padding:4px;"></div>
                                 </div>
                             </div>
+                            <div style="padding:2px;"></div>
                             <div class="col-md-2">
-                                @Html.ActionLink("Edit Profile", "Edit", "Usermanager", new {name = Model.AccountId }, new { @class = "profile-edit-btn"})
+                                @Html.ActionLink("Edit Profile", "Edit", "Usermanager", new { name = Model.AccountId }, new { @class = "profile-edit-btn" })
                             </div>
+                            <div style="padding:2px;"></div>
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <ul class="list-group">
                                     <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
                                     <li class="list-group-item text-right"><span class="pull-left"><strong>Carts</strong></span> @Model.CartsCount</li>
@@ -67,65 +64,63 @@
                                     <li class="list-group-item text-right"><span class="pull-left"><strong>FeedBacks</strong></span> @Model.FeedBacksCount</li>
                                 </ul>
                             </div>
-                            <div class="col-md"-1>
-
-                            </div>
+                            @*<div class="col-md"></div>*@
                             <div class="col-md-8">
                                 <div class="tab-content profile-tab" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="padding:5.4px; margin-top:4px;">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Full Name</label>
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <label><strong>Full Name:</strong></label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-12 col-sm-6 col-md-8 col-lg-8">
                                                 <p>@Model.FullName</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Gender</label>
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <label><strong>Email:</strong></label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>@Model.Gender</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Address</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>@Model.Address</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hobby</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>@Model.Hobby</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div class="col-md-6">
+                                            <div class="col-12 col-sm-6 col-md-8 col-lg-8">
                                                 <p>@Model.Email</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>PhoneNumber</label>
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <label><strong>Gender:</strong></label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+                                                <p>@Model.Gender</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <label><strong>Address:</strong></label>
+                                            </div>
+                                            <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+                                                <p>@Model.Address</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <label><strong> Hobby:</strong></label>
+                                            </div>
+                                            <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+                                                <p>@Model.Hobby</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <label><strong>Phone Number</strong></label>
+                                            </div>
+                                            <div class="col-12 col-sm-8 col-md-8 col-lg-8">
                                                 <p>@Model.PhoneNumber</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label>DOB</label>
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                                <label><strong>Date of Birth</strong></label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-12 col-sm-8 col-md-8 col-lg-8">
                                                 <p>@Model.DOB</p>
                                             </div>
                                         </div>
@@ -187,8 +182,6 @@
         </div>
     </section>
 </div>
-
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
 <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
 <script src="assets/js/mazer.js"></script>

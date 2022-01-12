@@ -11,52 +11,58 @@ namespace ArtGallery.BackendApi.Controllers
     [ApiController]
     public class ProductsManagerController : ControllerBase
     {
-        private readonly IProductServices productServices;
-        public ProductsManagerController(IProductServices productServices)
+        private readonly IProductServices _managerProduct;
+        public ProductsManagerController(IProductServices _managerProduct)
         {
-            this.productServices = productServices;
+            this._managerProduct = _managerProduct;
         }
 
-        [HttpDelete("{Id:int}")]
-        public async Task<bool> DeleteProduct(int Id)
+        [HttpDelete("{productId:int}")]
+        public async Task<bool> DeleteProduct([FromForm] int productId)
         {
-            return await productServices.DeleteProduct(Id);
+            return await _managerProduct.DeleteProduct(productId);
         }
-       
+
         [HttpGet]
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await productServices.GetProducts();
+            return await _managerProduct.GetProducts();
         }
 
         [HttpGet("{title}")]
         public async Task<IEnumerable<Product>> SearchProduct(string title)
         {
-            return await productServices.SearchProduct(title);
+            return await _managerProduct.SearchProduct(title);
         }
 
-        [HttpGet("{Id:int}")]
-        public async Task<Product> GetProduct(int Id)
+        [HttpGet("{productId:int}")]
+        public async Task<Product> GetProduct(int productId)
         {
-            return await productServices.GetProduct(Id);
+            return await _managerProduct.GetProduct(productId);
         }
 
-        [HttpPut]
-        public async Task<bool> UpdateProductForAdmin(Product Id)
-        {
-            return await productServices.UpdateProductForAdmin(Id);
-        }
-
-        [HttpGet("ProIncate/{cateName}")]
+        [HttpGet("ProductInCategory/{cateName}")]
         public List<Product> ProductInCategory(string cateName)
         {
-            return productServices.ProductInCategory(cateName);
+            return _managerProduct.ProductInCategory(cateName);
         }
 
         [HttpPost("InsertProduct")]
-        public Task<bool> InsertProduct(InsertProductRequest request)
+        public async Task<bool> InsertProduct(InsertProductRequest request)
         {
-            return productServices.InsertProduct(request);
+            return await _managerProduct.InsertProduct(request);
+        }
+
+        [HttpPut("UpdateProduct")]
+        public async Task<bool> UpdateProduct(EditProductRequest request)
+        {
+            return await _managerProduct.UpdateProduct(request);
+        }
+
+        [HttpPut("UpdateStatus")]
+        public async Task<bool> UpdateStatus([FromForm] Product productId)
+        {
+            return await _managerProduct.UpdateStatus(productId);
         }
     }
 }

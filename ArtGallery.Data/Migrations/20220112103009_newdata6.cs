@@ -2,7 +2,7 @@
 
 namespace ArtGallery.Data.Migrations
 {
-    public partial class newdata : Migration
+    public partial class newdata6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,26 +14,18 @@ namespace ArtGallery.Data.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products");
 
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.DropColumn(
                 name: "CategoryId",
-                table: "Products",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
+                table: "Products");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.AddColumn<int>(
                 name: "CategoryId",
                 table: "Products",
                 type: "int",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
+                nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",

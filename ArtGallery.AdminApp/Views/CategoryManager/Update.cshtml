@@ -13,29 +13,27 @@
                 <div class="form-body">
                     <div class="row col-md-10 center-block">
                         <div class="col-md-4">
-                            <label>@Html.DisplayNameFor(c=>c.Id)</label>
+                            <label class="font-bold">@Html.DisplayNameFor(c=>c.Id)</label>
                         </div>
                         <div class="col-md-8 form-group">
                             <input type="text" class="form-control" asp-for="Id" readonly="readonly">
                         </div>
                         <div class="col-md-4">
-                            <label>@Html.DisplayNameFor(c => c.Name)</label>
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.Name)</label>
                         </div>
                         <div class="col-md-8 form-group">
                             <input type="text" asp-for="Name" class="form-control" >
                         </div>
                         <div class="col-md-4">
-                            <label>@Html.DisplayNameFor(c => c.Description)</label>
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.Description)</label>
                         </div>
                         <div class="col-md-8 form-group">
                             <textarea class="form-control" asp-for="Description" rows="3" style="height: 350px;"></textarea>
                         </div>
                         <div class="col-sm-12 d-flex justify-content-end">
-                            <input type="submit" class="btn btn-primary rounded-pill" value="Save">&nbsp;&nbsp;
-
-                            @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = Model.Id }, new { @class = "btn btn-danger rounded-pill" })&nbsp;&nbsp;
-                            @Html.ActionLink("Back", "Index", "CategoryManager", null, new { @class = "btn btn-secondary rounded-pill" })
-
+                            <input type="submit" class="btn btn-success" value="Save">&nbsp;&nbsp;
+                            @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = Model.Id }, new { @class = "btn btn-danger" }) &nbsp;&nbsp;
+                            @Html.ActionLink("Back To List", "Index", "CategoryManager", null, new { @class = "btn btn-secondary" })
                         </div>
                     </div>
                 </div>
