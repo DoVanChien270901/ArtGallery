@@ -237,6 +237,9 @@ namespace ArtGallery.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -262,6 +265,8 @@ namespace ArtGallery.Data.Migrations
                         .HasDefaultValue(0);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -341,10 +346,6 @@ namespace ArtGallery.Data.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("Avatar")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
@@ -477,6 +478,13 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
+                {
+                    b.HasOne("ArtGallery.Data.Entities.Category", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId");
+                });
+
             modelBuilder.Entity("ArtGallery.Data.Entities.ProductImage", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Product", "Product")
@@ -572,6 +580,8 @@ namespace ArtGallery.Data.Migrations
             modelBuilder.Entity("ArtGallery.Data.Entities.Category", b =>
                 {
                     b.Navigation("ProductInCategories");
+
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Order", b =>

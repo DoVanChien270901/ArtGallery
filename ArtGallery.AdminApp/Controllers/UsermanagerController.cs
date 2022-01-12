@@ -143,7 +143,6 @@ namespace ArtGallery.AdminApp.Controllers
                 Gender = profile.Gender,
                 Address = profile.Address,
                 Hobby = profile.Hobby,
-                Avatar = profile.Avatar,
                 Email = profile.Email,
                 PhoneNumber = profile.PhoneNumber,
                 DOB = profile.DOB,
