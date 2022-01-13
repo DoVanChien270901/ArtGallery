@@ -11,7 +11,7 @@ namespace ArtGallery.Data.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Product> Products { get; set; }
         public List<ProductInCategory> ProductInCategories { get; set; }
+        public List<CategoryInProfile> CategoryInProfiles { get; set; }
     }
 }
