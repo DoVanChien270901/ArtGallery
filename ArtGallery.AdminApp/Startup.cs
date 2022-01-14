@@ -37,6 +37,7 @@ namespace ArtGallery.AdminApp
                     op.AccessDeniedPath = "";
                 });
             //DI
+           
             services.AddSingleton<ITokenService, TokenService>();
             //configuration fluent validator
             services.AddMvc()
@@ -45,7 +46,7 @@ namespace ArtGallery.AdminApp
                     fv.RegisterValidatorsFromAssemblyContaining<UpdateAuctionRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
                 });
-            //
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

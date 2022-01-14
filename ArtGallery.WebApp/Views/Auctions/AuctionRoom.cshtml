@@ -14,68 +14,13 @@
             <aside class="col-sm-3 left-sidebar">
                 <div class="box category">
                     <div class="box-heading">
-                        <h3>Categories <i class="fa fa-angle-up"></i></h3>
+                        <h3>@ViewData["Title"] <i class="fa fa-angle-up"></i></h3>
                     </div>
                     <div class="box-content test">
                         <div class="box-category">
                             <ul class="menu">
-                                <li><a href="product.html" class="custom_hover">Antic images</a></li>
-                                <li>
-                                    <a href="product.html" class="custom_hover">Drawing</a>
-                                    <i class="fa fa-plus"></i>
-                                    <ul>
-                                        <li>
-                                            <a class="parent" href="product.html">Praesent imperdiet</a><i class="fa fa-plus"></i>
-                                            <ul>
-                                                <li><a href="product.html">Aliquam eget</a></li>
-                                                <li><a href="product.html">Lorem ipsum</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="product.html">Aenean viverra</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="product.html" class="custom_hover">New Media</a></li>
-                                <li><a href="product.html" class="custom_hover">painting</a></li>
-                                <li><a href="product.html" class="custom_hover">Fine art</a></li>
-                                <li><a href="product.html" class="custom_hover">Photography</a></li>
-                                <li><a href="product.html" class="custom_hover">Decorative art</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="box special">
-                    <div class="box-heading">
-                        <h3>Special</h3>
-                    </div>
-                    <div class="box-content">
-                        <div class="product-layout">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <div class="product-thumb transiction">
-                                        <a class="compare-button"><i class="fa fa-retweet"></i></a>
-                                        <a class="wishlist-button"><i class="fa fa-heart-o"></i></a>
-                                        <div class="image"><a href="single-product.html"><img src="images/img1.jpg" class="img-responsive"></a></div>
-                                        <div class="caption">
-                                            <div class="product-name"><a>Texture Design</a></div>
-                                            <div class="price">
-                                                <span class="price-new">$34.90</span>
-                                                <span class="price-old">$49.50</span>
-                                            </div>
-                                        </div>
-                                        <div class="cart-button">
-                                            <a class="btn btn-add-cart" href="cart.html">
-                                                <span>
-                                                    Add to Cart
-                                                </span>
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </li>
-
+                                <li><a class="custom_hover">Auction Comming</a></li>
+                                <li><a class="custom_hover">Auction Ended</a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,301 +30,169 @@
             <!--main content-->
             <div class="col-sm-9 single-product" id="content">
                 <ul class="breadcrumb">
-                    <li><a href="home.html"><i class="fa fa-home"></i></a></li>
-                    <li><a asp-action="AuctionRoom" asp-controller="Auctions">Auction Room</a></li>
+                    <li><a asp-action="Home"><i class="fa fa-home"></i></a></li>
+                    <li><a asp-action="AuctionRoom" asp-controller="Auctions">Auctions Room</a></li>
                 </ul>
-                <div class="row">
-                    <div class="col-sm-9">
-                        <ul class="thumbnails list-unstyled">
-                            <li class="main-image-set"><a class="thumbnail"><img src="images/pro1.jpg" class="changeimg"></a></li>
-                            <li class="image-additional"><a class="thumbnail"> <img class="galleryimg" src="images/pro1.jpg"></a></li>
-                            <li class="image-additional"><a class="thumbnail"> <img class="galleryimg" src="images/pro2.jpg"></a></li>
-                            <li class="image-additional"><a class="thumbnail"> <img class="galleryimg" src="images/pro3.jpg"></a></li>
-                            <li class="image-additional"><a class="thumbnail"> <img class="galleryimg" src="images/pro4.jpg"></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-sm-10">
-                        <h1>@ViewBag.auc.Product.Title</h1>
-                        <ul class="list-unstyled product-info">
-                            <li>Brand: <a>Art</a></li>
-                            <li>Product Code: @ViewBag.auc.ProductId</li>
-                            <li>Start Datetime: @ViewBag.auc.StartDateTime</li>
-                            <li>End Datetime: @ViewBag.auc.EndDateTime</li>
-                        </ul>
-                        <ul class="list-unstyled price-list">
-                            <li>
-                                <span class="price-old">$</span>
-
-                                <span class="price-new">$98.00</span>
-                            </li>
-                            <li class="text-right text-color-g">Ex Tax: $80.00</li>
-                        </ul>
-                        <div id="product">
-                            <hr>
-                            <h3>Available Options</h3>
-                            @*<div class="form-group required">
-            <label for="input-option226" class="control-label">Select</label>
-                <select class="form-control" id="input-option226" name="option[226]">
-                    <option value=""> --- Please Select --- </option>
-                    <option value="15">Red                                </option>
-                    <option value="16">Blue                                </option>
-                </select>
-        </div>*@
-                            @{
-                                if (ViewBag.auc.AmountInAcctions == null)
-                                {
-                                                        <form asp-action="AuctionRoom" asp-controller="Auctions" method="post">
-                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                            <ul class="list-unstyled product-info">
-                                                                <li>Current Price: @ViewBag.auc.StartingPrice</li>
-                                                                <li>Price Step: @ViewBag.auc.PriceStep</li>
-                                                                <li>Lowest Price: @{decimal lowestPrice = ViewBag.auc.StartingPrice + ViewBag.auc.PriceStep;}@lowestPrice</li>
-                                                            </ul>
-                                                            <div class="form-group">
-                                                                <label class="text-right cart-qty">Price:</label>
-                                                                <input asp-for="NewPrice" type="number" class="text-left cart-product-total" />
-                                                                <input asp-for="LowestPrice" value="@lowestPrice" class="text-left cart-product-total" type="hidden" />
-                                                                <input asp-for="AuctionId" value="@ViewBag.auc.Id" class="text-left cart-product-total" type="hidden" />
-                                                                <button type="submit" class="btn-success">Set Price</button>
-                                                                <br>
-                                                            </div>
-                                                        </form>
-                                }
-                                else
-                                {
-                                    <form asp-action="AuctionRoom" asp-controller="Auctions" method="post">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <ul class="list-unstyled product-info">
-                                            <li>Current Price: @ViewBag.auc.AmountInAcctions[0].NewPrice</li>
-                                            <li>Price Step: @ViewBag.auc.PriceStep</li>
-                                            <li>Lowest Price: @{decimal lowestPrice = ViewBag.auc.AmountInAcctions[0].NewPrice + ViewBag.auc.PriceStep;}@lowestPrice</li>
-                                            <li></li>
-                                        </ul>
-                                        <div class="form-group">
-                                            <label class="text-right cart-qty">Price:</label>
-                                            <input asp-for="NewPrice" type="number" class="text-left cart-product-total" />
-                                            <span asp-validation-for="NewPrice" class="text-danger"></span>
-                                            <input asp-for="LowestPrice" value="@lowestPrice" class="text-left cart-product-total" type="hidden" />
-                                            <input asp-for="AuctionId" value="@ViewBag.auc.Id" class="text-left cart-product-total" type="hidden" />
-                                            <button type="submit" class="btn-success">Set Price</button>
-                                            <br>
-                                        </div>
-                                    </form>
-                                }
-
-                            }
-                            <div class="add-block-one row">
-                                <div class="col-md-4 col-sm-6 col-xs-12 text-left">
-                                    <a class="btn btn-add-cart" id="button-cart" href="cart.html"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></a>
-                                </div>
-                                <div class="col-md-8 col-sm-6 col-xs-12 text-left">
-                                    <a><i class="fa fa-heart"></i> Add to Wish List</a><br>
-                                    <a><i class="fa fa-retweet"></i> Compare this Product</a>
-                                </div>
+                <h5>Start Datetime: @ViewBag.auc.StartDateTime</h5>
+                <h5>End Datetime: @ViewBag.auc.EndDateTime</h5>
+                @{
+                    if (ViewBag.auc.AmountInAcctions == null)
+                    {
+                        <form class="shoping-cart-view" asp-action="AuctionRoom" asp-controller="Auctions" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center">Image</td>
+                                            <td class="text-left">Product Name</td>
+                                            <td class="text-left">Current Price</td>
+                                            <td class="text-left">Price Step</td>
+                                            <td class="text-left">Lowest Price</td>
+                                            <td class="text-left">Price</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                <div class="image">
+                                                    <a href="single-product.html"><img class="img-thumbnail" src="~/images/note.png" width="120"></a>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <a href="">@ViewBag.auc.Product.Title</a>
+                                                <br />
+                                                <small>Product Code: @ViewBag.auc.ProductId</small>
+                                            </td>
+                                            <td class="text-left">@ViewBag.auc.StartingPrice</td>
+                                            <td class="text-left">@ViewBag.auc.PriceStep</td>
+                                            <td class="text-left">@{decimal lowestPrice = ViewBag.auc.StartingPrice + ViewBag.auc.PriceStep;}@lowestPrice</td>
+                                            <td class="text-center">
+                                                <div style="max-width: 200px;" class="input-group btn-block">
+                                                    <p class="clearfix">
+                                                        <input asp-for="NewPrice" type="text" id="cart-q" class="form-control cart-q" size="1" value="1" />
+                                                        <input asp-for="LowestPrice" value="@lowestPrice" class="text-left cart-product-total" type="hidden" />
+                                                        <input asp-for="AuctionId" value="@ViewBag.auc.Id" class="text-left cart-product-total" type="hidden" />
+                                                    </p>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-custom">Set Price</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="rating">
-                            <p>
-                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                <a>0 reviews</a> / <a>Write a review</a>
-                            </p>
-                            <hr>
-                            <!-- AddThis Button BEGIN -->
-                            <!-- AddThis Button END -->
-                        </div>
-                    </div>
-                </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <form class="shoping-cart-view" asp-action="AuctionRoom" asp-controller="Auctions" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center">Image</td>
+                                            <td class="text-left">Product Name</td>
+                                            <td class="text-left">Current Price</td>
+                                            <td class="text-left">Price Step</td>
+                                            <td class="text-left">Lowest Price</td>
+                                            <td class="text-left">Price</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                <div class="image">
+                                                    <a><img class="img-thumbnail" src="~/images/note.png" width="120"></a>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <a href="">@ViewBag.auc.Product.Title</a>
+                                                <br />
+                                                <small>Product Code: @ViewBag.auc.ProductId</small>
+                                            </td>
+                                            <td class="text-left">@ViewBag.auc.AmountInAcctions[0].NewPrice</td>
+                                            <td class="text-left">@ViewBag.auc.PriceStep</td>
+                                            <td class="text-left">@{decimal lowestPrice = ViewBag.auc.AmountInAcctions[0].NewPrice + ViewBag.auc.PriceStep;}@lowestPrice</td>
+                                            <td class="text-left">
+                                                <div style="max-width: 200px;" class="input-group btn-block">
+                                                    <p class="clearfix">
+                                                        <span asp-validation-for="NewPrice" class="text-danger"></span>
+                                                        <input asp-for="NewPrice" type="text" id="cart-q" class="form-control cart-q" size="1" value="1" />
+                                                        <input asp-for="LowestPrice" value="@lowestPrice" class="text-left cart-product-total" type="hidden" />
+                                                        <input asp-for="AuctionId" value="@ViewBag.auc.Id" class="text-left cart-product-total" type="hidden" />
+                                                    </p>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-custom">Set Price</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    }
+                }
                 <div class="row">
-                    <div class="col-md-6">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-description">Description</a></li>
-                            <li><a data-toggle="tab" href="#tab-review">Reviews (0)</a></li>
-                        </ul>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <!-- Draft Countdown -->
                         <div class="timer">
-                            <h1>this is timer</h1>
+                            <h1>Time Left</h1>
                             <div class="countdown-container">
                                 <div class="countdown-el days-c">
                                     <p class="big-text" id="days">0</p>
-                                    <span>days</span>
+                                    <span>Days</span>
                                 </div>
                                 <div class="countdown-el hours-c">
                                     <p class="big-text" id="hours">0</p>
-                                    <span>hours</span>
+                                    <span>Hours</span>
                                 </div>
                                 <div class="countdown-el mins-c">
                                     <p class="big-text" id="mins">0</p>
-                                    <span>mins</span>
+                                    <span>Mins</span>
                                 </div>
                                 <div class="countdown-el seconnds-c">
-                                    <p class="big-text" id="seconsd">0</p>
-                                    <span>seconsd</span>
+                                    <p class="big-text" id="seconds">0</p>
+                                    <span>Seconds</span>
                                 </div>
                             </div>
                         </div>
-
-
-                        @*<div class="tab-content">
-            <div id="tab-description" class="tab-pane active">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-            </div>
-            <div id="tab-review" class="tab-pane">
-                <form id="form-review" class="form-horizontal">
-                    <div id="review">
-                        <p>There are no reviews for this product.</p>
-                    </div>
-                    <h2>Write a review</h2>
-                    <div class="form-group required">
-                        <div class="col-sm-12">
-                            <label for="input-name" class="control-label">Your Name</label>
-                            <input type="text" class="form-control" id="input-name" value="" name="name">
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <div class="col-sm-12">
-                            <label for="input-review" class="control-label">Your Review</label>
-                            <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
-                            <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <div class="col-sm-12">
-                            <label class="control-label">Rating</label>
-                            &nbsp;&nbsp;&nbsp; Bad&nbsp;
-                            <input type="radio" value="1" name="rating">
-                            &nbsp;
-                            <input type="radio" value="2" name="rating">
-                            &nbsp;
-                            <input type="radio" value="3" name="rating">
-                            &nbsp;
-                            <input type="radio" value="4" name="rating">
-                            &nbsp;
-                            <input type="radio" value="5" name="rating">
-                            &nbsp;Good
-                        </div>
-                    </div>
-                    <div class="buttons clearfix">
-                        <div class="pull-right">
-                            <button class="btn btn-primary" id="button-review" type="button">Continue</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>*@
                     </div>
                 </div>
-                <!--related product-->
-                <div class="box related-product-heading margin-top">
-                    <div class="box-heading">
-                        <h3>Related Products</h3>
-                    </div>
-                    <div class="box-content">
-                        <ul class="related-slider">
-                            <li class="slide-wrap-img">
-                                <div class="product-thumb transiction">
-                                    <div class="image"><a href="single-product.html"><img src="images/img4.jpg" class="img-responsive"></a></div>
-                                    <div class="caption">
-                                        <div class="product-name"><a href="single-product.html">Texture design</a></div>
-                                        <div class="price">
-                                            <span class="price-new">$34.90</span>
-                                            <span class="price-old">$49.50</span>
-                                        </div>
-                                    </div>
-                                    <div class="cart-button">
-                                        <a class="btn btn-add-cart" href="cart.html">
-                                            <span>
-                                                Add to Cart
-                                            </span>
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li class="slide-wrap-img">
-                                <div class="product-thumb transiction">
-                                    <div class="image"><a href="single-product.html"><img src="images/img6.jpg" class="img-responsive"></a></div>
-                                    <div class="caption">
-                                        <div class="product-name"><a href="single-product.html">Ationixcc</a></div>
-                                        <div class="price">
-                                            <span class="price-new">$34.90</span>
-                                            <span class="price-old">$49.50</span>
-                                        </div>
-                                    </div>
-                                    <div class="cart-button">
-                                        <a class="btn btn-add-cart" href="cart.html">
-                                            <span>
-                                                Add to Cart
-                                            </span>
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li class="slide-wrap-img">
-                                <div class="product-thumb transiction">
-                                    <div class="image"><a href="single-product.html"><img src="images/img7.jpg" class="img-responsive"></a></div>
-                                    <div class="caption">
-                                        <div class="product-name"><a href="single-product.html">Smart paint</a></div>
-                                        <div class="price">
-                                            <span class="price-new">$34.90</span>
-                                            <span class="price-old">$49.50</span>
-                                        </div>
-                                    </div>
-                                    <div class="cart-button">
-                                        <a class="btn btn-add-cart" href="cart.html">
-                                            <span>
-                                                Add to Cart
-                                            </span>
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--end-->
             </div>
-            <!--end main content-->
         </div>
+        <br />
     </div>
 </div>
-
 <!--timer-->
 <script>
-            //const newYears = '1 Jan 2023'
-            const newYears = '@(System.Web.HttpUtility.HtmlEncode(ViewBag.auc.EndDateTime))';
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minsEl = document.getElementById('mins');
-            const seconsdEl = document.getElementById('seconsd');
-            function countdown(){
+   //const newYears = '1 Jan 2023'
+    const newYears = '@(System.Web.HttpUtility.HtmlEncode(ViewBag.auc.EndDateTime))';
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minsEl = document.getElementById('mins');
+    const seconsdEl = document.getElementById('seconds');
+    function countdown() {
+        const newYearsDate = new Date(newYears);
+        const currentDate = new Date();
+        const totalSeconsds = (newYearsDate - currentDate) / 1000;
+        const days = Math.floor(totalSeconsds / 3600 / 24);
+        const hours = Math.floor((totalSeconsds / 3600) % 24);
+        const mins = Math.floor(totalSeconsds / 60) % 60;
+        const seconsd = Math.floor(totalSeconsds) % 60;
 
-                const newYearsDate = new Date(newYears);
-                const currentDate = new Date();
-                const totalSeconsds= (newYearsDate - currentDate) / 1000;
-                const days = Math.floor(totalSeconsds / 3600/ 24);
-                const hours = Math.floor((totalSeconsds / 3600) % 24);
-                const mins = Math.floor(totalSeconsds / 60) % 60 ;
-                const seconsd = Math.floor(totalSeconsds) % 60;
-
-                daysEl.innerHTML = days;
-                hoursEl.innerHTML = hours;
-                minsEl.innerHTML = mins;
-                seconsdEl.innerHTML = seconsd;
-                if (totalSeconsds == 0) {
-                    window.location.href = "vanchien.html";
-                }
-            }
-            countdown();
-            setInterval(countdown, 1000);
+        daysEl.innerHTML = days;
+        hoursEl.innerHTML = hours;
+        minsEl.innerHTML = mins;
+        seconsdEl.innerHTML = seconsd;
+        if (totalSeconsds == 0) {
+            window.location.href = "vanchien.html";
+        }
+    }
+    countdown();
+    setInterval(countdown, 1000);
 </script>
 <!--End of middle content-->

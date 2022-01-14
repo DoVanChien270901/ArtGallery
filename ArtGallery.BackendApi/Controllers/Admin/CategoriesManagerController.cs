@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using ArtGallery.ViewModel;
 namespace ArtGallery.BackendApi.Controllers
 {
     [Route("api/[controller]")]
@@ -55,5 +55,6 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return await categoryServices.UpdateCategory(cate);
         }
+  
     }
 }

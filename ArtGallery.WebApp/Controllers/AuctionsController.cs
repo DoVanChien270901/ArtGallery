@@ -28,7 +28,7 @@ namespace ArtGallery.WebApp.Controllers
             ViewBag.aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
             return View();
         }
-        //[Authorize(Roles ="User")]
+        [Authorize(Roles = "User")]
         [HttpGet]
         public IActionResult AuctionRoom(int id)
         {

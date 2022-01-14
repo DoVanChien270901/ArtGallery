@@ -1,4 +1,5 @@
 ﻿using ArtGallery.AdminApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.AdminApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,8 +20,11 @@ namespace ArtGallery.AdminApp.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
+            var user = User.Claims.ToList();
+            var a = user[2].Value;
             return View();
         }
 

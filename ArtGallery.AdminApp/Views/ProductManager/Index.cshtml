@@ -1,6 +1,7 @@
 ﻿@using ArtGallery.ViewModel.Catalog.Products;
 @model ProductModelView
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Product List";
 }
 <div class="page-heading">
@@ -47,10 +48,11 @@
                         <thead>
                             <tr>
                                 <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
-                                <th class="col-4">@Html.DisplayNameFor(c => c.Title)</th>
-                                <th class="col-2">@Html.DisplayNameFor(c => c.Price)</th>
-                                <th class="col-3">@Html.DisplayNameFor(c => c.Status)</th>
-                                <th class="col-3">Action</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Title)</th>
+                                <th class="col-5">@Html.DisplayNameFor(c => c.Description)</th>
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Price)</th>
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Status)</th>
+                                <th class="col-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,20 +61,25 @@
                                 <tr>
                                     <td class="text-bold-500">@item.Id</td>
                                     <td>@item.Title</td>
-                                    <td>@item.Price</td>                          
+                                    <td class="post">
+                                        <p class="content">@item.Description</p>
+                                        <button onclick="readMore(this)" hidden="hidden"></button>
+                                    </td>
+                                    <td>@item.Price</td>
                                     <td>
                                         @if (item.Status == false)
                                         {
                                             <a class="btn btn-danger">@item.Status</a>
-                                        } 
-                                        else {
+                                        }
+                                        else
+                                        {
                                             <a class="btn btn-success">@item.Status</a>
                                         }
                                     </td>
                                     <td>
                                         @Html.ActionLink("Delete", "Delete", "ProductManager", new { id = item.Id }, new { @class = "btn btn-danger" })
                                         @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
-                                    </td>                               
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -82,7 +89,21 @@
         </div>
     </section>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-<script src="assets/js/mazer.js"></script>
+<script>
+    let noOfCharac = 100;
+    let contents = document.querySelectorAll(".content");
+    contents.forEach(content => {
+        //If text length is less that noOfCharac... then hide the read more button
+        if (content.textContent.length < noOfCharac) {
+            content.nextElementSibling.style.display = "none";
+        }
+        else {
+            let displayText = content.textContent.slice(0, noOfCharac);
+            let moreText = content.textContent.slice(noOfCharac);
+            content.innerHTML = `${displayText}<span class="dots">...</span><span class="hide more">${moreText}</span>`;
+        }
+    });
+    function readMore(btn) {
+        let post = btn.parentElement;
+    }
+</script>

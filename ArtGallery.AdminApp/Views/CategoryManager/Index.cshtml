@@ -1,6 +1,7 @@
 @using ArtGallery.ViewModel.System.Admin;
 @model CategoryModelView
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Category List";
 }
 <div class="page-heading">
@@ -62,7 +63,7 @@
                                 <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
                                 <th class="col-2">@Html.DisplayNameFor(c => c.Name)</th>
                                 <th class="col-7">@Html.DisplayNameFor(c => c.Description)</th>
-                                <th class="col-4">Action</th>
+                                <th class="col-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,7 +90,7 @@
     </section>
 </div>
 <script>
-    let noOfCharac = 200;
+    let noOfCharac = 100;
     let contents = document.querySelectorAll(".content");
     contents.forEach(content => {
         //If text length is less that noOfCharac... then hide the read more button
@@ -107,29 +108,3 @@
         let post = btn.parentElement;
     }
 </script>
-<style>
-    .post {
-        font-family: "Poppins",sans-serif;
-    }
-    .content{
-        margin-top: 10px;
-    }
-        .post p {
-            font-size: 16px;
-        }
-        .post button {
-            padding: 5px;
-            background-color: #ff0268;
-            color: #ffffff;
-            border: none;
-            cursor: pointer;
-        }
-
-        .post:not(:last-child) {
-            margin-bottom: 50px;
-        }
-
-    .hide {
-        display: none;
-    }
-</style>

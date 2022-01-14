@@ -1,4 +1,4 @@
-﻿/* About Us */
+﻿/* About Us Css */
 .about {
     background: url(../images/khan.jpg) no-repeat left;
     background-size: 55%;
@@ -10,20 +10,20 @@
 .inner-section {
     width: 55%;
     float: right;
-    background-color: #d8baba;
+    background-color: #e6cccc;
     padding: 90px;
     box-shadow: 13px 12px 8px rgba(0, 0, 0, 0.3);
 }
 
     .inner-section h1 {
         margin-bottom: 30px;
-        font-size: 36px;
+        font-size: 30px;
         font-weight: 900;
         color: #E10302;
     }
 
 .text {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 30px;
     text-align: justify;
     margin-bottom: 40px;
@@ -31,7 +31,7 @@
 }
 
 .skills button {
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     letter-spacing: 1.4px;
     border: none;
@@ -42,12 +42,12 @@
     color: #fdfdfdf0;
     cursor: pointer;
     font-weight: 600;
+    transition: .4s;
 }
 
     .skills button:hover {
-        transition: 1s;
-        background-color: #fdfdfdf0;
-        color: #E10302;
+        background-color: #333333;
+        color: #fdfdfdf0;
     }
 
 @media screen and (max-width:1200px) {
@@ -90,7 +90,7 @@
 }
 
     .our-teams h1 {
-        font-size: 36px;
+        font-size: 30px;
         font-weight: 900;
     }
 
@@ -121,13 +121,13 @@
 .name {
     padding: 14px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
     text-transform: uppercase;
 }
 
 .design {
     color: #888;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .social-links {
@@ -136,8 +136,8 @@
 
     .social-links a {
         display: inline-block;
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
         transition: .4s;
     }
 
@@ -158,8 +158,7 @@
         max-width: 100%;
     }
 }
-/* Contact Us */
-
+/* Contact Us Css */
 .contact-us {
     position: relative;
     width: 100%;
@@ -182,7 +181,7 @@
     }
 
     .contact-us .left {
-        background: url("../images/contact.jpg") no-repeat center;
+        background: url("../images/contact2.jpg") no-repeat center;
         background-size: cover;
         height: 100%;
     }
@@ -197,20 +196,8 @@
         margin-bottom: 6px;
         color: #E10302;
         font-weight: 900;
-        font-size: 34px;
+        font-size: 30px;
     }
-
-        .contact-us h1:after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            height: 2px;
-            width: 100px;
-            border-radius: 2px;
-            background-color: #333333;
-        }
 
     .contact-us .field {
         width: 100%;
@@ -242,6 +229,11 @@
     cursor: pointer;
     transition: .3s;
 }
+
+    .contact-us .btn:hover {
+        background-color: #333333;
+        color: #fff;
+    }
 
 
 /* .contact-us .btn:hover {
