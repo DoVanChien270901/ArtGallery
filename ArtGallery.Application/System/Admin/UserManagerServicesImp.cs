@@ -1,10 +1,18 @@
 ﻿using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
+
+using ArtGallery.ViewModel.System.Users;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+
 using ArtGallery.Data.Enum;
 using ArtGallery.ViewModel.System.Admin;
+
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +21,13 @@ namespace ArtGallery.Application.System.Admin
     public class UserManagerServicesImp : IUserManagerServices
     {
         private readonly ArtGalleryDbContext context;
-        public UserManagerServicesImp(ArtGalleryDbContext context)
+        private readonly IConfiguration _config;
+        public UserManagerServicesImp(ArtGalleryDbContext context, IConfiguration config)
         {
+            _config = config;
             this.context = context;
         }
+
 
         public async Task<bool> CreateUser(string name, string pass, Roleposition role)
         {

@@ -47,7 +47,7 @@ namespace ArtGallery.BackendApi.Controllers
                 return new ResponseApi
                 {
                     Success = false,
-                    Message = "Register Fail!!!"
+                    Message = "Username is already taken"
                 };
             }
             return new ResponseApi
@@ -57,10 +57,18 @@ namespace ArtGallery.BackendApi.Controllers
                 Data = resultToken
             };
         }
+
         [HttpGet("profile/{userId}")]
         public async Task<ProfileUser> Profile(string userId)
         {
+            var date = DateTime.Now;
             return await _userService.GetProfile(userId);
+        }
+
+        [HttpPut("updateprofile")]
+        public async Task<ProfileUser> UpdateProfile(ProfileUser profileUser)
+        {
+            return await _userService.UpdateProfile(profileUser);
         }
     }
 }

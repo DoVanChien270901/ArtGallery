@@ -16,6 +16,7 @@ namespace ArtGallery.Data.Configurations
             builder.ToTable("Auctions");
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).UseIdentityColumn();
+            builder.Property(c => c.StartingPrice).HasColumnType("decimal(15,2)");
             builder.Property(c => c.StartDateTime).IsRequired();
             builder.Property(c => c.EndDateTime).IsRequired();
             builder.HasOne(c=>c.Product).WithOne(c=>c.Auction).HasForeignKey<Auction>(c=>c.ProductId);
