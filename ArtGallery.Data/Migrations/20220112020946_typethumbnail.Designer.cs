@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    [Migration("20220109145340_data")]
-    partial class data
+    [Migration("20220112020946_typethumbnail")]
+    partial class typethumbnail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -279,8 +279,8 @@ namespace ArtGallery.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Thumbnail")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Thumbnail")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

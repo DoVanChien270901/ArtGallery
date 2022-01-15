@@ -1,4 +1,5 @@
-﻿using ArtGallery.Data.EF;
+﻿using ArtGallery.Application.Common;
+using ArtGallery.Data.EF;
 using ArtGallery.Data.Entities;
 using ArtGallery.ViewModel.Catalog.ProductImages;
 using ArtGallery.ViewModel.Catalog.Products;
@@ -16,16 +17,18 @@ namespace ArtGallery.Application.Catalog.Products
 {
     public class ProductServicesImp : IProductServices
     {
+        private readonly IStorageService _storageService;
         private readonly ArtGalleryDbContext context;
-        public ProductServicesImp(ArtGalleryDbContext context)
+        public ProductServicesImp(ArtGalleryDbContext context, IStorageService storageService)
         {
-            this.context = context;       
+            _storageService = storageService;
+            this.context = context;
         }
 
         // Product In Category
-        public List<Product> ProductInCategory(string cateName)
+        public async Task<List<Product>> ProductInCategory(string cateName)
         {
-            if(cateName != null)
+            if (cateName != null)
             {
                 //Category cateId = context.Categories.SingleOrDefault(c=>c.Name == cateName);
                 //List<ProductInCategory> productId = context.ProductInCategories.Where(c => c.CategoryId.Equals(cateId.Id)).ToList();
@@ -39,24 +42,38 @@ namespace ArtGallery.Application.Catalog.Products
                 //};
                 ////Category category = context.Categories.SingleOrDefault(c => c.Name.Equals(cateName));
                 ////return context.Products.Where(c => c.CategoryId.Equals(category.Id)).ToList();
-                var ListProduct = 
-                    from p in context.Products
-                    join pic in context.ProductInCategories on p.Id equals pic.ProductId
-                    join c in context.Categories on pic.CategoryId equals c.Id
-                    where c.Name.Equals(cateName)
-                    select new Product {
-                        Id = p.Id,
-                        Title = p.Title,
-                        Description = p.Description,
-                        Price = p.Price,
-                        Status = p.Status,
-                        ViewCount = p.ViewCount,
-                        CreateDate = p.CreateDate
-                    };                    
-              
-                return ListProduct.ToList();
+                List<Product> ListProduct =
+                    (from p in context.Products
+                     join pic in context.ProductInCategories on p.Id equals pic.ProductId
+                     join c in context.Categories on pic.CategoryId equals c.Id
+                     where c.Name.Equals(cateName)
+                     select new Product
+                     {
+                         Id = p.Id,
+                         Title = p.Title,
+                         Description = p.Description,
+                         Price = p.Price,
+                         Status = p.Status,
+                         ViewCount = p.ViewCount,
+                         CreateDate = p.CreateDate,
+                     }).ToList();
+                List<ProductImage> images = context.ProductImages.ToList();
+                foreach (Product item in ListProduct)
+                {
+                    List<ProductImage> listimg = images.Where(a => a.ProductId.Equals(item.Id)).ToList();
+                    if (listimg != null)
+                    {
+                        item.ProductImages = listimg;
+                        foreach (ProductImage img in item.ProductImages)
+                        {
+                            img.ImagePath = await _storageService.GetFileUrl(img.ImagePath);
+                        }
+                        item.ProductImages = listimg;
+                    }
+                }
+                return ListProduct;
             }
-            return null;     
+            return null;
         }
 
         // Delete Product
@@ -75,42 +92,111 @@ namespace ArtGallery.Application.Catalog.Products
 
         public async Task<Product> GetProduct(int productId)
         {
-            return context.Products.SingleOrDefault(c => c.Id.Equals(productId));
+            Product product = await context.Products.FirstOrDefaultAsync(c=>c.Id.Equals(productId));
+            List<ProductImage> images = context.ProductImages.Where(c=>c.ProductId.Equals(productId)).ToList();
+            foreach (ProductImage item in images)
+            {
+                item.ImagePath = await _storageService.GetFileUrl(item.ImagePath);
+            }
+            product.ProductImages = images;
+            return product;
         }
 
         // Get List
+        //public async Task<IEnumerable<Product>> GetProducts()
+        //{
+        //    return context.Products.ToList();
+        //}
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return context.Products.ToList();
-        }
+            //get product and thumbnail
+            IEnumerable<Product> model = (from pro in context.Products
+                                          join img in context.ProductImages on pro.Id equals img.ProductId
+                                          where img.Thumbnail == true
+                                          select new Product
+                                          {
+                                              Id = pro.Id,
+                                              Title = pro.Title,
+                                              Description = pro.Description,
+                                              Price = pro.Price,
+                                              Status = pro.Status,
+                                              ViewCount = pro.ViewCount,
+                                              CreateDate = pro.CreateDate,
+                                              AccountId = pro.AccountId,
+                                              ProductImages = new List<ProductImage>
+                                                {
+                                                    new ProductImage
+                                                    {
+                                                        Caption = img.Caption,
+                                                        ImagePath = img.ImagePath,
+                                                        Thumbnail = img.Thumbnail
+                                                    }
+                                                }
+                                          }).ToList();
+            foreach (var item in model)
+            {
+                item.ProductImages[0].ImagePath = await _storageService.GetFileUrl(item.ProductImages[0].ImagePath);
+            }
+            //get product and all img
+            //List<Product> products = context.Products.ToList();
+            //List<ProductImage> images = context.ProductImages.ToList();
+            //foreach (Product item in products)
+            //{
+            //    List<ProductImage> listimg = images.Where(a => a.ProductId.Equals(item.Id)).ToList();
+            //    if (listimg !=null)
+            //    {
+            //        item.ProductImages=listimg;
+            //    }  
+            //}
 
+            return model;
+        }
         // Insert Product
         public async Task<bool> InsertProduct(InsertProductRequest request)
         {
-            int product = context.Products.Max(c => c.Id); 
             // product
             Product pro = new Product
             {
                 Title = request.Title,
                 Description = request.Description,
                 Price = request.Price,
-                Status = false,
-                ViewCount = 0,
+                //Status = false,
+                //ViewCount = 0,
                 CreateDate = DateTime.Now,
+                AccountId = request.AccountId
             };
+            // product thumbnail
+            if (request.Thumbnail != null)
+            {
+                pro.ProductImages = new List<ProductImage>()
+                {
+                    new ProductImage
+                    {
+                        Caption = request.Thumbnail.FileName,
+                        ImagePath = await this.SaveFile(request.Thumbnail),
+                        Thumbnail = true,
+                    }
+                };
+            }
+            //product image
+            if (request.Images != null)
+            {
+                foreach (IFormFile item in request.Images)
+                {
+                    ProductImage images =
+                            new ProductImage
+                            {
+                                Caption = item.FileName,
+                                ImagePath = await this.SaveFile(item),
+                                Thumbnail = false,
+                            };
+                    pro.ProductImages.Add(images);
+                }
+            }
             await context.Products.AddAsync(pro);
             await context.SaveChangesAsync();
-            // product image
-            ProductImage image = new ProductImage
-            {
-                Caption = request.Caption,
-                ImagePath = request.ImagePath,
-                Thumbnail = request.Thumbnail,
-                ProductId = pro.Id
-            };
-            await context.ProductImages.AddAsync(image);
-            await context.SaveChangesAsync();
-            product++;
+            //productincate
+            int product = context.Products.Max(c => c.Id);
             foreach (var item in request.ListCategoryId)
             {
                 var pic = new ProductInCategory
@@ -150,19 +236,26 @@ namespace ArtGallery.Application.Catalog.Products
                 model.Description = request.Description;
                 model.Price = request.Price;
                 model.Status = false;
-                model.ViewCount = 0;
                 model.CreateDate = DateTime.Now;
             }
             // save image
-            var image = context.ProductImages.SingleOrDefault(c => c.ProductId.Equals(request.Id));
-            if(image != null)
+            
+            if(request.Thumbnail != null)
             {
+                var image = await context.ProductImages.FirstOrDefaultAsync(x => x.Thumbnail == true && x.ProductId == request.Id);
                 image.Caption = request.Caption;
-                image.ImagePath = request.ImagePath;
-                image.Thumbnail = request.Thumbnail;
+                image.ImagePath = await this.SaveFile(request.Thumbnail);
+                context.ProductImages.Update(image);
             }
             await context.SaveChangesAsync();
             return true;
+        }
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFile(file.OpenReadStream(), fileName);
+            return fileName;
         }
     }
 }

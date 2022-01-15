@@ -18,7 +18,7 @@ namespace ArtGallery.WebApp.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly string url = "http://localhost:4086/api/Users/";
+        private readonly string url = "http://localhost:5000/api/Users/";
         private HttpClient httpClient = new HttpClient();
         public  ITokenService _function;
         public UsersController(ITokenService function)

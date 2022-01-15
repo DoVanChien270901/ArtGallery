@@ -19,7 +19,7 @@ namespace ArtGallery.ViewModel.Catalog.Products
         public DateTime CreateDate { get; set; }
         public string ImagePath { get; set; }
         public string Caption { get; set; }
-        public string Thumbnail { get; set; }
+        public IFormFile Thumbnail { get; set; }
         public List<int> ListCategoryId { get; set; }
         //public IFormFile ImageFile { get; set; }
     }

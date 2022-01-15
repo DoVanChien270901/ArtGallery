@@ -25,8 +25,8 @@ namespace ArtGallery.ViewModel.Catalog.Products
             RuleFor(c => c.ImagePath).MaximumLength(200)
                 .WithMessage("ImagePath is maximum length 200");
 
-            RuleFor(c => c.Thumbnail).MaximumLength(200)
-               .WithMessage("Thumbnail is maximum length 200");
+            //RuleFor(c => c.Thumbnail).MaximumLength(200)
+            //   .WithMessage("Thumbnail is maximum length 200");
         }
     }
 }

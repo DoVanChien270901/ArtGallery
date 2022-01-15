@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
 	<FrameworkReference Include="Microsoft.AspNetCore.App"></FrameworkReference>
   </ItemGroup>
@@ -13,5 +14,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ArtGallery.Application\ArtGallery.Application.csproj" />
     <ProjectReference Include="..\ArtGallery.Data\ArtGallery.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\use-content\" />
   </ItemGroup>
 </Project>

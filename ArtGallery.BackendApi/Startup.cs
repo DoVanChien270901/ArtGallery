@@ -34,6 +34,11 @@ namespace ArtGallery.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // fix A possible object cycle was detected 
+            services.AddControllers()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             //Declare DI
             services.AddDbContext<ArtGalleryDbContext>(op=>op.UseSqlServer(Configuration.GetConnectionString("ArtGalleryShop")));
             services.AddTransient<IUserService, UserService>();
@@ -43,7 +48,8 @@ namespace ArtGallery.BackendApi
             services.AddTransient<IProductServices, ProductServicesImp>();
             services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
             services.AddTransient<IProfileUserManager, ProfileUserManagerImp>();
-          
+            services.AddTransient<IStorageService, StorageService>();
+
             //
 
             services.AddControllers();
@@ -121,7 +127,9 @@ namespace ArtGallery.BackendApi
 
             app.UseRouting();
 
-            //
+            // use wwwroot file post/folder
+            app.UseStaticFiles();
+
             app.UseAuthentication();
 
             app.UseAuthorization();

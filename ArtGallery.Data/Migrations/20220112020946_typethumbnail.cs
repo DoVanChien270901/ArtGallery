@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ArtGallery.Data.Migrations
 {
-    public partial class data : Migration
+    public partial class typethumbnail : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -199,7 +199,7 @@ namespace ArtGallery.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImagePath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Caption = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Thumbnail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Thumbnail = table.Column<bool>(type: "bit", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

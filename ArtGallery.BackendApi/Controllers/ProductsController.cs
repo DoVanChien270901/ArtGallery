@@ -13,46 +13,47 @@ namespace ArtGallery.BackendApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductServices _managerProduct;
-        public ProductsController(IProductServices _managerProduct)
+        public ProductsController(IProductServices managerProduct)
         {
-            this._managerProduct = _managerProduct;
+            _managerProduct = managerProduct;
         }
 
-        [HttpDelete("{productId:int}")]
-        public async Task<bool> DeleteProduct([FromForm] int productId)
+        [HttpDelete("DeleteProduct/{id}")]
+        public async Task<bool> DeleteProduct(int id)
         {
-            return await _managerProduct.DeleteProduct(productId);
+            return await _managerProduct.DeleteProduct(id);
         }
 
-
+        [HttpGet("AllProduct")]
         [HttpGet]
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _managerProduct.GetProducts();
         }
 
-        [HttpGet("{title}")]
+        [HttpGet("SearchProduct/{title}")]
         public async Task<IEnumerable<Product>> SearchProduct(string title)
         {
             return await _managerProduct.SearchProduct(title);
         }
 
-        [HttpGet("{productId:int}")]
-        public async Task<Product> GetProduct( int productId)
+        [HttpGet("GetProduct/{id}")]
+        public async Task<Product> GetProduct( int id)
         {
-            return await _managerProduct.GetProduct(productId);
+            return await _managerProduct.GetProduct(id);
         }
 
         [HttpGet("ProductInCategory/{cateName}")]
-        public List<Product> ProductInCategory( string cateName)
+        public Task<List<Product>> ProductInCategory( string cateName)
         {
             return _managerProduct.ProductInCategory(cateName);
         }
 
         [HttpPost("InsertProduct")]
-        public async Task<bool> InsertProduct( InsertProductRequest request)
+        public async Task<bool> InsertProduct([FromForm] InsertProductRequest request)
         {
-            return await _managerProduct.InsertProduct(request);
+            await _managerProduct.InsertProduct(request);
+            return true;
         }
 
         [HttpPut("UpdateProduct")]

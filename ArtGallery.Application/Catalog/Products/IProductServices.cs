@@ -20,6 +20,6 @@ namespace ArtGallery.Application.Catalog.Products
         Task<bool> UpdateStatus(Product productId);
         Task<bool> UpdateProduct(EditProductRequest request);
         Task<bool> DeleteProduct(int productId);
-        List<Product> ProductInCategory(string cateName);
+        Task<List<Product>> ProductInCategory(string cateName);
     }
 }
