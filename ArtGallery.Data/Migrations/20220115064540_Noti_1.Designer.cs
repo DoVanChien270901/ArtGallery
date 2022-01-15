@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    [Migration("20220113075323_new_CategoryInProfile")]
-    partial class new_CategoryInProfile
+    [Migration("20220115064540_Noti_1")]
+    partial class Noti_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -254,9 +254,6 @@ namespace ArtGallery.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -282,8 +279,6 @@ namespace ArtGallery.Data.Migrations
                         .HasDefaultValue(0);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -510,13 +505,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
-                {
-                    b.HasOne("ArtGallery.Data.Entities.Category", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-                });
-
             modelBuilder.Entity("ArtGallery.Data.Entities.ProductImage", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Product", "Product")
@@ -614,8 +602,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("CategoryInProfiles");
 
                     b.Navigation("ProductInCategories");
-
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Order", b =>
