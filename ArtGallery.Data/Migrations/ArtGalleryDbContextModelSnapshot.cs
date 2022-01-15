@@ -252,6 +252,9 @@ namespace ArtGallery.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -278,6 +281,8 @@ namespace ArtGallery.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountId");
+
                     b.ToTable("Products");
                 });
 
@@ -301,8 +306,8 @@ namespace ArtGallery.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Thumbnail")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Thumbnail")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -503,6 +508,15 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
+                {
+                    b.HasOne("ArtGallery.Data.Entities.Account", "Account")
+                        .WithMany("Products")
+                        .HasForeignKey("AccountId");
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("ArtGallery.Data.Entities.ProductImage", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Product", "Product")
@@ -579,6 +593,8 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("FeedBacks");
 
                     b.Navigation("Orders");
+
+                    b.Navigation("Products");
 
                     b.Navigation("ProfileUser");
 

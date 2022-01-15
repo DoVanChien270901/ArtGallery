@@ -1,20 +1,19 @@
-﻿@using ArtGallery.ViewModel.System.Admin;
-@model IEnumerable<UserModelView>
+﻿@model IEnumerable<ArtGallery.ViewModel.System.Admin.UserModelView>
 @{
-    ViewData["Title"] = "User List";
+    ViewData["Title"] = "Index";
 }
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>User List</h3>
+                <p class="text-subtitle text-muted">For admin to check they list</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                        <li class="breadcrumb-item"><a>Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User</li>
                     </ol>
                 </nav>
             </div>
@@ -23,39 +22,30 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                Category List
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-3">
+                        <div class="dataTables_length" id="table1_length">
+                            <form asp-action="Index" asp-controller="UserManager" method="post">
+                                <div style="padding:4px;"></div>
+                                <h6>Search by Name</h6>
+                                <input class="form-control" type="text" name="name" placeholder="Search">
+                                <div style="padding:4px;"></div>
+                                <input type="submit" value="Search" class="btn btn-success" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3"></div>
+                    <div class="col-sm-12 col-md-3"> </div>
+                    <div class="col-sm-12 col-md-3"></div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <div class="row mb-3">
-                        <div class="col-sm-12 col-md-3">
-                            <div class="dataTables_length" id="table1_length">
-                                <form asp-action="Create" asp-controller="CategoryManager" method="post">
-                                    <h6>Category Name</h6>
-                                    <input class="form-control form-control-lg" type="text" name="name" placeholder="Large Input">
-                                    <br />
-                                    <input type="submit" value="Create" class="btn btn-success rounded-pill" />
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-3"></div>
-
-                        <div class="col-sm-12 col-md-3">
-                            <form asp-action="Index" asp-controller="Usermanager" method="post">
-                                <h6>Search by Name</h6>
-                                <input class="form-control form-control-lg" type="text" name="name" placeholder="">
-                                <br />
-                                <input type="submit" value="Search" class="btn btn-success rounded-pill" />
-
-                            </form>
-                        </div>
-                        <div class="col-sm-12 col-md-3"></div>
-                    </div>
                     <table class="table table-light mb-0">
                         <thead>
                             <tr>
-                                <th>@Html.DisplayNameFor(c => c.Name)</th>
-                                <th>@Html.DisplayNameFor(c => c.Password)</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Name)</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Password)</th>
                                 <th>Roles</th>
                                 <th>Carts</th>
                                 <th>Orders</th>
@@ -74,12 +64,9 @@
                                     <td>
                                         @item.CartsCount
                                     </td>
-
-
                                     <td>
                                         @item.OrdersCount
                                     </td>
-
                                     <td>
                                         @item.TransactionsCount
                                     </td>
@@ -87,12 +74,11 @@
                                         @item.FeedBacksCount
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Details", "Details", "UserManager", new { name = item.Name }, new { @class = "btn btn-outline-primary" })
-                                        @Html.ActionLink("Delete", "Delete", "UserManager",new { name = item.Name}, new { @class = "btn btn-outline-primary" })
+                                        @Html.ActionLink("Details", "Details", "UserManager", new { name = item.Name }, new { @class = "btn btn-primary" })
+                                        @Html.ActionLink("Delete", "Delete", "UserManager", new { name = item.Name }, new { @class = "btn btn-danger" })
                                     </td>
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -100,8 +86,7 @@
         </div>
     </section>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
 <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
 <script src="assets/js/mazer.js"></script>

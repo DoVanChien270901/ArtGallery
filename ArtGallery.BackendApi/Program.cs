@@ -21,6 +21,7 @@ namespace ArtGallery.BackendApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
                 });
     }
 }
