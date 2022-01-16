@@ -3,6 +3,13 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Product List";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 <div class="page-heading">
     <div class="page-title">
@@ -28,7 +35,6 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="dataTables_length" id="table1_length">
                             <form asp-action="Index" asp-controller="ProductManager" method="post">
-                                <div style="padding:4px;"></div>
                                 <h6>Search by Title</h6>
                                 <input class="form-control" type="text" name="title" placeholder="Search">
                                 <div style="padding:4px;"></div>
@@ -48,49 +54,80 @@
                         <thead>
                             <tr>
                                 <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
-                                <th class="col-2">@Html.DisplayNameFor(c => c.Title)</th>
-                                <th class="col-5">@Html.DisplayNameFor(c => c.Description)</th>
-                                <th class="col-1">@Html.DisplayNameFor(c => c.Price)</th>
+                                <th class="col-3">@Html.DisplayNameFor(c => c.Title)</th>
+                                <th class="col-4">@Html.DisplayNameFor(c => c.Description)</th>
                                 <th class="col-1">@Html.DisplayNameFor(c => c.Status)</th>
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Price)</th>
                                 <th class="col-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.Products)
                             {
-                                <tr>
-                                    <td class="text-bold-500">@item.Id</td>
-                                    <td>@item.Title</td>
-                                    <td class="post">
-                                        <p class="content">@item.Description</p>
-                                        <button onclick="readMore(this)" hidden="hidden"></button>
-                                    </td>
-                                    <td>@item.Price</td>
-                                    <td>
-                                        @if (item.Status == false)
-                                        {
-                                            <a class="btn btn-danger">@item.Status</a>
-                                        }
-                                        else
-                                        {
-                                            <a class="btn btn-success">@item.Status</a>
-                                        }
-                                    </td>
-                                    <td>
+                            <tr>
+                                <td class="text-bold-500">@item.Id</td>
+                                <td>@item.Title</td>
+                                <td class="post">
+                                    <p class="content">@item.Description</p>
+                                    <button onclick="readMore(this)" hidden="hidden"></button>
+                                </td>
+                                <td>
+                                    @if (item.Status == false)
+                                    {
+                                        <a class="btn btn-danger">@item.Status</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-success">@item.Status</a>
+                                    }
+                                </td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <span onclick="return confirm('Are you sure want to delete this data ?')">
                                         @Html.ActionLink("Delete", "Delete", "ProductManager", new { id = item.Id }, new { @class = "btn btn-danger" })
-                                        @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
-                                    </td>
-                                </tr>
+                                    </span>
+                                    @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class="container">
+                @if (pager.TotalPages > 0)
+                {
+                    <ul class="pagination justify-content-end">
+                        @if (pager.CurrentPage > 1)
+                        {
+                            @*<li class="page-item"><a class="page-link" asp-controller="ProductManager" asp-action="Index" asp-route-pg="1">First</a></li>*@
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="ProductManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                            </li>
+                        }
+                        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                        {
+                            <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-controller="ProductManager" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                            </li>
+                        }
+                        @if (pager.CurrentPage < pager.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="ProductManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                            </li>
+                            @*<li class="page-item">
+                            <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                        </li>*@
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </section>
 </div>
 <script>
-    let noOfCharac = 100;
+    let noOfCharac = 40;
     let contents = document.querySelectorAll(".content");
     contents.forEach(content => {
         //If text length is less that noOfCharac... then hide the read more button

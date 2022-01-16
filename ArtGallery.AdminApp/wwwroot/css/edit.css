@@ -19,7 +19,7 @@
 }
 
 .post:not(:last-child) {
-    margin-bottom: 50px;
+    margin-bottom: 5px;
 }
 
 .hide {

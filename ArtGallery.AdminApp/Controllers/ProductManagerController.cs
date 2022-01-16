@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ArtGallery.AdminApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
@@ -17,10 +19,19 @@ namespace ArtGallery.AdminApp.Controllers
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int pg = 1)
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url).Result);
-            ProductModelView productModelView = new ProductModelView { Products = model };
+            // Check 
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            ProductModelView productModelView = new ProductModelView { Products = data };
             return View(productModelView);
         }
 
@@ -39,6 +50,8 @@ namespace ArtGallery.AdminApp.Controllers
         //    var model = httpClient.PostAsJsonAsync(url, product).Result;
         //    return RedirectToAction("Index");
         //}
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             try

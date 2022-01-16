@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using ArtGallery.AdminApp.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
@@ -17,10 +19,19 @@ namespace ArtGallery.AdminApp.Controllers
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int pg = 1)
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(url).Result);
-            CategoryModelView categoryModelView = new CategoryModelView{ Categories = model };
+            // Check 
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            CategoryModelView categoryModelView = new CategoryModelView { Categories = data };
             return View(categoryModelView);
         }
 
@@ -40,6 +51,8 @@ namespace ArtGallery.AdminApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             try
@@ -62,6 +75,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update(int id)
         {
             var cate = JsonConvert.DeserializeObject<Category>(httpClient.GetStringAsync(url + id).Result);

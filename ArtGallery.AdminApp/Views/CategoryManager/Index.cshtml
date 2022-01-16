@@ -1,8 +1,15 @@
 @using ArtGallery.ViewModel.System.Admin;
 @model CategoryModelView
 @{
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Category List";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 <div class="page-heading">
     <div class="page-title">
@@ -28,10 +35,9 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="dataTables_length" id="table1_length">
                             <form asp-action="Create" asp-controller="CategoryManager" method="post">
-                                <div style="padding:4px;"></div>
                                 <h6>Category Name</h6>
                                 <input class="form-control form-control" type="text" asp-for="Name" placeholder="Name">
-                                <div style="padding:4px;"></div>
+                                <br />
                                 <h6>Description</h6>
                                 <textarea class="form-control form-control" asp-for="Description" rows="3" style="height: auto;" placeholder="Description"></textarea>
                                 <div style="padding:4px;"></div>
@@ -44,7 +50,6 @@
                     <div class="col-sm-12 col-md-4">
                         <div id="PlaceHolderHere"></div>
                         <form asp-action="Index" asp-controller="CategoryManager" method="post">
-                            <div style="padding:4px;"></div>
                             <h6>Search by Name</h6>
                             <input class="form-control form-control" type="text" name="name" placeholder="Search">
                             <div style="padding:4px;"></div>
@@ -62,35 +67,70 @@
                             <tr>
                                 <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
                                 <th class="col-2">@Html.DisplayNameFor(c => c.Name)</th>
-                                <th class="col-7">@Html.DisplayNameFor(c => c.Description)</th>
+                                <th class="col-6">@Html.DisplayNameFor(c => c.Description)</th>
                                 <th class="col-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Categories)
+                           @foreach (var item in Model.Categories)
                             {
-                                <tr>
-                                    <td class="text-bold-500">@item.Id</td>
-                                    <td>@item.Name</td>
-                                    <td class="post">
-                                        <p class="content">@item.Description</p>
-                                        <button onclick="readMore(this)" hidden="hidden"></button>
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = item.Id }, new { @class = "btn btn-danger" })
-                                        @Html.ActionLink("Details", "Update", "CategoryManager", new { id = item.Id }, new { @class = "btn btn-primary" })
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="text-bold-500">@item.Id</td>
+                                <td>@item.Name</td>
+                                <td class="post">
+                                    <p class="content">@item.Description</p>
+                                    <button onclick="readMore(this)" hidden="hidden"></button>
+                                </td>
+                                <td>
+                                    <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                        @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = item.Id }, new { @class = "btn btn-danger deleteBtn" })
+                                    </span>
+                                    @*<input type="button" asp-controller="CategoryManager" asp-action="" asp-route="@item.Id" class="btn btn-danger" value="Delete" name="alertMsg" id="btnAlertMsg" onclick="myFunction()" />*@
+                                    @Html.ActionLink("Details", "Update", "CategoryManager", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                </td>
+                            </tr>  
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class="container">
+                @if (pager.TotalPages > 0)
+                {
+                    <ul class="pagination justify-content-end">
+                        @if (pager.CurrentPage > 1)
+                        {
+                            @*<li class="page-item"><a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="1">First</a></li>*@
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                            </li>
+                        }
+                        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                        {
+
+                            <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                            </li>
+
+                        }
+                        @if (pager.CurrentPage < pager.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                            </li>
+                            @*<li class="page-item">
+                                    <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                                </li>*@
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </section>
 </div>
+
 <script>
-    let noOfCharac = 100;
+    let noOfCharac = 40;
     let contents = document.querySelectorAll(".content");
     contents.forEach(content => {
         //If text length is less that noOfCharac... then hide the read more button
@@ -107,4 +147,26 @@
     function readMore(btn) {
         let post = btn.parentElement;
     }
+</script>
+
+<script>
+//    function myFunction() {
+//        Swal.fire({
+//            title: 'Are you sure?',
+//            text: "You won't be able to revert this!",
+//            icon: 'warning',
+//            showCancelButton: true,
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            confirmButtonText: 'Yes, delete it!'
+//        }).then((result) => {
+//            if (result.isConfirmed) {
+//                Swal.fire(
+//                    'Deleted!',
+//                    'Your file has been deleted.',
+//                    'success'
+//                )
+//            }
+//        })
+//}
 </script>

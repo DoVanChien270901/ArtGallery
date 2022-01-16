@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using ArtGallery.WebApp.Models;
 
 namespace ArtGallery.WebApp.Controllers
 {
@@ -18,16 +19,71 @@ namespace ArtGallery.WebApp.Controllers
         private readonly string url = "http://localhost:5000/api/Auctions/";
         private HttpClient httpClient = new HttpClient();
 
+        // Going 
         [HttpGet]
-        public IActionResult GetAllAuctions()
+        public IActionResult GetAuctionGoing(int pg = 1)
         {
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAuctions").Result);
             //HttpContext.Session.SetString("listAuctions", JsonConvert.SerializeObject(listAuctions));
-            ViewBag.aucComming = listAuctions.Where(c => c.StartDateTime > DateTime.Now).ToList();
-            ViewBag.aucGoing = listAuctions.Where(c => c.StartDateTime < DateTime.Now && c.EndDateTime > DateTime.Now).ToList();
-            ViewBag.aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
+            //var aucComming = listAuctions.Where(c => c.StartDateTime > DateTime.Now).ToList();
+            var aucGoing = listAuctions.Where(c => c.StartDateTime < DateTime.Now && c.EndDateTime > DateTime.Now).ToList();
+            //var aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
+            // Check
+            const int pageSize2 = 6;
+            if (pg < 1)
+                pg = 1;
+            int recsCount2 = aucGoing.Count();
+            var pager2 = new Pager(recsCount2, pg, pageSize2);
+            int recSkip2 = (pg - 1) * pageSize2;
+            var data2 = aucGoing.Skip(recSkip2).Take(pager2.PageSize).ToList();
+            //
+            this.ViewBag.Pager = pager2;
+            this.ViewBag.aucGoing = data2;
             return View();
         }
+
+        // Comming
+        [HttpGet]
+        public IActionResult GetAuctionComming(int pg = 1)
+        {
+            IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAuctions").Result);
+            //HttpContext.Session.SetString("listAuctions", JsonConvert.SerializeObject(listAuctions));
+            var aucComming = listAuctions.Where(c => c.StartDateTime > DateTime.Now).ToList();
+            // Check
+            const int pageSize = 6;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = aucComming.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = aucComming.Skip(recSkip).Take(pager.PageSize).ToList();
+            //
+            this.ViewBag.Pager = pager;
+            this.ViewBag.aucComming = data;
+            return View();
+        }
+
+        // Ended
+        [HttpGet]
+        public IActionResult GetAuctionEnded(int pg = 1)
+        {
+            IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAuctions").Result);
+            //HttpContext.Session.SetString("listAuctions", JsonConvert.SerializeObject(listAuctions));
+            var aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
+            // Check
+            const int pageSize3 = 6;
+            if (pg < 1)
+                pg = 1;
+            int recsCount3 = aucEnded.Count();
+            var pager3 = new Pager(recsCount3, pg, pageSize3);
+            int recSkip3 = (pg - 1) * pageSize3;
+            var data3 = aucEnded.Skip(recSkip3).Take(pager3.PageSize).ToList();
+            //
+            this.ViewBag.Pager = pager3;
+            this.ViewBag.aucEnded = data3;
+            return View();
+        }
+
         [Authorize(Roles = "User")]
         [HttpGet]
         public IActionResult AuctionRoom(int id)
@@ -42,6 +98,7 @@ namespace ArtGallery.WebApp.Controllers
             //IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAcutions").Result);
             return View(/*listAuctions.SingleOrDefault(c => c.Id.Equals(id))*/);
         }
+
         [HttpPost]
         public async Task<IActionResult> AuctionRoom(InsertAmountInAuctionRequest request)
         {

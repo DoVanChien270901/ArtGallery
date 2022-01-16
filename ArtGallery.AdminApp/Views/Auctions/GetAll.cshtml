@@ -2,6 +2,13 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Auction List";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager; 
+        pageNo = pager.CurrentPage;
+    }
 }
 <div class="page-heading">
     <div class="page-title">
@@ -34,11 +41,11 @@
                             <tr>
                                 <th class="col-1">Room Id</th>
                                 <th class="col-2">Title Product</th>
-                                <th class="col-2">Starting Price</th>
-                                <th class="col-2">Price Step</th>
-                                <th class="col-3">Start DateTime</th>
-                                <th class="col-3">End DateTime</th>
-                                <th class="col-1">Action</th>
+                                <th class="col-1">Starting Price</th>
+                                <th class="col-1">Price Step</th>
+                                <th class="col-2">Start DateTime</th>
+                                <th class="col-2">End DateTime</th>
+                                <th class="col-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,7 +59,9 @@
                                     <td>@item.StartDateTime</td>
                                     <td>@item.EndDateTime</td>
                                     <td>
-                                        <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
+                                        <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                            <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
+                                        </span>
                                         <a asp-action="Update" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-primary">Update</a>
                                     </td>
                                 </tr>
@@ -61,9 +70,83 @@
                     </table>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row mb-3">
+                        <h4>Auctions Ended</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-light mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">Room Id</th>
+                                    <th class="col-2">Title Product</th>
+                                    <th class="col-1">Starting Price</th>
+                                    <th class="col-1">Price Step</th>
+                                    <th class="col-2">Start DateTime</th>
+                                    <th class="col-2">End DateTime</th>
+                                    <th class="col-2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.aucEnded)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Product.Title</td>
+                                        <td>@item.StartingPrice</td>
+                                        <td>@item.PriceStep</td>
+                                        <td>@item.StartDateTime</td>
+                                        <td>@item.EndDateTime</td>
+                                        <td>
+                                            <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                                <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
+                                            </span>
+                                            <a asp-action="WinnerInformation" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-success">Winner</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                @if (pager.TotalPages > 0)
+                {
+                    <ul class="pagination justify-content-end">
+                        @if (pager.CurrentPage > 1)
+                        {
+                            @*<li class="page-item"><a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="1">First</a></li>*@
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="Auctions" asp-action="GetAll" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                            </li>
+                        }
+                        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                        {
+
+                            <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-controller="Auctions" asp-action="GetAll" asp-route-pg="@pge">@pge</a>
+                            </li>
+
+                        }
+                        @if (pager.CurrentPage < pager.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="Auctions" asp-action="GetAll" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                            </li>
+                            @*<li class="page-item">
+                            <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                        </li>*@
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </section>
-    <section class="section">
+    @*<section class="section">
         <div class="card">
             <div class="card-header">
                 <div class="row mb-3">
@@ -77,11 +160,11 @@
                             <tr>
                                 <th class="col-1">Room Id</th>
                                 <th class="col-2">Title Product</th>
-                                <th class="col-2">Starting Price</th>
-                                <th class="col-2">Price Step</th>
-                                <th class="col-3">Start DateTime</th>
-                                <th class="col-3">End DateTime</th>
-                                <th class="col-1">Action</th>
+                                <th class="col-1">Starting Price</th>
+                                <th class="col-1">Price Step</th>
+                                <th class="col-2">Start DateTime</th>
+                                <th class="col-2">End DateTime</th>
+                                <th class="col-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,7 +178,9 @@
                                     <td>@item.StartDateTime</td>
                                     <td>@item.EndDateTime</td>
                                     <td>
-                                        <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
+                                        <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                            <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
+                                        </span>
                                         <a asp-action="WinnerInformation" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-success">Winner</a>
                                     </td>
                                 </tr>
@@ -105,5 +190,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>*@
 </div>

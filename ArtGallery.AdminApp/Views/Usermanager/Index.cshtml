@@ -2,6 +2,13 @@
 @model IEnumerable<UserModelView>
 @{
     ViewData["Title"] = "User List";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 <div class="page-heading">
     <div class="page-title">
@@ -27,7 +34,6 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="dataTables_length" id="table1_length">
                             <form asp-action="Index" asp-controller="Usermanager" method="post">
-                                <div style="padding:4px;"></div>
                                 <h6>Search by Name</h6>
                                 <input class="form-control" type="text" name="name" placeholder="Search">
                                 <div style="padding:4px;"></div>
@@ -45,13 +51,13 @@
                     <table class="table table-light mb-0">
                         <thead>
                             <tr>
-                                <th class="col-3">@Html.DisplayNameFor(c => c.Name)</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Name)</th>
                                 @*<th>@Html.DisplayNameFor(c => c.Password)</th>*@
-                                <th class="col-2">Roles</th>
+                                <th class="col-1">Roles</th>
                                 <th class="col-1">Carts</th>
                                 <th class="col-1">Orders</th>
                                 <th class="col-1">Transactions</th>
-                                <th class="col-2">FeedBacks</th>
+                                <th class="col-1">FeedBacks</th>
                                 <th class="col-2">Action</th>
                             </tr>
                         </thead>
@@ -84,7 +90,9 @@
                                         @item.FeedBacksCount
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Delete", "Delete", "UserManager", new { name = item.Name }, new { @class = "btn btn-danger" })
+                                        <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                            @Html.ActionLink("Delete", "Delete", "UserManager", new { name = item.Name }, new { @class = "btn btn-danger" })
+                                        </span>
                                         @Html.ActionLink("Details", "Details", "UserManager", new { name = item.Name }, new { @class = "btn btn-primary" })
                                     </td>
                                 </tr>
@@ -93,11 +101,39 @@
                     </table>
                 </div>
             </div>
+            <div class="container">
+                @if (pager.TotalPages > 0)
+                {
+                    <ul class="pagination justify-content-end">
+                        @if (pager.CurrentPage > 1)
+                        {
+                            @*<li class="page-item"><a class="page-link" asp-controller="UserManager" asp-action="Index" asp-route-pg="1">First</a></li>*@
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="UserManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                            </li>
+                        }
+                        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                        {
+                            <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-controller="UserManager" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                            </li>
+                        }
+                        @if (pager.CurrentPage < pager.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="UserManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                            </li>
+                            @*<li class="page-item">
+                            <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                        </li>*@
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </section>
 </div>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-
 <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
 <script src="assets/js/mazer.js"></script>

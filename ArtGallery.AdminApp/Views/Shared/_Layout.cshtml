@@ -6,12 +6,13 @@
     <title>OAG - Online Art Gallery</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/vendors/iconly/bold.css">
-    <link rel="stylesheet" href="/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/edit.css">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="~/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/app.css">
+    <link rel="stylesheet" href="~/css/edit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     @*<link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon">*@
 </head>
 <body>
@@ -24,7 +25,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a asp-action="Index"><img style="width:130px; height:auto; padding:.4rem;" src="~/images/logo/logo3.png" alt="LOGO" srcset=""></a>
+                            <a asp-action="Index" asp-controller="Home"><img style="width:160px; height:auto; padding:1rem;" src="~/images/logo/logo3.png" alt="LOGO" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -35,7 +36,7 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
                         <li class="sidebar-item active ">
-                            <a asp-action="Index" class='sidebar-link'>
+                            <a asp-action="Index" asp-controller="Home" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -122,7 +123,7 @@
                             else
                             {
                                 <li class="sidebar-item">
-                                    <a href="#" class='sidebar-link'>
+                                    <a class='sidebar-link'>
                                         <i class="bi bi-person-circle"></i>
                                         <span>@name</span>
                                     </a>
@@ -162,10 +163,12 @@
         </div>
     </div>
     @*</div>*@
-    <script src="/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/vendors/apexcharts/apexcharts.js"></script>
-    <script src="/js/pages/dashboard.js"></script>
-    <script src="/js/mazer.js"></script>
+    <script src="~/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendors/apexcharts/apexcharts.js"></script>
+    <script src="~/js/pages/dashboard.js"></script>
+    <script src="~/js/mazer.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </body>
 </html>

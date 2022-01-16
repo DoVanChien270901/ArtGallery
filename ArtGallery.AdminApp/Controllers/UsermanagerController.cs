@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ArtGallery.AdminApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
@@ -19,9 +21,10 @@ namespace ArtGallery.AdminApp.Controllers
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int pg = 1)
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Account>>(httpClient.GetStringAsync(url).Result);
+           
             List<UserModelView> userModelView = new List<UserModelView>();
             foreach (var item in model)
             {
@@ -40,10 +43,18 @@ namespace ArtGallery.AdminApp.Controllers
                     FeedBacksCount = feedBacks
                 };
                 userModelView.Add(view);
-            } 
-            return View(userModelView);
+            }
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = userModelView.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
         }
-
+       
         [HttpPost]
         public IActionResult Index(string name)
         {
@@ -74,6 +85,8 @@ namespace ArtGallery.AdminApp.Controllers
             return View(userModelView);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(string name)
         {
             try
@@ -130,6 +143,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(string name)
         {
             var profile = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(urlProfile + "getProfileUser/" + name).Result);

@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using ArtGallery.AdminApp.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
@@ -16,16 +18,42 @@ namespace ArtGallery.AdminApp.Controllers
         private HttpClient httpClient = new HttpClient();
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int pg = 1)
         {
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAuctions").Result);
             //HttpContext.Session.SetString("listAuctions", JsonConvert.SerializeObject(listAuctions));
-            ViewBag.aucNotover = listAuctions.Where(c => c.EndDateTime > DateTime.Now).ToList();
-            //ViewBag.aucGoing = listAuctions.Where(c => c.StartDateTime < DateTime.Now && c.EndDateTime > DateTime.Now).ToList();
-            ViewBag.aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
+            var aucNotover = listAuctions.Where(c => c.EndDateTime > DateTime.Now).ToList();
+            var aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
+            //ViewBag.aucNotover = listAuctions.Where(c => c.EndDateTime > DateTime.Now).ToList();
+            // Check
+            const int pageSize = 6;
+            const int pageSize2 = 6;
+            //
+            if (pg < 1)
+                pg = 1;
+            //
+            int recsCount = aucNotover.Count();
+            int recsCount2 = aucEnded.Count();
+            //
+            var pager = new Pager(recsCount, pg, pageSize);
+            var pager2 = new Pager(recsCount2, pg, pageSize2);
+            //
+            int recSkip = (pg - 1) * pageSize;
+            int recSkip2 = (pg - 1) * pageSize2;
+            //
+            var data = aucNotover.Skip(recSkip).Take(pager.PageSize).ToList();
+            var data2 = aucEnded.Skip(recSkip2).Take(pager2.PageSize).ToList();
+            //
+            this.ViewBag.Pager = pager;
+            this.ViewBag.Pager = pager2;
+            //
+            this.ViewBag.aucNotover = data;
+            this.ViewBag.aucEnded = data2;
+            //ViewBag.aucGoing = listAuctions.Where(c => c.StartDateTime < DateTime.Now && c.EndDateTime > DateTime.Now).ToList();  
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -48,6 +76,7 @@ namespace ArtGallery.AdminApp.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -71,6 +100,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult WinnerInformation(int id)
         {
             ProfileUser profileUsers = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(url + "GetWinner/" + id).Result);

@@ -33,7 +33,9 @@
                         </div>
                         <div class="col-sm-12 d-flex justify-content-end">
                             <input type="submit" class="btn btn-success" value="Save">&nbsp;&nbsp;
-                            @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = Model.Id }, new { @class = "btn btn-danger" }) &nbsp;&nbsp;
+                            <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                @Html.ActionLink("Delete", "Delete", "CategoryManager", new { id = Model.Id }, new { @class = "btn btn-danger" })
+                            </span>&nbsp;&nbsp;
                             @Html.ActionLink("Back To List", "Index", "CategoryManager", null, new { @class = "btn btn-secondary" })
                         </div>
                     </div>

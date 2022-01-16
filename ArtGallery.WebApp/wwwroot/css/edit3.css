@@ -30,13 +30,13 @@
     font-weight: 500;
 }
 
-.skills button {
+.skills a {
     font-size: 18px;
     text-align: center;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.2px;
     border: none;
     border-radius: 30px;
-    padding: 10px;
+    padding: 16px;
     width: 200px;
     background-color: #E10302;
     color: #fdfdfdf0;
@@ -45,7 +45,7 @@
     transition: .4s;
 }
 
-    .skills button:hover {
+    .skills a:hover {
         background-color: #333333;
         color: #fdfdfdf0;
     }
