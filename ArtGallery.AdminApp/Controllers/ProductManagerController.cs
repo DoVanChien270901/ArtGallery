@@ -13,12 +13,7 @@ namespace ArtGallery.AdminApp.Controllers
 {
     public class ProductManagerController : Controller
     {
-<<<<<<< HEAD
         private readonly string url = "http://localhost:5000/api/Products/";
-=======
-        private readonly string url = "http://localhost:4086/api/Products/";
-
->>>>>>> 5aab98afb5cf3631d45648238a059d935029aca9
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
