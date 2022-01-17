@@ -9,6 +9,7 @@ namespace ArtGallery.Application.Common
 {
     public interface IMailHelper
     {
-        public void SendMailForWithProduct(Product productstring, string mailBody);
+        public bool SendMailForWithProduct(Product productstring, string mailBody);
+        public string SendMailForgotPassword(string uname, string mailBody);
     }
 }

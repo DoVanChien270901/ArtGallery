@@ -11,23 +11,75 @@ using System.Text;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ArtGallery.Application.Common
 {
     public class MailHelperImp : IMailHelper
     {
         private readonly IConfiguration config;
-        string connectionString = "";
+        private readonly IHostingEnvironment hosting;
         private readonly ArtGalleryDbContext context;
-        public MailHelperImp(IConfiguration config, ArtGalleryDbContext context)
+        string from = "";
+        string fromDisplayName = "";
+        string fromPassword = "";
+        string host = "";
+        int port = 0;
+        public MailHelperImp(IConfiguration config, ArtGalleryDbContext context, IHostingEnvironment hosting)
         {
-            
+            this.hosting = hosting;
             this.config = config.GetSection("MailSettings");
             this.context = context;
-            connectionString = config.GetConnectionString("ArtGalleryShop");
+            from = "myartgalleryprojectmail@gmail.com";
+            fromDisplayName = "OAG";
+            fromPassword = "Art1040@";
+            host = "smtp.gmail.com";
+            port = 587;
         }
-        public void SendMailForWithProduct(Product product, string mailBody)
+
+        public string SendMailForgotPassword(string uname, string mailBody)
         {
+            var account = context.Accounts.SingleOrDefault(a=>a.Name.Equals(uname));
+            if (account == null)
+            {
+                return "This account cannot be found";
+            }
+
+            var profile = context.ProfileUsers.SingleOrDefault(p=>p.AccountId.Equals(account.Name));
+
+            //send Mail
+            mailBody = mailBody.Replace("{name}", account.Name);
+            mailBody = mailBody.Replace("{password}", account.Password);
+            string mailSubject = "Forgot Password";
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(from));
+            email.Subject = mailSubject;
+            var builder = new BodyBuilder();
+            builder.HtmlBody = mailBody;
+            email.Body = builder.ToMessageBody();
+
+            email.To.Add(MailboxAddress.Parse(profile.Email));
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Connect(host, Convert.ToInt32(port), MailKit.Security.SecureSocketOptions.StartTls);
+            smtpClient.Authenticate(from, fromPassword);
+            smtpClient.Send(email);
+
+            smtpClient.Disconnect(true);
+            return "Success";
+        }
+
+        public bool SendMailForWithProduct(Product product, string mailBody)
+        {
+            //get product
+            var prod = context.Products.SingleOrDefault(c => c.Id.Equals(product.Id));
+
+            mailBody = mailBody.Replace("{title}", prod.Title);
+            mailBody = mailBody.Replace("{price}", prod.Price.ToString());
+            mailBody = mailBody.Replace("{date}", prod.CreateDate.ToString());
+            mailBody = mailBody.Replace("{id}", prod.Id.ToString());
+
+
             //getList Category In Product
             var ProdICate = context.ProductInCategories.Where(p=>p.ProductId.Equals(product.Id));
             List<int> cate = new List<int>();
@@ -37,20 +89,26 @@ namespace ArtGallery.Application.Common
 
             }
 
-            //getList Profile liked Category
-            List<ProfileUser> profiles = new List<ProfileUser>();
+            //getList ProfileID liked Category
+            List<int> profileID = new List<int>();
             var CateIProf = context.CategoryInProfiles.ToList();
-            List<int> ListProfileID = new List<int>();
-            foreach (var item in cate)
+            foreach (var item in CateIProf)
             {
-                var c = context.CategoryInProfiles.Where(p=>p.CategoryId.Equals(item));
-                foreach (var i in c)
+                foreach (var i in ProdICate)
                 {
-                    ListProfileID.Add(i.ProfileId);
+                    if (item.CategoryId == i.CategoryId)
+                    {
+                        profileID.Add(item.ProfileId);
+                    }
                 }
             }
+
+            if (profileID == null)
+            {
+                return false;
+            }
             //Distinct ProfileID is duplicate
-            ListProfileID = ListProfileID.Distinct().ToList();
+            profileID = profileID.Distinct().ToList();
 
             //Get List MailAddress from ListProfileID
             List<string> MailAddress = new List<string>();
@@ -58,18 +116,21 @@ namespace ArtGallery.Application.Common
 
             foreach (var item in ProfileUser)
             {
-                if (item.Email != null)
+                foreach (var i in profileID)
                 {
-                    MailAddress.Add(item.Email);
+                    if (item.Email != null && i == item.Id)
+                    {
+                        MailAddress.Add(item.Email);
+                    }
                 }
+            }
+            if (MailAddress == null)
+            {
+                return false;
             }
 
             //send Mail
-            var from = config.GetSection("MailSettings").GetSection("Mail").Value;
-            var fromDisplayName = config.GetSection("MailSettings").GetSection("DisplayName").Value;
-            var fromPassword = config.GetSection("MailSettings").GetSection("Password").Value;
-            var host = config.GetSection("MailSettings").GetSection("Host").Value;
-            var port = config.GetSection("MailSettings").GetSection("Port").Value;
+
             string mailSubject = "You have new favorite Art selling !!!";
             MimeMessage email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(from));
@@ -88,8 +149,9 @@ namespace ArtGallery.Application.Common
             smtpClient.Send(email);
 
             smtpClient.Disconnect(true);
-
+            return true;
         }
+
 
     }
 }

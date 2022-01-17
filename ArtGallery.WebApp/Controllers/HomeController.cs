@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Data.Entities;
+using ArtGallery.ViewModel.Catalog.Email;
 using ArtGallery.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,21 @@ namespace ArtGallery.WebApp.Controllers
             }
             IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
             return View(listProducts);
+        }
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ForgotPassword(MailModelView address)
+        {
+            string urlmail = "http://localhost:5000/api/Mail/";
+            if (ModelState.IsValid)
+            {
+                var message = JsonConvert.DeserializeObject<string>(httpClient.GetStringAsync(urlmail + "forgotPassword/" + address.Email).Result);
+            }
+            return View();
         }
 
         public IActionResult Privacy()

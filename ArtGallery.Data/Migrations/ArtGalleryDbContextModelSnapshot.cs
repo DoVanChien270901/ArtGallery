@@ -418,7 +418,7 @@ namespace ArtGallery.Data.Migrations
             modelBuilder.Entity("ArtGallery.Data.Entities.AmountInAuction", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Account", "Account")
-                        .WithMany("AmountInAcctions")
+                        .WithMany()
                         .HasForeignKey("AccountId");
 
                     b.HasOne("ArtGallery.Data.Entities.Auction", "Auction")
@@ -586,8 +586,6 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Account", b =>
                 {
-                    b.Navigation("AmountInAcctions");
-
                     b.Navigation("Carts");
 
                     b.Navigation("FeedBacks");
