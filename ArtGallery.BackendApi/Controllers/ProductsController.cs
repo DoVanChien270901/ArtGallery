@@ -30,13 +30,6 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return await _managerProduct.GetProducts();
         }
-
-        [HttpGet("SearchProduct/{title}")]
-        public async Task<IEnumerable<Product>> SearchProduct(string title)
-        {
-            return await _managerProduct.SearchProduct(title);
-        }
-
         [HttpGet("GetProduct/{id}")]
         public async Task<Product> GetProduct( int id)
         {
@@ -50,6 +43,7 @@ namespace ArtGallery.BackendApi.Controllers
         }
 
         [HttpPost("InsertProduct")]
+        [Consumes("multipart/form-data")]
         public async Task<bool> InsertProduct([FromForm] InsertProductRequest request)
         {
             await _managerProduct.InsertProduct(request);
@@ -57,15 +51,16 @@ namespace ArtGallery.BackendApi.Controllers
         }
 
         [HttpPut("UpdateProduct")]
-        public async Task<bool> UpdateProduct(EditProductRequest request)
+        [Consumes("multipart/form-data")]
+        public async Task<bool> UpdateProduct([FromForm]EditProductRequest request)
         {
             return await _managerProduct.UpdateProduct(request);
         }
 
-        [HttpPut("UpdateStatus")]
-        public async Task<bool> UpdateStatus([FromForm] Product productId)
+        [HttpGet("UpdateStatus/{id}")]
+        public async Task<bool> UpdateStatus(int id)
         {
-            return await _managerProduct.UpdateStatus(productId);
+            return await _managerProduct.UpdateStatus(id);
         }
     }
 }

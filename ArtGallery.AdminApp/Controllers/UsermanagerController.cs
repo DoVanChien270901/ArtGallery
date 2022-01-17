@@ -12,8 +12,8 @@ namespace ArtGallery.AdminApp.Controllers
 {
     public class UsermanagerController : Controller
     {
-        private readonly string url = "http://localhost:4086/api/UsersManager/";
-        private readonly string urlProfile = "http://localhost:4086/api/ProfileManager/";
+        private readonly string url = "http://localhost:5000/api/UsersManager/";
+        private readonly string urlProfile = "http://localhost:5000/api/ProfileManager/";
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
