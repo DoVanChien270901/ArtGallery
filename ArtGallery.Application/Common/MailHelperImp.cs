@@ -37,12 +37,12 @@ namespace ArtGallery.Application.Common
             port = 587;
         }
 
-        public string SendMailForgotPassword(string uname, string mailBody)
+        public bool SendMailForgotPassword(string uname, string mailBody)
         {
             var account = context.Accounts.SingleOrDefault(a=>a.Name.Equals(uname));
             if (account == null)
             {
-                return "This account cannot be found";
+                return false;
             }
 
             var profile = context.ProfileUsers.SingleOrDefault(p=>p.AccountId.Equals(account.Name));
@@ -66,7 +66,7 @@ namespace ArtGallery.Application.Common
             smtpClient.Send(email);
 
             smtpClient.Disconnect(true);
-            return "Success";
+            return true;
         }
 
         public bool SendMailForWithProduct(Product product, string mailBody)

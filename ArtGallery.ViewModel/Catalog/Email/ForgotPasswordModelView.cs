@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.ViewModel.Catalog.Email
 {
-    public class MailModelView
+    public class ForgotPasswordModelView
     {
-        public string Email { get; set; }
+        public string UserName { get; set; }
     }
 }

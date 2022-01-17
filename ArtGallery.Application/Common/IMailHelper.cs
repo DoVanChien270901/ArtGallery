@@ -10,6 +10,6 @@ namespace ArtGallery.Application.Common
     public interface IMailHelper
     {
         public bool SendMailForWithProduct(Product productstring, string mailBody);
-        public string SendMailForgotPassword(string uname, string mailBody);
+        public bool SendMailForgotPassword(string uname, string mailBody);
     }
 }
