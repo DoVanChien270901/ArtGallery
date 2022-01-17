@@ -44,7 +44,7 @@ namespace ArtGallery.BackendApi.Controllers
         }
 
         [HttpGet("forgotPassword/{uname}")]
-        public async Task<string> SendMailForgotPassword(string uname)
+        public async Task<bool> SendMailForgotPassword(string uname)
         {
             string body = string.Empty;
 
