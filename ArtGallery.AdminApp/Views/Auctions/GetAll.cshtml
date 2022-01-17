@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ArtGallery.Data.Entities.Auction>
+@{
+    ViewData["Title"] = "Category List";
+}
+<div class="page-heading">
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h1>Auction Manager</h1>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <h2>Auctions List</h2>
+                    <table class="table table-light mb-0">
+                        <thead>
+                            <tr>
+                                <th class="col-3">Room Id</th>
+                                <th class="col-3">Title Product</th>
+                                <th class="col-3">Starting Price</th>
+                                <th class="col-3">Price Step</th>
+                                <th class="col-3">Start DateTime</th>
+                                <th class="col-3">End DateTime</th>
+                                <th class="col-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.aucNotover)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Product.Title</td>
+                                    <td>@item.StartingPrice</td>
+                                    <td>@item.PriceStep</td>
+                                    <td>@item.StartDateTime</td>
+                                    <td>@item.EndDateTime</td>
+                                    <td>
+                                        <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
+                                        <a asp-action="Update" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-success">Update</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+               @*ended*@
+                    <h2>Auctions Ended</h2>
+                    <table class="table table-light mb-0">
+                        <thead>
+                            <tr>
+                                <th class="col-3">Room Id</th>
+                                <th class="col-3">Title Product</th>
+                                <th class="col-3">Starting Price</th>
+                                <th class="col-3">Price Step</th>
+                                <th class="col-3">Start DateTime</th>
+                                <th class="col-3">End DateTime</th>
+                                <th class="col-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.aucEnded)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Product.Title</td>
+                                    <td>@item.StartingPrice</td>
+                                    <td>@item.PriceStep</td>
+                                    <td>@item.StartDateTime</td>
+                                    <td>@item.EndDateTime</td>
+                                    <td>
+                                        <a asp-action="Delete" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-danger" role="button">Delete</a>
+                                        <a asp-action="WinnerInformation" asp-controller="Auctions" asp-route-id="@item.Id" class="btn btn-success">Winner information</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -13,5 +13,6 @@ namespace ArtGallery.Application.System.Users
         Task<string> Authencate(LoginRequest loginRequest);
         Task<string> Register(RegisterRequest registerRequest);
         Task<ProfileUser> GetProfile(string UserId);
+        Task<ProfileUser> UpdateProfile(ProfileUser profileUser);
     }
 }

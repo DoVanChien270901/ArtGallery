@@ -33,9 +33,9 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(string name)
+        public IActionResult Create(CategoryModelView category)
         {
-            Category cate = new Category { Name = name };
+            Category cate = new Category { Name = category.Name , Description = category.Description};
             var model = httpClient.PostAsJsonAsync(url, cate).Result;
             return RedirectToAction("Index");
         }
@@ -61,10 +61,29 @@ namespace ArtGallery.AdminApp.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Update(Category cate)
+
+        [HttpGet]
+        public IActionResult Update(int id)
         {
-            var model = httpClient.PutAsJsonAsync(url, cate).Result;
+            var cate = JsonConvert.DeserializeObject<Category>(httpClient.GetStringAsync(url + id).Result);
+            CategoryModelView category = new CategoryModelView
+            {
+                Name = cate.Name,
+                Description = cate.Description,
+                Id = cate.Id
+            };
+            return View(category);
+        }
+        [HttpPost]
+        public IActionResult Update(CategoryModelView cate)
+        {
+            Category category = new Category
+            {
+                Name = cate.Name,
+                Description = cate.Description,
+                Id = cate.Id
+            };
+            var model = httpClient.PutAsJsonAsync(url, category).Result;
             return RedirectToAction("Index");
         }
     }

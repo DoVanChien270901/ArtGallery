@@ -1,9 +1,11 @@
 ﻿using ArtGallery.Data.Entities;
 using ArtGallery.ViewModel.System.Admin;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -112,8 +114,6 @@ namespace ArtGallery.AdminApp.Controllers
                     FullName = profile.FullName,
                     Gender = profile.Gender,
                     Address = profile.Address,
-                    Hobby = profile.Hobby,
-                    Avatar = profile.Avatar,
                     Email = profile.Email,
                     PhoneNumber = profile.PhoneNumber,
                     DOB = profile.DOB,
@@ -141,8 +141,6 @@ namespace ArtGallery.AdminApp.Controllers
                 FullName = profile.FullName,
                 Gender = profile.Gender,
                 Address = profile.Address,
-                Hobby = profile.Hobby,
-                Avatar = profile.Avatar,
                 Email = profile.Email,
                 PhoneNumber = profile.PhoneNumber,
                 DOB = profile.DOB,
@@ -163,7 +161,6 @@ namespace ArtGallery.AdminApp.Controllers
                     FullName = puser.FullName,
                     Gender = puser.Gender,
                     Address = puser.Address,
-                    Hobby = puser.Hobby,
                     Email = puser.Email,
                     PhoneNumber = puser.PhoneNumber,
                     DOB = puser.DOB,

@@ -38,10 +38,11 @@ namespace ArtGallery.Data.EF
             modelbuilder.ApplyConfiguration(new TransactionConfiguration());
 
             modelbuilder.ApplyConfiguration(new ProductInCategoryConfiguration());
+            modelbuilder.ApplyConfiguration(new CategoryInProfileConfiguration());
         }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<AmountAuction> AmountAuctions { get; set; }
+        public DbSet<AmountInAuction> AmountInAuctions { get; set; }
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -54,5 +55,7 @@ namespace ArtGallery.Data.EF
         public DbSet<ProfileUser> ProfileUsers { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<ProductInCategory>  ProductInCategories { get; set; }
-    }    
+        public DbSet<CategoryInProfile> CategoryInProfiles { get; set; }
+    }
+
 }

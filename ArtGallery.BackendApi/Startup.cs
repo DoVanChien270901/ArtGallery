@@ -1,4 +1,5 @@
 using ArtGallery.Application.Catalog.Categories;
+using ArtGallery.Application.Catalog.Auctions;
 using ArtGallery.Application.System.Admin;
 using ArtGallery.Application.System.Users;
 using ArtGallery.Application.Common;
@@ -42,6 +43,7 @@ namespace ArtGallery.BackendApi
             //Declare DI
             services.AddDbContext<ArtGalleryDbContext>(op=>op.UseSqlServer(Configuration.GetConnectionString("ArtGalleryShop")));
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAuctionsService, AuctionService>();
 
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
