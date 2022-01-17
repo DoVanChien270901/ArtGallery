@@ -75,7 +75,7 @@ namespace ArtGallery.Application.System.Admin
             var us = context.Accounts.SingleOrDefault(c => c.Name.Equals(user.Name));
             if (us != null)
             {
-                us.Name = user.Name;
+                us.Password = user.Password;
                 context.SaveChanges();
                 return true;
             }

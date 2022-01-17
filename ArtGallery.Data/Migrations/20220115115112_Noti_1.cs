@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ArtGallery.Data.Migrations
 {
-    public partial class typethumbnail : Migration
+    public partial class Noti_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,29 +26,12 @@ namespace ArtGallery.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    ViewCount = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +78,31 @@ namespace ArtGallery.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    ViewCount = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    AccountId = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProfileUsers",
                 columns: table => new
                 {
@@ -103,8 +111,6 @@ namespace ArtGallery.Data.Migrations
                     FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Hobby = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -148,6 +154,8 @@ namespace ArtGallery.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    StartingPrice = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
+                    PriceStep = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false)
@@ -214,30 +222,6 @@ namespace ArtGallery.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductInCategories",
-                columns: table => new
-                {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductInCategories", x => new { x.ProductId, x.CategoryId });
-                    table.ForeignKey(
-                        name: "FK_ProductInCategories_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductInCategories_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductInCarts",
                 columns: table => new
                 {
@@ -262,6 +246,54 @@ namespace ArtGallery.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductInCategories",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductInCategories", x => new { x.ProductId, x.CategoryId });
+                    table.ForeignKey(
+                        name: "FK_ProductInCategories_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductInCategories_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryInProfiles",
+                columns: table => new
+                {
+                    ProfileId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryInProfiles", x => new { x.CategoryId, x.ProfileId });
+                    table.ForeignKey(
+                        name: "FK_CategoryInProfiles_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryInProfiles_ProfileUsers_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "ProfileUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AmountInActions",
                 columns: table => new
                 {
@@ -269,21 +301,21 @@ namespace ArtGallery.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NewPrice = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     AuctionId = table.Column<int>(type: "int", nullable: false),
-                    ProfileUserId = table.Column<int>(type: "int", nullable: false)
+                    AccountId = table.Column<string>(type: "nvarchar(50)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AmountInActions", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_AmountInActions_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_AmountInActions_Auctions_AuctionId",
                         column: x => x.AuctionId,
                         principalTable: "Auctions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AmountInActions_ProfileUsers_ProfileUserId",
-                        column: x => x.ProfileUserId,
-                        principalTable: "ProfileUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -309,14 +341,14 @@ namespace ArtGallery.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AmountInActions_AccountId",
+                table: "AmountInActions",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AmountInActions_AuctionId",
                 table: "AmountInActions",
                 column: "AuctionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AmountInActions_ProfileUserId",
-                table: "AmountInActions",
-                column: "ProfileUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Auctions_ProductId",
@@ -328,6 +360,11 @@ namespace ArtGallery.Data.Migrations
                 name: "IX_Carts_AccountId",
                 table: "Carts",
                 column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryInProfiles_ProfileId",
+                table: "CategoryInProfiles",
+                column: "ProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Commissions_OrderId",
@@ -366,6 +403,11 @@ namespace ArtGallery.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_AccountId",
+                table: "Products",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProfileUsers_AccountId",
                 table: "ProfileUsers",
                 column: "AccountId",
@@ -382,6 +424,9 @@ namespace ArtGallery.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AmountInActions");
+
+            migrationBuilder.DropTable(
+                name: "CategoryInProfiles");
 
             migrationBuilder.DropTable(
                 name: "Commissions");
