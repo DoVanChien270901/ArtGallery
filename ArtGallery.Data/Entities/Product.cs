@@ -14,8 +14,10 @@ namespace ArtGallery.Data.Entities
         public decimal Price { get; set; }
         public bool Status { get; set; }
         public int ViewCount { get; set; }
-        public DateTime CreateDate { get; set; } 
+        public string AccountId { get; set; }
+        public DateTime CreateDate { get; set; }
         public Auction Auction { get; set; }
+        public Account Account { get; set; }
         public List<ProductInCategory> ProductInCategories { get; set; }
         public List<ProductInCart> ProductInCarts { get; set; }
         public List<ProductImage> ProductImages { get; set; }

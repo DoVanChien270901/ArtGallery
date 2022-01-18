@@ -5,15 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Catalog\ProductImages\**" />
+    <EmbeddedResource Remove="Catalog\ProductImages\**" />
+    <None Remove="Catalog\ProductImages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ArtGallery.Data\ArtGallery.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Catalog\ProductImages\" />
   </ItemGroup>
 
 </Project>

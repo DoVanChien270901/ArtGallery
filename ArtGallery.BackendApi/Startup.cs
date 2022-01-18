@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArtGallery.Application.Common;
 
 namespace ArtGallery.BackendApi
 {
@@ -33,10 +34,16 @@ namespace ArtGallery.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // fix A possible object cycle was detected 
+            services.AddControllers()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             //Declare DI
             services.AddDbContext<ArtGalleryDbContext>(op=>op.UseSqlServer(Configuration.GetConnectionString("ArtGalleryShop")));
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuctionsService, AuctionService>();
+            services.AddTransient<IStorageService, StorageService>();
 
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
@@ -120,7 +127,8 @@ namespace ArtGallery.BackendApi
             }
 
             app.UseRouting();
-
+            // use wwwroot file post/folder
+            app.UseStaticFiles();
             //
             app.UseAuthentication();
 

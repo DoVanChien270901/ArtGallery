@@ -1,5 +1,4 @@
-﻿@using ArtGallery.ViewModel.Catalog.Products;
-@model ProductModelView
+﻿@model IEnumerable<ArtGallery.Data.Entities.Product>
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Product List";
@@ -34,12 +33,11 @@
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-4">
                         <div class="dataTables_length" id="table1_length">
-                            <form asp-action="Index" asp-controller="ProductManager" method="post">
+                            <form asp-action="Index" asp-controller="ProductManager" method="get">
                                 <h6>Search by Title</h6>
                                 <input class="form-control" type="text" name="title" placeholder="Search">
                                 <div style="padding:4px;"></div>
                                 <input type="submit" value="Search" class="btn btn-success" />
-                                <span asp-validation-for="Title"></span>
                             </form>
                         </div>
                     </div>
@@ -53,42 +51,31 @@
                     <table class="table table-light mb-0">
                         <thead>
                             <tr>
-                                <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
-                                <th class="col-3">@Html.DisplayNameFor(c => c.Title)</th>
-                                <th class="col-4">@Html.DisplayNameFor(c => c.Description)</th>
-                                <th class="col-1">@Html.DisplayNameFor(c => c.Status)</th>
-                                <th class="col-1">@Html.DisplayNameFor(c => c.Price)</th>
-                                <th class="col-2">Action</th>
+                                <th class="col-2">Code</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Title)</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Price)</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Status)</th>
+                                <th class="col-4">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Products)
+                            @foreach (var item in Model)
                             {
-                            <tr>
-                                <td class="text-bold-500">@item.Id</td>
-                                <td>@item.Title</td>
-                                <td class="post">
-                                    <p class="content">@item.Description</p>
-                                    <button onclick="readMore(this)" hidden="hidden"></button>
-                                </td>
-                                <td>
-                                    @if (item.Status == false)
-                                    {
-                                        <a class="btn btn-danger">@item.Status</a>
-                                    }
-                                    else
-                                    {
-                                        <a class="btn btn-success">@item.Status</a>
-                                    }
-                                </td>
-                                <td>@item.Price</td>
-                                <td>
-                                    <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                <tr>
+                                    <td class="text-bold-500">@item.Id</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.Price</td>
+                                    <td>
+                                        @foreach (var img in item.ProductImages)
+                                        {
+                                            <img src="@Url.Content(img.ImagePath)" width="120px" alt="Alternate Text" />
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
                                         @Html.ActionLink("Delete", "Delete", "ProductManager", new { id = item.Id }, new { @class = "btn btn-danger" })
-                                    </span>
-                                    @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -117,8 +104,8 @@
                                 <a class="page-link" asp-controller="ProductManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
                             </li>
                             @*<li class="page-item">
-                            <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
-                        </li>*@
+                                    <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                                </li>*@
                         }
                     </ul>
                 }

@@ -15,69 +15,57 @@ namespace ArtGallery.AdminApp.Controllers
 {
     public class ProductManagerController : Controller
     {
-        private readonly string url = "http://localhost:5000/api/ProductsManager/";
+        private readonly string url = "http://localhost:5000/api/Products/";
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
-        public IActionResult Index(int pg = 1)
+        public IActionResult Index(string title, int pg = 1)
         {
-            var model = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url).Result);
+            IEnumerable<Product> products = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+            products = products.Where(c => c.Status == true).ToList();
+            if (title!=null)
+            {
+                products = products.Where(c => c.Title.Contains(title)).ToList();
+            }
             // Check 
             const int pageSize = 10;
             if (pg < 1)
                 pg = 1;
-            int recsCount = model.Count();
+            int recsCount = products.Count();
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
-            var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
+            var data = products.Skip(recSkip).Take(pager.PageSize).ToList();
             this.ViewBag.Pager = pager;
-            ProductModelView productModelView = new ProductModelView { Products = data };
-            return View(productModelView);
+            return View(data);
         }
-
-        [HttpPost]
-        public IActionResult Index(string title)
-        {
-            var model = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + title).Result);
-            ProductModelView productModelView = new ProductModelView { Products = model };
-            return View(productModelView);
-        }
-
-        //[HttpPost]
-        //public IActionResult Create(int Id)
-        //{
-        //    Product product = new Product { Id = Id };
-        //    var model = httpClient.PostAsJsonAsync(url, product).Result;
-        //    return RedirectToAction("Index");
-        //}
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        public IActionResult Details(int id)
+        {
+            Product signlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "GetProduct/" + id).Result);
+            return View(signlepro);
+        }
+        [HttpGet]
+        public IActionResult GetRequestUser(string title)
+        {
+            if (title != null)
+            {
+                IEnumerable<Product> productintitle = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+                return View(productintitle.Where(c => c.Status == false && c.Title.Contains(title)));
+            }
+            IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+            return View(listProducts.Where(c => c.Status == false));
+        }
+        [HttpGet]
+        public IActionResult EditStatus(int id)
+        {
+            var result = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(url + "UpdateStatus/" + id).Result);
+            return RedirectToAction("Index", "ProductManager");
+        }
+        [HttpGet]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                var model = httpClient.DeleteAsync(url + id).Result;
-                if (model.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Update(Product Code)
-        {
-            var model = httpClient.PutAsJsonAsync(url, Code).Result;
-            return RedirectToAction("Index");
+            var result = httpClient.DeleteAsync(url + "DeleteProduct/" + id).Result;
+            return RedirectToAction("Index", "ProductManager");
         }
     }
 }

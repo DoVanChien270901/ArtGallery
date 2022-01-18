@@ -13,12 +13,11 @@ namespace ArtGallery.Application.Catalog.Products
     {
         // Product
         Task<IEnumerable<Product>> GetProducts();
-        Task<IEnumerable<Product>> SearchProduct(string title);
         Task<Product> GetProduct(int productId);
         Task<bool> InsertProduct(InsertProductRequest Request);
-        Task<bool> UpdateStatus(Product productId);
+        Task<bool> UpdateStatus(int id);
         Task<bool> UpdateProduct(EditProductRequest request);
         Task<bool> DeleteProduct(int productId);
-        List<Product> ProductInCategory(string cateName);
+        Task<List<Product>> ProductInCategory(string cateName);
     }
 }

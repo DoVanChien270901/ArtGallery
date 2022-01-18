@@ -21,6 +21,8 @@ namespace ArtGallery.Data.Configurations
             builder.Property(c => c.ViewCount).HasDefaultValue(0);
             builder.Property(c => c.Price).HasColumnType("decimal(15,2)");
             builder.Property(c => c.Status).HasDefaultValue(false);
+            builder.HasOne(c => c.Account).WithMany(c => c.Products)
+                .HasForeignKey(c => c.AccountId);
         }
     }
 }
