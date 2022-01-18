@@ -30,7 +30,7 @@
             <!--main content-->
             <div class="col-sm-9 single-product" id="content">
                 <ul class="breadcrumb">
-                    <li><a asp-action="Home"><i class="fa fa-home"></i></a></li>
+                    <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
                     <li><a asp-action="AuctionRoom" asp-controller="Auctions">Auctions Room</a></li>
                 </ul>
                 <h5>Start Datetime: @ViewBag.auc.StartDateTime</h5>
@@ -56,7 +56,7 @@
                                         <tr>
                                             <td class="text-center">
                                                 <div class="image">
-                                                    <a href="single-product.html"><img class="img-thumbnail" src="~/images/note.png" width="120"></a>
+                                                    <a><img class="img-thumbnail" src="@Url.Content(ViewBag.auc.Product.ProductImages[0].ImagePath)" width="120"></a>
                                                 </div>
                                             </td>
                                             <td class="text-left">
@@ -105,7 +105,7 @@
                                         <tr>
                                             <td class="text-center">
                                                 <div class="image">
-                                                    <a><img class="img-thumbnail" src="~/images/note.png" width="120"></a>
+                                                    <a><img class="img-thumbnail" src="@Url.Content(ViewBag.auc.Product.ProductImages[0].ImagePath)" width="120"></a>
                                                 </div>
                                             </td>
                                             <td class="text-left">

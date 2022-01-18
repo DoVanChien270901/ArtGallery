@@ -17,7 +17,7 @@ namespace ArtGallery.ViewModel.Catalog.Products
                 .WithMessage("*Description is required !!");
             RuleFor(c => c.Price).NotEmpty()
                 .WithMessage("*Price is required");
-            RuleFor(c => c.Thumbnail).NotEmpty().WithMessage("*lease select thumbnail image");
+            RuleFor(c => c.Thumbnail).NotEmpty().WithMessage("*Please select thumbnail image");
             RuleFor(c => c.Images).NotEmpty().WithMessage("*Please select image");
         }
     }

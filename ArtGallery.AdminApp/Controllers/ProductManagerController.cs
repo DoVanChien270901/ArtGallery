@@ -40,6 +40,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Details(int id)
         {
             Product signlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "GetProduct/" + id).Result);
@@ -69,6 +70,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditStatus(int id)
         {
             var result = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(url + "UpdateStatus/" + id).Result);
@@ -76,6 +78,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var result = httpClient.DeleteAsync(url + "DeleteProduct/" + id).Result;

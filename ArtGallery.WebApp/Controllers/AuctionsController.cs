@@ -91,6 +91,8 @@ namespace ArtGallery.WebApp.Controllers
             Auction auction = JsonConvert.DeserializeObject<Auction>(httpClient.GetStringAsync(url + "GetAuction/" + id).Result);
             ViewBag.auc = auction;
 
+
+
             //IEnumerable<Auction> list = JsonConvert.DeserializeObject<IEnumerable<Auction>>(HttpContext.Session.GetString("listAuctions"));
             //HttpContext.Session.Remove("listAuctions");
             //list.SingleOrDefault(c => c.Id.Equals(id));

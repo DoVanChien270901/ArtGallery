@@ -2,6 +2,7 @@
 @using ArtGallery.ViewModel.Catalog.Products
 @{
     Layout = "_Layout";
+    ViewData["Title"] = "Gallery";
 }
 <!--middle content-->
 <div id="container">
@@ -11,7 +12,7 @@
             <aside class="col-sm-3 left-sidebar">
                 <div class="box category">
                     <div class="box-heading">
-                        <h3>Stores<i class="fa fa-angle-up"></i></h3>
+                        <h3>@ViewData["Title"]<i class="fa fa-angle-up"></i></h3>
                     </div>
 
                     <div class="box-content test">
@@ -25,66 +26,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="box special">
-                    <div class="box-heading">
-                        <h3>Special</h3>
-                    </div>
-                    <div class="box-content">
-                        <div class="product-layout">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <div class="product-thumb transiction">
-                                        <a class="compare-button"><i class="fa fa-retweet"></i></a>
-                                        <a class="wishlist-button"><i class="fa fa-heart-o"></i></a>
-                                        <div class="image"><a href="single-product.html"><img src="images/img1.jpg" class="img-responsive"></a></div>
-                                        <div class="caption">
-                                            <div class="product-name"><a>Texture Design</a></div>
-                                            <div class="price">
-                                                <span class="price-new">$34.90</span>
-                                                <span class="price-old">$49.50</span>
-                                            </div>
-                                        </div>
-                                        <div class="cart-button">
-                                            <a class="btn btn-add-cart" href="cart.html">
-                                                <span>
-                                                    Add to Cart
-                                                </span>
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </aside>
-            <!--end sidebar-->
+            <!--end sidebar-->>
             <!--main content-->
             <div class="col-sm-9" id="content">
                 <ul class="breadcrumb">
-                    <li><a href="home.html"><i class="fa fa-home"></i></a></li>
-                    <li><a>Stores</a></li>
+                    <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
+                    <li><a asp-action="UpdateProduct" asp-controller="ManagerStores">Update</a></li>
                 </ul>
                 <h2>Update Product</h2>
                 <form class="form-horizontal" asp-action="UpdateProduct" asp-controller="ManagerStores" method="post" enctype="multipart/form-data">
                     <fieldset id="account">
                         <div class="form-group required">
-                            <label class="col-sm-4 control-label" asp-for="Id">Id: @ViewBag.editpro.Id</label>
+                            <label class="col-sm-4 control-label">Id:</label>
+                            <div class="col-sm-8">
+                                <input readonly type="text" class="form-control" asp-for="Id" value="@ViewBag.editpro.Id">
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label class="col-sm-4 control-label">Title</label>
-                            <span asp-validation-for="Title" class="text-danger"></span>
+                            <label class="col-sm-4 control-label">Title:</label>
                             <div class="col-sm-8">
+                                <span asp-validation-for="Title" class="text-danger"></span>
                                 <input type="text" class="form-control" asp-for="Title" value="@ViewBag.editpro.Title">
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label class="col-sm-4 control-label">Description</label>
-                            <span asp-validation-for="Description" class="text-danger"></span>
+                            <label class="col-sm-4 control-label">Description:</label>
                             <div class="col-sm-8">
+                                <span asp-validation-for="Description" class="text-danger"></span>
                                 <textarea type="text" cols="40" rows="5" class="form-control" name="Description">@ViewBag.editpro.Description</textarea>
                             </div>
                         </div>
@@ -98,46 +67,53 @@
                         <div class="form-group required">
                             <label class="col-sm-4 control-label">Categories</label>
                             <span asp-validation-for="ListCategoryId" class="text-danger"></span>
-                            <div class="col-sm-8">
-                                @{
-                                    List<SelectListCate> List = ViewBag.editpro.SelectListCates as List<SelectListCate>;
-                                    for (int i = 0; i < List.Count; i++)
-                                    {
-                                        <input type="hidden" class="form-control" asp-for="@Model.Selecteds[i].Id" value="@List[i].Id">
-                                        <span>@List[i].Name</span>
-                                        <input class="form-control" asp-for="@Model.Selecteds[i].Selescted" checked="@List[i].Selescted">
-                                    }
-                                }
-                            </div>
                             <span class="text-danger">@Html.ValidationMessage("msgCate")</span>
+                            <div class="col-sm-8">
+                                <div class="form-check form-check-inline">
+                                    @{
+                                        List<SelectListCate> List = ViewBag.editpro.SelectListCates as List<SelectListCate>;
+                                        for (int i = 0; i < List.Count; i++)
+                                        {
+                                            <input type="hidden" class="form-control" asp-for="@Model.Selecteds[i].Id" value="@List[i].Id">
+                                            @*<span>@List[i].Name</span>*@
+                                            <input class="form-check-input" type="checkbox" asp-for="@Model.Selecteds[i].Selescted" checked="@List[i].Selescted">
+                                            <label style="font-weight:500; padding:2px;" class="form-check-label" for="inlineCheckbox1">@List[i].Name</label>
+                                            <br />
+                                        }
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <ul class="thumbnails list-unstyled">
-                            @{
+                        <div class="form-group required">
+                           @{
                                 foreach (var item in ViewBag.editpro.Images)
                                 {
-                                    if (item.Thumbnail == true)
-                                    {
-                                        <li class="main-image-set"><a class="thumbnail"><img src="@Url.Content(item.ImagePath)" class="changeimg"></a></li>
-                                    }
-                                    else if (item.Thumbnail == false)
-                                    {
-                                        <li class="image-additional"><a class="thumbnail"> <img class="galleryimg" src="@Url.Content(item.ImagePath)"></a></li>
-                                    }
+                                    <div class="col-sm-6">
+                                        @if (item.Thumbnail == true)
+                                        {
+                                        <img src="@Url.Content(item.ImagePath)" style="width:280px; height:auto;" class="changeimg">
+                                        }
+
+                                        else if (item.Thumbnail == false)
+                                        {
+                                        <img src="@Url.Content(item.ImagePath)" style="width:280px; height:auto;" class="changeimg">
+                                        }
+                                    </div>
                                 }
                             }
-                        </ul>
+                         </div>
                         <div class="form-group required">
                             <label class="col-sm-4 control-label">Thumbnail</label>
-                            <span asp-validation-for="Thumbnail" class="text-danger"></span>
                             <div class="col-sm-8">
+                                <span asp-validation-for="Thumbnail" class="text-danger"></span>
                                 <input type="file" class="form-control" asp-for="Thumbnail">
                             </div>
-                            <div class="form-group required">
-                                <label class="col-sm-4 control-label">Images</label>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Images</label>
+                            <div class="col-sm-8">
                                 <span asp-validation-for="Images" class="text-danger"></span>
-                                <div class="col-sm-8">
-                                    <input type="file" class="form-control" asp-for="Images" multiple="multiple">
-                                </div>
+                                <input type="file" class="form-control" asp-for="Images" multiple="multiple">
                             </div>
                         </div>
                     </fieldset>

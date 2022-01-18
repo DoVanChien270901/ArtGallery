@@ -29,26 +29,30 @@ namespace ArtGallery.WebApp.Controllers
             ViewBag.products = listProducts.Where(c => c.AccountId == UserId).ToList();
             return View();
         }
+
         [HttpGet]
         public IActionResult DeleteProduct(int id)
         {
             var result = httpClient.DeleteAsync(url + "Products/DeleteProduct/" + id).Result;
             return RedirectToAction("GetProduct", "ManagerStores");
         }
+
         [HttpGet]
+        [Authorize(Roles = "User")]
         public IActionResult CreateProduct()
         {
             List<SelectListCate> Cate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager").Result);
 
             return View(new InsertProductRequest { Selecteds = Cate });
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromForm] InsertProductRequest request)
         {
             var cateid = request.Selecteds.Where(c => c.Selescted == true).ToList();
             if (cateid.Count == 0)
             {
-                ModelState.AddModelError("msgCate", "Please indicate which category the product in category");
+                ModelState.AddModelError("msgCate", "*Please indicate which category the product in category");
                 List<SelectListCate> Cate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager").Result);
 
                 return View(new InsertProductRequest { Selecteds = Cate });
@@ -59,6 +63,7 @@ namespace ArtGallery.WebApp.Controllers
 
                 return View(new InsertProductRequest { Selecteds = Cate });
             }
+
             //Get use id
             string UserId = "";
             foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
@@ -163,7 +168,7 @@ namespace ArtGallery.WebApp.Controllers
             var cateid = request.Selecteds.Where(c => c.Selescted == true).ToList();
             if (cateid.Count == 0)
             {
-                ModelState.AddModelError("msgCate", "Please indicate which category the product in category");
+                ModelState.AddModelError("msgCate", "*Please indicate which category the product in category");
                 return View();
             }
 

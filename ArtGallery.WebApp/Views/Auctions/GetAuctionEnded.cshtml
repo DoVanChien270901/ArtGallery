@@ -1,6 +1,6 @@
 ﻿@using ArtGallery.Data.Entities
 @{
-    ViewData["Title"] = "Auction Ended";
+    ViewData["Title"] = "Auction";
     Layout = "_Layout";
     Pager pager = new Pager();
     int pageNo = 0;
@@ -35,7 +35,7 @@
             <!--main content-->
             <div class="col-sm-9" id="content">
                 <ul class="breadcrumb">
-                    <li><a asp-action="Home"><i class="fa fa-home"></i></a></li>
+                    <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
                     <li><a asp-action="GetAuctionEnded" asp-controller="Auctions">Auctions Ended</a></li>
                 </ul>
                 @if (ViewBag.aucEnded.Count != 0)
@@ -46,7 +46,7 @@
                             <div class="product-layout product-list col-xs-12">
                                 <div class="product-thumb">
                                     <div class="image">
-                                        <a><img class="img-responsive" src="~/images/note.png"></a>
+                                        <a><img class="img-responsive" src="@Url.Content(item.Product.ProductImages[0].ImagePath)"></a>
                                     </div>
                                     <div>
                                         <div class="caption">
@@ -73,7 +73,7 @@
                 }
                 else
                 {
-                    <h4>There Are No Auction Rooms Available !!!</h4>
+                    <h4>There Are No Auction Rooms Available !</h4>
                 }
             </div>
             <!--end main content-->

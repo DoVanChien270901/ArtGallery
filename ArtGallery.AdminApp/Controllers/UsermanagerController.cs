@@ -117,6 +117,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Details(string name)
         {
             try
