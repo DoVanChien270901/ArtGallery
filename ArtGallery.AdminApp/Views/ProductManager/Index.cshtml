@@ -21,7 +21,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">@Html.ActionLink("Dashboard", "Index", "Home")</li>
-                        <li class="breadcrumb-item active" aria-current="page">Product</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
                     </ol>
                 </nav>
             </div>
@@ -51,31 +51,49 @@
                     <table class="table table-light mb-0">
                         <thead>
                             <tr>
-                                <th class="col-2">Code</th>
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
                                 <th class="col-2">@Html.DisplayNameFor(c => c.Title)</th>
-                                <th class="col-2">@Html.DisplayNameFor(c => c.Price)</th>
-                                <th class="col-2">@Html.DisplayNameFor(c => c.Status)</th>
-                                <th class="col-4">Action</th>
+                                <th class="col-2">@Html.DisplayNameFor(c => c.Description)</th>
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Price)</th>
+                                <th class="col-1">@Html.DisplayNameFor(c => c.Status)</th>
+                                <th class="col-2">Image</th>
+                                <th class="col-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                           @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td class="text-bold-500">@item.Id</td>
-                                    <td>@item.Title</td>
-                                    <td>@item.Price</td>
-                                    <td>
-                                        @foreach (var img in item.ProductImages)
-                                        {
-                                            <img src="@Url.Content(img.ImagePath)" width="120px" alt="Alternate Text" />
-                                        }
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
+                            <tr>
+                                <td class="text-bold-500">@item.Id</td>
+                                <td>@item.Title</td>
+                                <td class="post">
+                                    <p class="content">@item.Description</p>
+                                    <button onclick="readMore(this)" hidden="hidden"></button>
+                                </td>
+                                <td>@item.Price</td>
+                                <td>
+                                    @if (item.Status == false)
+                                    {
+                                        <button class="btn btn-danger">@item.Status</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-success">@item.Status</button>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var img in item.ProductImages)
+                                    {
+                                        <img src="@Url.Content(img.ImagePath)" style="width:100px; height:auto;" alt="Alternate Text" />
+                                    }
+                                </td>
+                                <td>
+                                    <span onclick="return confirm('Are you sure want to delete this data ?')">
                                         @Html.ActionLink("Delete", "Delete", "ProductManager", new { id = item.Id }, new { @class = "btn btn-danger" })
-                                    </td>
-                                </tr>
+                                    </span>
+                                    @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -104,8 +122,8 @@
                                 <a class="page-link" asp-controller="ProductManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
                             </li>
                             @*<li class="page-item">
-                                    <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
-                                </li>*@
+                                <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                            </li>*@
                         }
                     </ul>
                 }
@@ -114,7 +132,7 @@
     </section>
 </div>
 <script>
-    let noOfCharac = 40;
+    let noOfCharac = 20;
     let contents = document.querySelectorAll(".content");
     contents.forEach(content => {
         //If text length is less that noOfCharac... then hide the read more button

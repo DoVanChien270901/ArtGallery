@@ -36,14 +36,24 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string name)
+        public IActionResult Index(string name, int pg = 1)
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(url + name).Result);
-            CategoryModelView categoryModelView = new CategoryModelView { Categories = model };
+            // Check 
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            CategoryModelView categoryModelView = new CategoryModelView { Categories = data };
             return View(categoryModelView);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(CategoryModelView category)
         {
             Category cate = new Category { Name = category.Name , Description = category.Description};

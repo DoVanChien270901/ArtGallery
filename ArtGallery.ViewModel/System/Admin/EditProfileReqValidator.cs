@@ -11,9 +11,9 @@ namespace ArtGallery.ViewModel.System.Admin
     {
         public EditProfileReqValidator()
         {
-            RuleFor(p=>p.FullName).NotEmpty().WithMessage("FullName is required");
-            RuleFor(p => p.Gender).NotEmpty().WithMessage("Gender is required");
-            RuleFor(p => p.Address).NotEmpty().WithMessage("Address is required");
+            RuleFor(p=>p.FullName).NotEmpty().WithMessage("*FullName is required");
+            RuleFor(p => p.Gender).NotEmpty().WithMessage("*Gender is required");
+            RuleFor(p => p.Address).NotEmpty().WithMessage("*Address is required");
         }
     }
 }

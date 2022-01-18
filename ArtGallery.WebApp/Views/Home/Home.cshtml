@@ -101,7 +101,7 @@
                                         <a class="compare-button"><i class="fa fa-retweet"></i></a>
                                         <a class="wishlist-button"><i class="fa fa-heart-o"></i></a>
                                         <div class="image">
-                                            <a asp-action="Detail" asp-controller="Products" asp-route-id="@item.Id"><img href="@Url.Content(item.ProductImages[0].ImagePath)" src="@Url.Content(item.ProductImages[0].ImagePath)" @*class="img-responsive"*@></a>
+                                            <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id"><img href="@Url.Content(item.ProductImages[0].ImagePath)" src="@Url.Content(item.ProductImages[0].ImagePath)" @*class="img-responsive"*@></a>
                                         </div>
                                         <div class="caption">
                                             <div class="product-name"><a asp-action="Detail" asp-controller="Products" asp-route-id="@item.Id">@item.Title</a></div>

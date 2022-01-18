@@ -1,5 +1,6 @@
 using ArtGallery.Application.Common;
 using ArtGallery.ViewModel.Catalog.Auctions;
+using ArtGallery.ViewModel.Catalog.Products;
 using ArtGallery.ViewModel.System.Users;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -41,6 +42,8 @@ namespace ArtGallery.WebApp
                     fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<InsertAmountInAuctionRequestValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<InsertProductValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<EditProductValidator>();
                     });
             //
             services.AddSession();

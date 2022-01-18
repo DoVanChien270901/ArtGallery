@@ -19,6 +19,7 @@ namespace ArtGallery.Application.Common
         {
             _config = config;
         }
+
         public ClaimsPrincipal ValidateToken(string jwtToken)
         {
             IdentityModelEventSource.ShowPII = true;

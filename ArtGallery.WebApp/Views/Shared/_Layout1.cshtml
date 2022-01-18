@@ -84,7 +84,7 @@
             <div class="container">
                 <div class="leftside">
                     <div class="logo">
-                        <a asp-action="Home" asp-controller="Home"><img src="~/images/logo3.png" alt="art-design" class="img-responsive" width="150" /></a>
+                        <a asp-action="Home" asp-controller="Home"><img src="~/images/logo3.png" alt="art-design" class="img-responsive" width="140" /></a>
                     </div>
                 </div>
                 <div class="rightside">
@@ -113,7 +113,7 @@
                                 <div class="collapse navbar-collapse" id="myNavbar">
                                     <ul class="nav navbar-nav">
                                         <li class="active"><a asp-action="Home">Home</a></li>
-                                        <li><a asp-action="Index" asp-controller="Product">Gallery</a></li>
+                                        <li><a asp-action="GetProduct" asp-controller="ManagerStores">Stores</a></li>
                                         <li><a asp-action="GetAuctionGoing" asp-controller="Auctions">Auctions</a></li>
                                         <li>@Html.ActionLink("About Us", "AboutUs", "Home")</li>
                                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

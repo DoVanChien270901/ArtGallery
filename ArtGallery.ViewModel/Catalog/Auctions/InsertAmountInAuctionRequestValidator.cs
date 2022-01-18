@@ -17,9 +17,9 @@ namespace ArtGallery.ViewModel.Catalog.Auctions
             When(c => c.NewPrice < c.LowestPrice, () =>
             {
                 RuleFor(c => c.NewPrice).NotEqual(0)
-                .WithMessage("Please give your price number");
+                .WithMessage("*Please give your price number");
                 RuleFor(c=>c.NewPrice).GreaterThan(c=>c.LowestPrice)
-                .WithMessage("Please give an amount greater than the lowest amount");
+                .WithMessage("*Please give an amount greater than the lowest amount");
             });
         }
     }

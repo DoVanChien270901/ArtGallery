@@ -15,11 +15,13 @@ namespace ArtGallery.Application.Catalog.Products
         {
             this.context = context;
         }
+
         // Get Product Image
         public async Task<ProductImage> GetProductImage(int Id)
         {
             return context.ProductImages.SingleOrDefault(c => c.Id.Equals(Id));
         }
+
         // Get Product Images
         public async Task<IEnumerable<ProductImage>> GetProductImages()
         {

@@ -1,7 +1,7 @@
 @using ArtGallery.ViewModel.System.Admin;
 @model CategoryModelView
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout";
     ViewData["Title"] = "Category List";
     Pager pager = new Pager();
     int pageNo = 0;
@@ -22,7 +22,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">@Html.ActionLink("Dashboard", "Index", "Home")</li>
-                        <li class="breadcrumb-item active" aria-current="page">Category</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
                     </ol>
                 </nav>
             </div>
@@ -66,9 +66,9 @@
                         <thead>
                             <tr>
                                 <th class="col-1">@Html.DisplayNameFor(c => c.Id)</th>
-                                <th class="col-2">@Html.DisplayNameFor(c => c.Name)</th>
-                                <th class="col-6">@Html.DisplayNameFor(c => c.Description)</th>
-                                <th class="col-2">Action</th>
+                                <th class="col-3">@Html.DisplayNameFor(c => c.Name)</th>
+                                <th class="col-5">@Html.DisplayNameFor(c => c.Description)</th>
+                                <th class="col-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,11 +107,9 @@
                         }
                         @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
                         {
-
                             <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
                                 <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@pge">@pge</a>
                             </li>
-
                         }
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
@@ -119,8 +117,8 @@
                                 <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
                             </li>
                             @*<li class="page-item">
-                                    <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
-                                </li>*@
+                                <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                            </li>*@
                         }
                     </ul>
                 }
@@ -128,7 +126,6 @@
         </div>
     </section>
 </div>
-
 <script>
     let noOfCharac = 40;
     let contents = document.querySelectorAll(".content");
@@ -148,25 +145,24 @@
         let post = btn.parentElement;
     }
 </script>
-
-<script>
-//    function myFunction() {
-//        Swal.fire({
-//            title: 'Are you sure?',
-//            text: "You won't be able to revert this!",
-//            icon: 'warning',
-//            showCancelButton: true,
-//            confirmButtonColor: '#3085d6',
-//            cancelButtonColor: '#d33',
-//            confirmButtonText: 'Yes, delete it!'
-//        }).then((result) => {
-//            if (result.isConfirmed) {
-//                Swal.fire(
-//                    'Deleted!',
-//                    'Your file has been deleted.',
-//                    'success'
-//                )
-//            }
-//        })
-//}
-</script>
+@*<script>
+    function myFunction() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+}
+</script>*@

@@ -11,10 +11,10 @@ namespace ArtGallery.ViewModel.Catalog.Auctions
     {
         public CreateAuctionRequestValidator()
         {
-            RuleFor(c => c.CurrentPrice).NotNull().WithMessage("Current price is required");
-            RuleFor(c => c.PriceStep).NotNull().WithMessage("Price Step is required");
-            RuleFor(c => c.NewPrice).NotNull().WithMessage("New price is required")
-                .When(c=>c.NewPrice>= (c.CurrentPrice + c.PriceStep)).WithMessage("Please give the amount larger than the minimum price");
+            RuleFor(c => c.CurrentPrice).NotNull().WithMessage("*Current Price is required");
+            RuleFor(c => c.PriceStep).NotNull().WithMessage("*Price Step is required");
+            RuleFor(c => c.NewPrice).NotNull().WithMessage("*New Price is required")
+                .When(c=>c.NewPrice>= (c.CurrentPrice + c.PriceStep)).WithMessage("*Please give the amount larger than the minimum price");
         }
     }
 }

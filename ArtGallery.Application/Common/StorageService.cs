@@ -8,7 +8,6 @@ namespace ArtGallery.Application.Common
     {
         private readonly string _userContentFolder;
         private readonly string USER_CONTENT_FOLDER_NAME = "use-content";
-
         public StorageService(IWebHostEnvironment webHostEnvironment)
         {
             _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, USER_CONTENT_FOLDER_NAME);

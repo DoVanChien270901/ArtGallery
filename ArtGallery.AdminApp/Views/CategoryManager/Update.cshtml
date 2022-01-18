@@ -6,7 +6,7 @@
 }
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Update Category</h4>
+        <h4 class="card-title">@ViewData["Title"]</h4>
     </div>
     <div class="card-content">
         <div class="card-body">
@@ -14,23 +14,24 @@
                 <div class="form-body">
                     <div class="row col-md-10 center-block">
                         <div class="col-md-4">
-                            <label class="font-bold">@Html.DisplayNameFor(c=>c.Id)</label>
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.Id):</label>
                         </div>
                         <div class="col-md-8 form-group">
                             <input type="text" class="form-control" asp-for="Id" readonly="readonly">
                         </div>
                         <div class="col-md-4">
-                            <label class="font-bold">@Html.DisplayNameFor(c => c.Name)</label>
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.Name):</label>
                         </div>
                         <div class="col-md-8 form-group">
-                            <input type="text" asp-for="Name" class="form-control" >
-                        </div>
+                            <input type="text" asp-for="Name" class="form-control">
+                        </div>    
                         <div class="col-md-4">
-                            <label class="font-bold">@Html.DisplayNameFor(c => c.Description)</label>
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.Description):</label>
                         </div>
                         <div class="col-md-8 form-group">
-                            <textarea class="form-control" asp-for="Description" rows="3" style="height: 350px;"></textarea>
+                            <textarea class="form-control" asp-for="Description" rows="3" style="height: 300px;"></textarea>
                         </div>
+                        <div class="col-md-1"></div>
                         <div class="col-sm-12 d-flex justify-content-end">
                             <input type="submit" class="btn btn-success" value="Save">&nbsp;&nbsp;
                             <span onclick="return confirm('Are you sure want to delete this data ?')">

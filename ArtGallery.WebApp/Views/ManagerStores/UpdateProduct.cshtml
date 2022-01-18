@@ -85,7 +85,7 @@
                             <label class="col-sm-4 control-label">Description</label>
                             <span asp-validation-for="Description" class="text-danger"></span>
                             <div class="col-sm-8">
-                                <textarea type="text" cols="40" rows="5" class="form-control" name="description">@ViewBag.editpro.Description</textarea>
+                                <textarea type="text" cols="40" rows="5" class="form-control" name="Description">@ViewBag.editpro.Description</textarea>
                             </div>
                         </div>
                         <div class="form-group required">
@@ -109,6 +109,7 @@
                                     }
                                 }
                             </div>
+                            <span class="text-danger">@Html.ValidationMessage("msgCate")</span>
                         </div>
                         <ul class="thumbnails list-unstyled">
                             @{

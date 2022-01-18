@@ -17,6 +17,7 @@ namespace ArtGallery.Application.Catalog.Auctions
         {
             _db = db;
         }
+
         // Get All Auctions
         public async Task<IEnumerable<Auction>> GetAllAuctions()
         {
@@ -41,6 +42,7 @@ namespace ArtGallery.Application.Catalog.Auctions
             //listAuctions = listAuctions.OrderByDescending(c=>c.AmountInAcctions.Max(c=>c.NewPrice)).First();
             return listAuctions;
         }
+
         // Insert Amount
         public async Task<bool> InsertAmount(InsertAmountInAuctionRequest request)
         {
@@ -53,6 +55,7 @@ namespace ArtGallery.Application.Catalog.Auctions
             await _db.SaveChangesAsync();
             return true;
         }
+
         // Get Auction By Id
         public async Task<Auction> GetAuctionById(int Id)
         {
@@ -109,6 +112,7 @@ namespace ArtGallery.Application.Catalog.Auctions
                     };
             return auction.First();
         }
+
         // Delete Auction
         public async Task<bool> DeleteAuction(int Id)
         {
@@ -118,6 +122,7 @@ namespace ArtGallery.Application.Catalog.Auctions
             await _db.SaveChangesAsync();
             return true;
         }
+
         // Update Auction
         public async Task<bool> UpdateAuction(UpdateAuctionRequest request)
         {
@@ -130,6 +135,7 @@ namespace ArtGallery.Application.Catalog.Auctions
             await _db.SaveChangesAsync();
             return true;
         }
+
         // WinnerInformation
         public async Task<ProfileUser> WinnerInformation(int aucId)
         {

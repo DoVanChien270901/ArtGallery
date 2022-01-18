@@ -28,33 +28,26 @@ namespace ArtGallery.AdminApp.Controllers
             // Check
             const int pageSize = 6;
             const int pageSize2 = 6;
-            //
             if (pg < 1)
                 pg = 1;
-            //
             int recsCount = aucNotover.Count();
             int recsCount2 = aucEnded.Count();
-            //
             var pager = new Pager(recsCount, pg, pageSize);
             var pager2 = new Pager(recsCount2, pg, pageSize2);
-            //
             int recSkip = (pg - 1) * pageSize;
             int recSkip2 = (pg - 1) * pageSize2;
-            //
             var data = aucNotover.Skip(recSkip).Take(pager.PageSize).ToList();
             var data2 = aucEnded.Skip(recSkip2).Take(pager2.PageSize).ToList();
-            //
             this.ViewBag.Pager = pager;
             this.ViewBag.Pager = pager2;
-            //
             this.ViewBag.aucNotover = data;
             this.ViewBag.aucEnded = data2;
             //ViewBag.aucGoing = listAuctions.Where(c => c.StartDateTime < DateTime.Now && c.EndDateTime > DateTime.Now).ToList();  
             return View();
-        }
+        }  
 
-        [Authorize(Roles = "Admin")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             try
@@ -75,7 +68,7 @@ namespace ArtGallery.AdminApp.Controllers
             }
             return View();
         }
-      
+        
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult Update(int id)

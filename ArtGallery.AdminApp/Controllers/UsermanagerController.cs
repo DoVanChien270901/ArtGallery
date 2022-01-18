@@ -56,7 +56,7 @@ namespace ArtGallery.AdminApp.Controllers
         }
        
         [HttpPost]
-        public IActionResult Index(string name)
+        public IActionResult Index(string name, int pg = 1)
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Account>>(httpClient.GetStringAsync(url + "searchbyName/" + name).Result);
             List<UserModelView> userModelView = new List<UserModelView>();
@@ -82,7 +82,15 @@ namespace ArtGallery.AdminApp.Controllers
                 };
                 userModelView.Add(view);
             }
-            return View(userModelView);
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = userModelView.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
         }
 
         [HttpGet]
@@ -108,6 +116,7 @@ namespace ArtGallery.AdminApp.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Details(string name)
         {
             try

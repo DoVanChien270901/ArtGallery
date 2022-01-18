@@ -96,6 +96,7 @@ namespace ArtGallery.Application.Catalog.Products
             return false;
         }
 
+        // Get Product
         public async Task<Product> GetProduct(int productId)
         {
             Product product = await context.Products.FirstOrDefaultAsync(c => c.Id.Equals(productId));
@@ -120,29 +121,30 @@ namespace ArtGallery.Application.Catalog.Products
         public async Task<IEnumerable<Product>> GetProducts()
         {
             //get all product and thumbnail
-            IEnumerable<Product> model = (from pro in context.Products
-                                          join img in context.ProductImages on pro.Id equals img.ProductId
-                                          where img.Thumbnail == true
-                                          select new Product
-                                          {
-                                              Id = pro.Id,
-                                              Title = pro.Title,
-                                              Description = pro.Description,
-                                              Price = pro.Price,
-                                              Status = pro.Status,
-                                              ViewCount = pro.ViewCount,
-                                              CreateDate = pro.CreateDate,
-                                              AccountId = pro.AccountId,
-                                              ProductImages = new List<ProductImage>
-                                                {
-                                                    new ProductImage
-                                                    {
-                                                        Caption = img.Caption,
-                                                        ImagePath = img.ImagePath,
-                                                        Thumbnail = img.Thumbnail
-                                                    }
-                                                }
-                                          }).ToList();
+            IEnumerable<Product> model = (
+                from pro in context.Products
+                join img in context.ProductImages on pro.Id equals img.ProductId
+                where img.Thumbnail == true
+                select new Product
+                {
+                    Id = pro.Id,
+                    Title = pro.Title,
+                    Description = pro.Description,
+                    Price = pro.Price,
+                    Status = pro.Status,
+                    ViewCount = pro.ViewCount,
+                    CreateDate = pro.CreateDate,
+                    AccountId = pro.AccountId,
+                    ProductImages = new List<ProductImage>
+                    {
+                        new ProductImage
+                        {
+                            Caption = img.Caption,
+                            ImagePath = img.ImagePath,
+                            Thumbnail = img.Thumbnail
+                        }
+                    }
+                }).ToList();
 
             foreach (var item in model)
             {
@@ -159,9 +161,9 @@ namespace ArtGallery.Application.Catalog.Products
             //        item.ProductImages=listimg;
             //    }  
             //}
-
             return model;
         }
+
         // Insert Product
         public async Task<bool> InsertProduct(InsertProductRequest request)
         {
@@ -218,6 +220,8 @@ namespace ArtGallery.Application.Catalog.Products
             }
             return true;
         }
+
+        // Update status
         public async Task<bool> UpdateStatus(int id)
         {
             var model = context.Products.SingleOrDefault(c => c.Id.Equals(id));
@@ -243,7 +247,8 @@ namespace ArtGallery.Application.Catalog.Products
                 model.CreateDate = DateTime.Now;
             }
             await context.SaveChangesAsync();
-            // product thumbnail
+
+            // Product thumbnail
 
             if (request.Thumbnail != null)
             {
@@ -259,7 +264,8 @@ namespace ArtGallery.Application.Catalog.Products
                 context.ProductImages.Update(productthumbnail);
                 await context.SaveChangesAsync();
             }
-            //product image
+
+            // Product image
             if (request.Images != null)
             {
                 List<ProductImage> productimg = context.ProductImages.Where(c => c.Thumbnail == false && c.ProductId == model.Id).ToList();
@@ -284,7 +290,8 @@ namespace ArtGallery.Application.Catalog.Products
                 }
                 await context.SaveChangesAsync();
             }
-            //update cate
+
+            // Update cate
             if (request.ListCategoryId != null)
             {
                 List<ProductInCategory> productincate = context.ProductInCategories.Where(c => c.ProductId == model.Id).ToList();
@@ -303,10 +310,11 @@ namespace ArtGallery.Application.Catalog.Products
                     context.ProductInCategories.Add(proincate);
                     await context.SaveChangesAsync();
                 }
-
             }
             return true;
         }
+
+        // Save File
         private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');

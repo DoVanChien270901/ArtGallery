@@ -15,6 +15,7 @@ namespace ArtGallery.Application.Catalog.Categories
         {
             this.context = context;
         }
+
         // Delete Category
         public async Task<bool> DeleteCategory(int cateid)
         {
@@ -27,16 +28,19 @@ namespace ArtGallery.Application.Catalog.Categories
             }
             return false;
         }
+
         // Get Categories
         public async Task<IEnumerable<Category>> GetCategories()
         {
             return context.Categories.ToList();
         }
+
         // Get Category
         public async Task<Category> GetCategory(int cateid)
         {
             return context.Categories.SingleOrDefault(c => c.Id.Equals(cateid));
         }
+
         // Insert Category
         public async Task<bool> InsertCategory(Category category)
         {

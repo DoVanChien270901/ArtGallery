@@ -45,7 +45,7 @@ namespace ArtGallery.WebApp.Controllers
                 var userPrincipal = _function.ValidateToken(token);
                 var authProperties = new AuthenticationProperties
                 {
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddSeconds(120),
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
                     IsPersistent = false
                 };
                 await HttpContext.SignInAsync(
@@ -81,7 +81,7 @@ namespace ArtGallery.WebApp.Controllers
                 var userPrincipal = _function.ValidateToken(token);
                 var authProperties = new AuthenticationProperties
                 {
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddSeconds(120),
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
                     IsPersistent = false
                 };
                 await HttpContext.SignInAsync(

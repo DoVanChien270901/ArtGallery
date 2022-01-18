@@ -77,6 +77,5 @@ namespace ArtGallery.Application.System.Admin
             }
             return false;
         }
-
     }
 }

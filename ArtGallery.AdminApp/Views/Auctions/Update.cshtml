@@ -1,51 +1,59 @@
 ﻿@model ArtGallery.ViewModel.Catalog.Auctions.UpdateAuctionRequest
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Update Auction";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<form asp-action="Update" asp-controller="Auctions" method="post">
-    <div class="row">
-        <div class="col-sm-10"><h2>@ViewData["Title"]</h2></div>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">@ViewData["Title"]</h4>
     </div>
-    <br />
-    <div class="form-group">
-        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Room Id</label>
-        <div class="col-xs-8">
-            <input readonly asp-for="Id" type="text" class="form-control">
+    <div class="card-content">
+        <div class="card-body">
+            <form class="form form-horizontal" asp-action="Update" asp-controller="Auctions" method="post">
+                <div class="form-body">
+                    <div class="row col-md-10 center-block">
+                        <div class="col-md-4">
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.Id):</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input class="form-control" asp-for="Id" readonly="readonly">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.StartingPrice):</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input type="text" asp-for="StartingPrice" class="form-control">
+                            <span asp-validation-for="StartingPrice" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.PriceStep):</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input type="text" asp-for="PriceStep" class="form-control">
+                            <span asp-validation-for="PriceStep" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.StartDateTime):</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input type="datetime-local" asp-for="StartDateTime" class="form-control">
+                            <span asp-validation-for="StartDateTime" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-bold">@Html.DisplayNameFor(c => c.EndDateTime):</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input type="datetime-local" asp-for="EndDateTime" class="form-control">
+                            <span asp-validation-for="EndDateTime" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-sm-12 d-flex justify-content-end">
+                            <input type="submit" class="btn btn-success" value="Save">&nbsp;&nbsp;
+                            @Html.ActionLink("Back To List", "GetAll", "Auctions", null, new { @class = "btn btn-secondary" })
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Starting Price</label>
-        <div class="col-xs-8">
-            <input asp-for="StartingPrice" type="number" class="form-control">
-            <span asp-validation-for="StartingPrice" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Price Step</label>
-        <div class="col-xs-8">
-            <input asp-for="PriceStep" type="number" class="form-control">
-            <span asp-validation-for="PriceStep" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">Start DateTime</label>
-        <div class="col-xs-8">
-            <input asp-for="StartDateTime" class="form-control">
-            <span asp-validation-for="StartDateTime" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label" style="font-size: 20px; font-weight: 700;">End DateTime</label>
-        <div class="col-xs-8">
-            <input asp-for="EndDateTime" class="form-control">
-            <span asp-validation-for="EndDateTime" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-xs-12">
-            <br />
-            <button class="btn btn-lg btn-success" type="submit">Save</button>
-        </div>
-    </div>
-</form>
+</div>

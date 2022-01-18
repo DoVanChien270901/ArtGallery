@@ -1,6 +1,7 @@
 ﻿@using ArtGallery.ViewModel.System.Admin;
 @model IEnumerable<UserModelView>
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "User List";
     Pager pager = new Pager();
     int pageNo = 0;
@@ -21,7 +22,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">@Html.ActionLink("Dashboard", "Index", "Home")</li>
-                        <li class="breadcrumb-item active" aria-current="page">User</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
                     </ol>
                 </nav>
             </div>
@@ -133,7 +134,6 @@
         </div>
     </section>
 </div>
-
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-<script src="assets/js/mazer.js"></script>
+<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script src="~/assets/js/mazer.js"></script>

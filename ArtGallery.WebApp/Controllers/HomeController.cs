@@ -32,10 +32,11 @@ namespace ArtGallery.WebApp.Controllers
             IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
             return View(listProducts.Where(c => c.Status == true));
         }
-
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Detail(int id)
         {
-            return View();
+            Product signlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "GetProduct/" + id).Result);
+            return View(signlepro);
         }
 
         public IActionResult AboutUs()

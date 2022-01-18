@@ -8,14 +8,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Profile</h3>
+                <h3>@ViewData["Title"]</h3>
                 <p class="text-subtitle text-muted">For admin to check they list</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">@Html.ActionLink("Dashboard", "Index", "Home")</li>
-                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
                     </ol>
                 </nav>
             </div>
@@ -35,24 +35,12 @@
                             <div class="col-md-6">
                                 <div class="profile-head">
                                     <div style="padding:4px;"></div>
-                                    <h5><i class="bi bi-person"></i> @Model.AccountId</h5>
-                                    <div style="padding:4px;"></div>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                                        </li>
-                                    </ul>
-                                    <div style="padding:4px;"></div>
+                                    <h5>@Model.AccountId</h5>
+                                    @Html.ActionLink("Edit Profile", "Edit", "Usermanager", new { name = Model.AccountId }, new { @class = "profile-edit-btn" })&nbsp; | &nbsp;
+                                    @Html.ActionLink("Back To List", "Index", "Usermanager", null, new { @class = "profile-edit-btn" })
                                 </div>
                             </div>
-                            <div style="padding:4px;"></div>
-                            <div class="col-md-2">
-                                @Html.ActionLink("Edit Profile", "Edit", "Usermanager", new { name = Model.AccountId }, new { @class = "profile-edit-btn" })
-                            </div>
-                            <div style="padding:2px;"></div>
+                            <div class="col-md-2"></div>
                         </div>
                         <br />
                         <div class="row">
@@ -68,7 +56,7 @@
                             @*<div class="col-md"></div>*@
                             <div class="col-md-8">
                                 <div class="tab-content profile-tab" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="padding:5.4px; margin-top:4px;">
+                                    <div class="tab-pane fade show active" role="tabpanel" style="padding:3px; margin-top:6px;">
                                         <div class="row">
                                             <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                                                 <label><strong>Full Name:</strong></label>
@@ -126,7 +114,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    @*<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Experience</label>
@@ -173,7 +161,7 @@
                                                 <p>Your detail description</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>
@@ -183,6 +171,6 @@
         </div>
     </section>
 </div>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-<script src="assets/js/mazer.js"></script>
+<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script src="~/assets/js/mazer.js"></script>

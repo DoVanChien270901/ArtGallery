@@ -23,7 +23,7 @@ namespace ArtGallery.AdminApp.Controllers
         {
             IEnumerable<Product> products = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
             products = products.Where(c => c.Status == true).ToList();
-            if (title!=null)
+            if (title != null)
             {
                 products = products.Where(c => c.Title.Contains(title)).ToList();
             }
@@ -38,14 +38,16 @@ namespace ArtGallery.AdminApp.Controllers
             this.ViewBag.Pager = pager;
             return View(data);
         }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
             Product signlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "GetProduct/" + id).Result);
             return View(signlepro);
         }
+
         [HttpGet]
-        public IActionResult GetRequestUser(string title)
+        public IActionResult GetRequestUser(string title, int pg = 1)
         {
             if (title != null)
             {
@@ -53,14 +55,26 @@ namespace ArtGallery.AdminApp.Controllers
                 return View(productintitle.Where(c => c.Status == false && c.Title.Contains(title)));
             }
             IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
-            return View(listProducts.Where(c => c.Status == false));
+            var checkList = listProducts.Where(c => c.Status == false);
+            // Check 
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = checkList.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = checkList.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
         }
+
         [HttpGet]
         public IActionResult EditStatus(int id)
         {
             var result = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(url + "UpdateStatus/" + id).Result);
             return RedirectToAction("Index", "ProductManager");
         }
+
         [HttpGet]
         public IActionResult Delete(int id)
         {

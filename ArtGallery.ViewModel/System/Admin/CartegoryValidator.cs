@@ -13,9 +13,9 @@ namespace ArtGallery.ViewModel.System.Admin
         public CartegoryValidator()
         {
             RuleFor(c => c.Name).NotNull()
-                .WithMessage("Name is requred !!")
+                .WithMessage("*Name is requred")
                 .MaximumLength(50)
-                .WithMessage("Name is maximun length 50");
+                .WithMessage("*Name is maximun length 50");
         }
     }
 }

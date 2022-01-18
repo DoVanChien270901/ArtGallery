@@ -11,9 +11,9 @@ namespace ArtGallery.ViewModel.System.Users
     {
         public LoginRequestValidator()
         {
-            RuleFor(c => c.Name).NotEmpty().WithMessage("Username is required");
-            RuleFor(c => c.Password).NotEmpty().WithMessage("Password is required")
-                .MinimumLength(6).WithMessage("Password is at least 6 characters");
+            RuleFor(c => c.Name).NotEmpty().WithMessage("*Username is required");
+            RuleFor(c => c.Password).NotEmpty().WithMessage("*Password is required")
+                .MinimumLength(6).WithMessage("*Password is at least 6 characters");
         }
     }
 }

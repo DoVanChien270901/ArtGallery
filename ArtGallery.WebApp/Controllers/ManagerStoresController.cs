@@ -45,6 +45,20 @@ namespace ArtGallery.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromForm] InsertProductRequest request)
         {
+            var cateid = request.Selecteds.Where(c => c.Selescted == true).ToList();
+            if (cateid.Count == 0)
+            {
+                ModelState.AddModelError("msgCate", "Please indicate which category the product in category");
+                List<SelectListCate> Cate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager").Result);
+
+                return View(new InsertProductRequest { Selecteds = Cate });
+            }
+            if (!ModelState.IsValid)
+            {
+                List<SelectListCate> Cate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager").Result);
+
+                return View(new InsertProductRequest { Selecteds = Cate });
+            }
             //Get use id
             string UserId = "";
             foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
@@ -53,8 +67,8 @@ namespace ArtGallery.WebApp.Controllers
             }
             request.AccountId = UserId;
             //get list category id
-            request.ListCategoryId = new List<int> { };
-            foreach (var item in request.Selecteds.Where(c => c.Selescted == true))
+            request.ListCategoryId = new List<int>();
+            foreach (var item in cateid)
             {
                 request.ListCategoryId.Add(item.Id);
             }
@@ -120,12 +134,8 @@ namespace ArtGallery.WebApp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult UpdateProduct(EditProductRequest request, string description)
+        public IActionResult UpdateProduct(EditProductRequest request)
         {
-            if (description!=null)
-            {
-                request.Description = description;
-            }
             //
             Product singlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "Products/GetProduct/" + request.Id).Result);
             List<SelectListCate> listCate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager").Result);
@@ -150,6 +160,14 @@ namespace ArtGallery.WebApp.Controllers
             };
             ViewBag.editpro = model;
             //
+            var cateid = request.Selecteds.Where(c => c.Selescted == true).ToList();
+            if (cateid.Count == 0)
+            {
+                ModelState.AddModelError("msgCate", "Please indicate which category the product in category");
+                return View();
+            }
+
+            if (!ModelState.IsValid) return View();
             //
 
             request.ListCategoryId = new List<int> { };
@@ -159,8 +177,9 @@ namespace ArtGallery.WebApp.Controllers
             }
             //requestcontent
             var requestcontent = new MultipartFormDataContent();
-            if (request.Thumbnail!=null)
-            {                byte[] data;
+            if (request.Thumbnail != null)
+            {
+                byte[] data;
                 using (var br = new BinaryReader(request.Thumbnail.OpenReadStream()))
                 {
                     data = br.ReadBytes((int)request.Thumbnail.OpenReadStream().Length);
@@ -174,7 +193,7 @@ namespace ArtGallery.WebApp.Controllers
                 requestcontent.Add(new StringContent("null"), "Thumbnail");
             }
             //Images to byte[]
-            if (request.Images!=null)
+            if (request.Images != null)
             {
                 foreach (var item in request.Images)
                 {

@@ -30,23 +30,29 @@
     font-weight: 500;
 }
 
-.skills a {
-    font-size: 18px;
-    text-align: center;
-    letter-spacing: 1.2px;
+.skills button {
     border: none;
     border-radius: 30px;
-    padding: 16px;
-    width: 200px;
+    padding: 14px;
+    width: 180px;
     background-color: #E10302;
-    color: #fdfdfdf0;
     cursor: pointer;
-    font-weight: 600;
     transition: .4s;
 }
 
-    .skills a:hover {
+    .skills button a {
+        font-size: 18px;
+        text-align: center;
+        letter-spacing: 1.2px;
+        font-weight: 600;
+        color: #fdfdfdf0;
+    }
+
+    .skills button:hover {
         background-color: #333333;
+    }
+
+    .skills button a:hover {
         color: #fdfdfdf0;
     }
 
@@ -158,6 +164,7 @@
         max-width: 100%;
     }
 }
+
 /* Contact Us Css */
 .contact-us {
     position: relative;
@@ -181,7 +188,7 @@
     }
 
     .contact-us .left {
-        background: url("../images/contact2.jpg") no-repeat center;
+        background: url("../images/contact.jpg") no-repeat center;
         background-size: cover;
         height: 100%;
     }

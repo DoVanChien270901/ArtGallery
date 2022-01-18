@@ -21,7 +21,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">@Html.ActionLink("Dashboard", "Index", "Home")</li>
-                        <li class="breadcrumb-item active" aria-current="page">Auction</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
                     </ol>
                 </nav>
             </div>
@@ -127,11 +127,9 @@
                         }
                         @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
                         {
-
                             <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
                                 <a class="page-link" asp-controller="Auctions" asp-action="GetAll" asp-route-pg="@pge">@pge</a>
                             </li>
-
                         }
                         @if (pager.CurrentPage < pager.TotalPages)
                         {

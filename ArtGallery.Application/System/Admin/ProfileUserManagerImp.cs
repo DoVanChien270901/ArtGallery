@@ -32,7 +32,6 @@ namespace ArtGallery.Application.System.Admin
             }
             catch (ArgumentNullException)
             {
-
                 return 0;
             }
         }
@@ -47,7 +46,6 @@ namespace ArtGallery.Application.System.Admin
             }
             catch (ArgumentNullException)
             {
-
                 return 0;
             }
         }
@@ -62,7 +60,6 @@ namespace ArtGallery.Application.System.Admin
             }
             catch (ArgumentNullException)
             {
-
                 return 0;
             }
         }

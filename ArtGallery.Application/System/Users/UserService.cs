@@ -54,7 +54,7 @@ namespace ArtGallery.Application.System.Users
             var token = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 clearms,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds);
             //pare jwtSecurityToken to string
             return new JwtSecurityTokenHandler().WriteToken(token);     
@@ -80,7 +80,7 @@ namespace ArtGallery.Application.System.Users
                 Email = registerRequest.Email,
                 PhoneNumber = registerRequest.PhoneNumber,
                 DOB = registerRequest.DOB
-    };
+            };
             await _db.Accounts.AddAsync(acc);
             await _db.ProfileUsers.AddAsync(pro);
             await _db.SaveChangesAsync();
@@ -100,7 +100,7 @@ namespace ArtGallery.Application.System.Users
             var token = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 clearms,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds);
             //pare jwtSecurityToken to string
             return new JwtSecurityTokenHandler().WriteToken(token);
