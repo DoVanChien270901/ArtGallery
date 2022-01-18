@@ -75,9 +75,9 @@ namespace ArtGallery.AdminApp.Controllers
             }
             return View();
         }
-
-        [Authorize(Roles = "Admin")]
+      
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update(int id)
         {
             UpdateAuctionRequest auction = JsonConvert.DeserializeObject<UpdateAuctionRequest>(httpClient.GetStringAsync(url + "GetAuction/" + id).Result);
