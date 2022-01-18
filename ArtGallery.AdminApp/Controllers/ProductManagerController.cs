@@ -13,45 +13,48 @@ namespace ArtGallery.AdminApp.Controllers
 {
     public class ProductManagerController : Controller
     {
-        private readonly string url = "http://localhost:4086/api/Products/";
-
+        private readonly string url = "http://localhost:5000/api/Products/";
         private readonly HttpClient httpClient = new HttpClient();
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            var model = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url).Result);
-            ProductModelView productModelView = new ProductModelView { Products = model };
-            return View(productModelView);
-        }
-
-        [HttpPost]
         public IActionResult Index(string title)
         {
-            var model = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + title).Result);
-            ProductModelView productModelView = new ProductModelView { Products = model };
-            return View(productModelView);
-        }   
-
+            if (title != null)
+            {
+                IEnumerable<Product> productintitle = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+                return View(productintitle.Where(c => c.Status == true && c.Title.Contains(title)));
+            }
+            IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+            return View(listProducts.Where(c => c.Status == true));
+        }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            Product signlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "GetProduct/" + id).Result);
+            return View(signlepro);
+        }
+        [HttpGet]
+        public IActionResult GetRequestUser(string title)
+        {
+            if (title != null)
+            {
+                IEnumerable<Product> productintitle = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+                return View(productintitle.Where(c => c.Status == false && c.Title.Contains(title)));
+            }
+            IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+            return View(listProducts.Where(c => c.Status == false));
+        }
+        [HttpGet]
+        public IActionResult EditStatus(int id)
+        {
+           var result = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(url + "UpdateStatus/" + id).Result);
+           return RedirectToAction("Index", "ProductManager");
+        }
+        [HttpGet]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                var model = httpClient.DeleteAsync(url + id).Result;
-                if (model.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-            }
-            return View();
+            var result = httpClient.DeleteAsync(url + "DeleteProduct/" + id).Result;
+            return RedirectToAction("Index", "ProductManager");
         }
     }
 }

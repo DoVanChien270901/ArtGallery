@@ -14,11 +14,10 @@ namespace ArtGallery.ViewModel.Catalog.Products
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string AccountId { get; set; }
-        //public bool Status { get; set; } = false;
-        //public int ViewCount { get; set; }
         public IFormFile Thumbnail { get; set; }
         public List<IFormFile> Images { get; set; }
         public List<int> ListCategoryId { get; set; }
+        public List<SelectListCate> Selecteds { get; set; }
         //public IFormFile ImageFile { get; set; }
     }
 }

@@ -27,10 +27,10 @@ namespace ArtGallery.WebApp.Controllers
             if (cateName != null)
             {
                 IEnumerable<Product> proincate = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "ProductInCategory/" + cateName).Result);
-                return View(proincate);
+                return View(proincate.Where(c=>c.Status == true));
             }
             IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
-            return View(listProducts);
+            return View(listProducts.Where(c => c.Status == true));
         }
 
 

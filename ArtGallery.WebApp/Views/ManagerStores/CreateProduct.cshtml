@@ -1,0 +1,138 @@
+﻿@model ArtGallery.ViewModel.Catalog.Products.InsertProductRequest
+@using ArtGallery.ViewModel.Catalog.Products
+@{
+    Layout = "_Layout";
+}
+<!--middle content-->
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--left sidebar---->
+            <aside class="col-sm-3 left-sidebar">
+                <div class="box category">
+                    <div class="box-heading">
+                        <h3>Stores<i class="fa fa-angle-up"></i></h3>
+                    </div>
+
+                    <div class="box-content test">
+                        <div class="box-category">
+                            <ul class="menu">
+                                <li><a asp-action="GetAuction" asp-controller="ManagerStores" class="custom_hover">Auction</a></li>
+                                <li><a asp-action="AddAuction" asp-controller="ManagerStores" class="custom_hover"> Add Auction</a></li>
+                                <li><a asp-action="GetProduct" asp-controller="ManagerStores" class="custom_hover">Product</a></li>
+                                <li><a asp-action="CreateProduct" asp-controller="ManagerStores" class="custom_hover">Add Products</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box special">
+                    <div class="box-heading">
+                        <h3>Special</h3>
+                    </div>
+                    <div class="box-content">
+                        <div class="product-layout">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <div class="product-thumb transiction">
+                                        <a class="compare-button"><i class="fa fa-retweet"></i></a>
+                                        <a class="wishlist-button"><i class="fa fa-heart-o"></i></a>
+                                        <div class="image"><a href="single-product.html"><img src="images/img1.jpg" class="img-responsive"></a></div>
+                                        <div class="caption">
+                                            <div class="product-name"><a>Texture Design</a></div>
+                                            <div class="price">
+                                                <span class="price-new">$34.90</span>
+                                                <span class="price-old">$49.50</span>
+                                            </div>
+                                        </div>
+                                        <div class="cart-button">
+                                            <a class="btn btn-add-cart" href="cart.html">
+                                                <span>
+                                                    Add to Cart
+                                                </span>
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!--end sidebar-->
+            <!--main content-->
+            <div class="col-sm-9" id="content">
+                <ul class="breadcrumb">
+                    <li><a href="home.html"><i class="fa fa-home"></i></a></li>
+                    <li><a>Create Product</a></li>
+                </ul>
+                <h2>Register Account</h2>
+                <form class="form-horizontal" asp-action="CreateProduct" asp-controller="ManagerStores" method="post" enctype="multipart/form-data">
+                    <fieldset id="account">
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Title</label>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" asp-for="Title">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Description</label>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                            <div class="col-sm-8">
+                                <textarea type="text" cols="40" rows="5" class="form-control" asp-for="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Price</label>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" asp-for="Price">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Categories</label>
+                            <span asp-validation-for="ListCategoryId" class="text-danger"></span>
+                            <div class="col-sm-8">
+                                @{
+                                    for (int i = 0; i < Model.Selecteds.Count; i++)
+                                    {
+                                        <input type="hidden" class="form-control" asp-for="@Model.Selecteds[i].Id" value="@Model.Selecteds[i].Id">
+                                        <span>@Model.Selecteds[i].Name</span>
+                                        <input class="form-control" asp-for="@Model.Selecteds[i].Selescted">
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">Thumbnail</label>
+                            <span asp-validation-for="Thumbnail" class="text-danger"></span>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control" asp-for="Thumbnail">
+                            </div>
+                            <div class="form-group required">
+                                <label class="col-sm-4 control-label">Images</label>
+                                <span asp-validation-for="Images" class="text-danger"></span>
+                                <div class="col-sm-8">
+                                    <input type="file" class="form-control" asp-for="Images" multiple="multiple">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="buttons">
+                        <div class="pull-right">
+                            I have read and agree to the <a class="agree"><b>Privacy Policy</b></a> <input type="checkbox" value="1" name="agree" style="vertical-align:text-bottom">
+                            &nbsp;
+                            <input type="submit" class="btn btn-custom" value="Continue">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <!--end main content-->
+        </div>
+    </div>
+</div>
+<!--End of middle content-->

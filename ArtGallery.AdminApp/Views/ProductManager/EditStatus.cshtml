@@ -25,7 +25,7 @@
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-3">
                         <div class="dataTables_length" id="table1_length">
-                            <form asp-action="Index" asp-controller="ProductManager" method="get">
+                            <form asp-action="Index" asp-controller="ProductManager" method="post">
                                 <div style="padding:4px;"></div>
                                 <h6>Search by Title</h6>
                                 <input class="form-control" type="text" name="title" placeholder="Search">
@@ -65,8 +65,8 @@
                                         }
                                     </td>
                                     <td>
+                                        <a class="btn btn-danger" asp-action="EditStatus" asp-controller="ProductManager"></a>
                                         @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
-                                        @Html.ActionLink("Delete", "Delete", "ProductManager", new { id = item.Id }, new { @class = "btn btn-danger" })
                                     </td>
                                 </tr>
                             }
@@ -81,3 +81,4 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
 <script src="assets/js/mazer.js"></script>
+
