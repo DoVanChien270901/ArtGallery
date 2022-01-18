@@ -144,6 +144,21 @@ namespace ArtGallery.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("ArtGallery.Data.Entities.CategoryInProfile", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "ProfileId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("CategoryInProfiles");
+                });
+
             modelBuilder.Entity("ArtGallery.Data.Entities.Commission", b =>
                 {
                     b.Property<int>("Id")
@@ -237,8 +252,8 @@ namespace ArtGallery.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -266,7 +281,7 @@ namespace ArtGallery.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Products");
                 });
@@ -291,8 +306,8 @@ namespace ArtGallery.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Thumbnail")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Thumbnail")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -362,10 +377,6 @@ namespace ArtGallery.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("Hobby")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
@@ -407,7 +418,7 @@ namespace ArtGallery.Data.Migrations
             modelBuilder.Entity("ArtGallery.Data.Entities.AmountInAuction", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Account", "Account")
-                        .WithMany("AmountInAcctions")
+                        .WithMany()
                         .HasForeignKey("AccountId");
 
                     b.HasOne("ArtGallery.Data.Entities.Auction", "Auction")
@@ -439,6 +450,25 @@ namespace ArtGallery.Data.Migrations
                         .HasForeignKey("AccountId");
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("ArtGallery.Data.Entities.CategoryInProfile", b =>
+                {
+                    b.HasOne("ArtGallery.Data.Entities.Category", "Category")
+                        .WithMany("CategoryInProfiles")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ArtGallery.Data.Entities.ProfileUser", "ProfileUser")
+                        .WithMany("CategoryInProfiles")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("ProfileUser");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Commission", b =>
@@ -480,9 +510,11 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
                 {
-                    b.HasOne("ArtGallery.Data.Entities.Category", null)
+                    b.HasOne("ArtGallery.Data.Entities.Account", "Account")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("AccountId");
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.ProductImage", b =>
@@ -554,13 +586,13 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Account", b =>
                 {
-                    b.Navigation("AmountInAcctions");
-
                     b.Navigation("Carts");
 
                     b.Navigation("FeedBacks");
 
                     b.Navigation("Orders");
+
+                    b.Navigation("Products");
 
                     b.Navigation("ProfileUser");
 
@@ -579,9 +611,9 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Category", b =>
                 {
-                    b.Navigation("ProductInCategories");
+                    b.Navigation("CategoryInProfiles");
 
-                    b.Navigation("Products");
+                    b.Navigation("ProductInCategories");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Order", b =>
@@ -600,6 +632,11 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("ProductInCarts");
 
                     b.Navigation("ProductInCategories");
+                });
+
+            modelBuilder.Entity("ArtGallery.Data.Entities.ProfileUser", b =>
+                {
+                    b.Navigation("CategoryInProfiles");
                 });
 #pragma warning restore 612, 618
         }

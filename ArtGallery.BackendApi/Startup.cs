@@ -2,6 +2,7 @@ using ArtGallery.Application.Catalog.Categories;
 using ArtGallery.Application.Catalog.Auctions;
 using ArtGallery.Application.System.Admin;
 using ArtGallery.Application.System.Users;
+using ArtGallery.Application.Common;
 using ArtGallery.Application.Catalog.Products;
 using ArtGallery.Application;
 using ArtGallery.Data.EF;
@@ -34,6 +35,11 @@ namespace ArtGallery.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // fix A possible object cycle was detected 
+            services.AddControllers()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             //Declare DI
             services.AddDbContext<ArtGalleryDbContext>(op=>op.UseSqlServer(Configuration.GetConnectionString("ArtGalleryShop")));
             services.AddTransient<IUserService, UserService>();
@@ -42,9 +48,11 @@ namespace ArtGallery.BackendApi
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
             services.AddTransient<IProductServices, ProductServicesImp>();
-          services.AddTransient<IProductImageServices, ProductImageServicesImp>();
-          services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
+            services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
             services.AddTransient<IProfileUserManager, ProfileUserManagerImp>();
+            services.AddTransient<IStorageService, StorageService>();
+            services.AddTransient<IMailHelper, MailHelperImp>();
+            services.AddTransient<IAdminDashboard, AdminDashboardServices>();
             //
 
             services.AddControllers();
@@ -122,7 +130,9 @@ namespace ArtGallery.BackendApi
 
             app.UseRouting();
 
-            //
+            // use wwwroot file post/folder
+            app.UseStaticFiles();
+
             app.UseAuthentication();
 
             app.UseAuthorization();

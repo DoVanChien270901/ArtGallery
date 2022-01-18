@@ -20,7 +20,6 @@ namespace ArtGallery.Data.Configurations
             //builder.Property(c => c.PriceStep).HasColumnType("decimal(15,2)");
             builder.Property(c => c.NewPrice).HasColumnType("decimal(15,2)");
             builder.HasOne(c => c.Auction).WithMany(c => c.AmountInAcctions).HasForeignKey(c => c.AuctionId);
-            builder.HasOne(c => c.Account).WithMany(c => c.AmountInAcctions).HasForeignKey(c => c.AccountId);
         }
     }
 }

@@ -1,31 +1,38 @@
-﻿using ArtGallery.WebApp.Models;
+﻿using ArtGallery.Data.Entities;
+using ArtGallery.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ArtGallery.WebApp.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly string url = "http://localhost:5000/api/Products/";
+        private HttpClient httpClient = new HttpClient();
+        //[Authorize(Roles = "User")]
+        public IActionResult Home(string cateName)
+        {
+            string urlcate = "http://localhost:5000/api/CategoriesManager/";
+            IEnumerable<Category> Cate = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(urlcate).Result);
+            ViewBag.cate = Cate;
+            if (cateName != null)
+            {
+                IEnumerable<Product> proincate = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "ProductInCategory/" + cateName).Result);
+                return View(proincate);
+            }
+            IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+            return View(listProducts);
+        }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-        //[Authorize(Roles ="User")]
-        public IActionResult Home()
-        {
-            //var user = User.Claims.ToList();
-            //var a = user[2].Value;
-            return View();
-        }
 
         public IActionResult Privacy()
         {

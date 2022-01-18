@@ -19,6 +19,7 @@ namespace ArtGallery.Data.Configurations
             builder.Property(c => c.ImagePath).HasMaxLength(200);
             builder.Property(c => c.Caption).HasMaxLength(150);    
             builder.HasOne(c => c.Product).WithMany(c => c.ProductImages).HasForeignKey(c => c.ProductId);
+            builder.Property(c => c.Thumbnail).HasColumnType("bit");
         }
     }
 }

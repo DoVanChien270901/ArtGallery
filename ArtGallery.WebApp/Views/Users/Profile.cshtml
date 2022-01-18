@@ -1,7 +1,7 @@
 ﻿@model ArtGallery.Data.Entities.ProfileUser
 @{
     ViewData["Title"] = "Profile";
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!--middle content-->
 <div id="container">
@@ -11,24 +11,18 @@
             <aside class="col-sm-3 left-sidebar">
                 <div class="box category">
                     <div class="box-heading">
-                        <h3>Account <i class="fa fa-angle-up"></i></h3>
+                        <h3>@ViewData["Title"] <i class="fa fa-angle-up"></i></h3>
                     </div>
                     <div class="box-content test">
                         <div class="box-category">
                             <ul class="menu">
-                                <li><a>Login</a></li>
-                                <li><a href="register.html">Register</a></li>
                                 <li><a>Forgotten Password</a></li>
-                                <li><a>My Account</a></li>
-                                <li><a>Address Books</a></li>
                                 <li><a>Order History</a> </li>
-                                <li><a>Returns</a></li>
                                 <li><a>Transactions</a> </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
             </aside>
             <!--end sidebar-->
             <div class="col-sm-9" id="content">
@@ -64,7 +58,7 @@
                         <div class="form-group required">
                             <label class="col-sm-4 control-label">Email</label>
                             <div class="col-sm-8">
-                                <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                                <input asp-for="Email" type="text" class="form-control" placeholder="Email" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
@@ -102,7 +96,8 @@
                     </fieldset> -->
                     <div class="buttons">
                         <div class="pull-right">
-                            <button type="submit" class="btn btn-custom">Update Profile</button>
+                            @*I have read and agree to the <a class="agree"><b>Privacy Policy</b></a> <input type="checkbox" value="1" name="agree" style="vertical-align:text-bottom"> &nbsp;*@
+                            <button type="submit" class="btn btn-custom">Upload Profile</button>
                         </div>
                     </div>
                     <div class="clearfix"></div>
