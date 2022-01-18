@@ -53,6 +53,7 @@ namespace ArtGallery.BackendApi
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<IMailHelper, MailHelperImp>();
             services.AddTransient<IAdminDashboard, AdminDashboardServices>();
+            
             //
 
             services.AddControllers();

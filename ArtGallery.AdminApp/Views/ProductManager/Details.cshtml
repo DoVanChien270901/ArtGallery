@@ -1,0 +1,49 @@
+﻿@model ArtGallery.Data.Entities.Product
+@{
+    Layout = "_Layout";
+}
+<!--middle content-->
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--main content-->
+            <div class="col-sm-9 single-product" id="content">
+                <ul class="breadcrumb">
+                    <li><a href="home.html"><i class="fa fa-home"></i></a></li>
+                    <li><a href="single-product.html">Single Product</a></li>
+                </ul>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <ul class="list-unstyled product-info">
+                            <li>Product Code: @Model.Id</li>
+                            <li>Product Title: @Model.Title</li>
+                            <li>Create Date: @Model.CreateDate</li>
+                            <li>Price: @Model.Price$</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-9">
+
+                        <ul class="thumbnails list-unstyled">
+                            @{
+                                foreach (var item in Model.ProductImages)
+                                {
+                                    if (item.Thumbnail == true)
+                                    {
+                                        <li class="main-image-set"><a class="thumbnail"><img src="@Url.Content(item.ImagePath)" width="120px" class="changeimg"></a></li>
+                                    }
+                                    else if (item.Thumbnail == false)
+                                    {
+                                        <li class="image-additional"><a class="thumbnail"> <img class="galleryimg" width="120px" src="@Url.Content(item.ImagePath)"></a></li>
+                                    }
+                                }
+                            }
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <!--end main content-->
+        </div>
+    </div>
+</div>
+<!--End of middle content-->

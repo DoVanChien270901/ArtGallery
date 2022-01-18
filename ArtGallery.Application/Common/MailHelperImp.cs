@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace ArtGallery.Application.Common
 {

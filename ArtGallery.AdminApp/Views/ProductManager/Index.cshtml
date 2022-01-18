@@ -1,5 +1,4 @@
-﻿@using ArtGallery.ViewModel.Catalog.Products;
-@model ProductModelView
+﻿@model IEnumerable<ArtGallery.Data.Entities.Product>
 @{
     ViewData["Title"] = "Product List";
 }
@@ -26,13 +25,12 @@
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-3">
                         <div class="dataTables_length" id="table1_length">
-                            <form asp-action="Index" asp-controller="ProductManager" method="post">
+                            <form asp-action="Index" asp-controller="ProductManager" method="get">
                                 <div style="padding:4px;"></div>
                                 <h6>Search by Title</h6>
                                 <input class="form-control" type="text" name="title" placeholder="Search">
                                 <div style="padding:4px;"></div>
                                 <input type="submit" value="Search" class="btn btn-success" />
-                                <span asp-validation-for="Title"></span>
                             </form>
                         </div>
                     </div>
@@ -54,25 +52,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Products)
+                            @foreach (var item in Model)
                             {
                                 <tr>
                                     <td class="text-bold-500">@item.Id</td>
                                     <td>@item.Title</td>
-                                    <td>@item.Price</td>                          
+                                    <td>@item.Price</td>
                                     <td>
-                                        @if (item.Status == false)
+                                        @foreach (var img in item.ProductImages)
                                         {
-                                            <a class="btn btn-danger">@item.Status</a>
-                                        } 
-                                        else {
-                                            <a class="btn btn-success">@item.Status</a>
+                                            <img src="@Url.Content(img.ImagePath)" width="120px" alt="Alternate Text" />
                                         }
                                     </td>
                                     <td>
                                         @Html.ActionLink("Details", "Details", "ProductManager", new { id = item.Id }, new { @class = "btn btn-primary" })
                                         @Html.ActionLink("Delete", "Delete", "ProductManager", new { id = item.Id }, new { @class = "btn btn-danger" })
-                                    </td>                               
+                                    </td>
                                 </tr>
                             }
                         </tbody>

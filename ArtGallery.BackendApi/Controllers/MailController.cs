@@ -40,6 +40,8 @@ namespace ArtGallery.BackendApi.Controllers
             {
                 body = reader.ReadToEnd();
             }
+            string domain = "http://localhost:30162/Products/Detail/" + id;
+            body = body.Replace("{link}", domain.ToString());
             return mailServices.SendMailForWithProduct(product, body);
         }
 

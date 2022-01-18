@@ -1,6 +1,7 @@
 ﻿using ArtGallery.Application.Common;
 using ArtGallery.Data.Entities;
 using ArtGallery.ViewModel.Catalog.Products;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -15,6 +16,11 @@ namespace ArtGallery.WebApp.Controllers
     {
         private readonly string url = "http://localhost:5000/api/Products/";
         private HttpClient httpClient = new HttpClient();
+        private readonly IHttpContextAccessor contextAccessor;
+        public ProductsController(IHttpContextAccessor contextAccessor)
+        {
+            this.contextAccessor = contextAccessor;
+        }
         [HttpGet]
         public IActionResult Detail(int id)
         {
@@ -32,5 +38,6 @@ namespace ArtGallery.WebApp.Controllers
             
             return View();
         }
+
     }
 }
