@@ -8,6 +8,9 @@ namespace ArtGallery.ViewModel.System.Admin
 {
     public class DashboardModelView
     {
-
+        public int CustomerCount { get; set; }
+        public int FeedBacksCount { get; set; }
+        public int ProductCount { get; set; }
+        public int TransactionsCount { get; set; }
     }
 }
