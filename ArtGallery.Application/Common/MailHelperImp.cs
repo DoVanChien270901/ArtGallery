@@ -13,6 +13,7 @@ using MailKit.Net.Smtp;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using ArtGallery.ViewModel.Catalog.Email;
 
 namespace ArtGallery.Application.Common
 {
@@ -36,6 +37,30 @@ namespace ArtGallery.Application.Common
             fromPassword = "Art1040@";
             host = "smtp.gmail.com";
             port = 587;
+        }
+
+        public bool ContactUsMail(ContactModelView contact, string mailBody)
+        {
+            mailBody = mailBody.Replace("{from}", contact.FromMail);
+            mailBody = mailBody.Replace("{mess}", contact.Message);
+
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(from));
+            string mailSubject = "You have new Contact";
+            email.Subject = mailSubject;
+            var builder = new BodyBuilder();
+            builder.HtmlBody = mailBody;
+            email.Body = builder.ToMessageBody();
+
+            email.To.Add(MailboxAddress.Parse(from));
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Connect(host, Convert.ToInt32(port), MailKit.Security.SecureSocketOptions.StartTls);
+            smtpClient.Authenticate(from, fromPassword);
+            smtpClient.Send(email);
+
+            smtpClient.Disconnect(true);
+            return true;
         }
 
         public bool SendMailForgotPassword(string uname, string mailBody)
@@ -79,7 +104,8 @@ namespace ArtGallery.Application.Common
             mailBody = mailBody.Replace("{price}", prod.Price.ToString());
             mailBody = mailBody.Replace("{date}", prod.CreateDate.ToString());
             mailBody = mailBody.Replace("{id}", prod.Id.ToString());
-
+            string domain = "http://localhost:30162/Products/Detail/" + prod.Id;
+            mailBody = mailBody.Replace("{link}", domain.ToString());
 
             //getList Category In Product
             var ProdICate = context.ProductInCategories.Where(p=>p.ProductId.Equals(product.Id));

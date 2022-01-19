@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ArtGallery.ViewModel.Catalog.Email;
+@model ContactModelView
+@{
     Layout = "_Layout1";
     ViewData["Title"] = "Contact Us";
 }
@@ -8,10 +10,12 @@
     <div class="contact-box">
         <div class="left"></div>
         <div class="right">
-            <h1>@ViewData["Title"]</h1><br>
-            <input type="text" class="field" placeholder="Your Email">
-            <textarea placeholder="Message" class="field"></textarea>
-            <button class="btn">Send</button>
+            <form asp-action="Contact" asp-controller="Home" method="post">
+                <h1>@ViewData["Title"]</h1><br>
+                <input type="text" class="field" placeholder="Your Email" asp-for="FromMail">
+                <textarea placeholder="Message" class="field" asp-for="Message"></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
         </div>
     </div>
 </div>

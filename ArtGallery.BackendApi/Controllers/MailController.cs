@@ -1,5 +1,6 @@
 ﻿using ArtGallery.Application.Common;
 using ArtGallery.Data.Entities;
+using ArtGallery.ViewModel.Catalog.Email;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,8 +41,7 @@ namespace ArtGallery.BackendApi.Controllers
             {
                 body = reader.ReadToEnd();
             }
-            string domain = "http://localhost:30162/Products/Detail/" + id;
-            body = body.Replace("{link}", domain.ToString());
+            
             return mailServices.SendMailForWithProduct(product, body);
         }
 
@@ -56,6 +56,22 @@ namespace ArtGallery.BackendApi.Controllers
                 body = reader.ReadToEnd();
             }
             return mailServices.SendMailForgotPassword(uname, body);
+        }
+
+        [HttpGet("ContactUs/{mail}/{mess}")]
+        public async Task<bool> ContactUsMail(string mail, string mess)
+        {
+            ContactModelView contact = new ContactModelView { 
+                FromMail = mail,
+                Message = mess
+            };
+            string body = string.Empty;
+            //mail template
+            using (StreamReader reader = new StreamReader(hosting.WebRootPath + "\\mailTemplate\\ContactMail.html"))
+            {
+                body = reader.ReadToEnd();
+            }
+            return mailServices.ContactUsMail(contact, body);
         }
     }
 }
