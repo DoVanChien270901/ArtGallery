@@ -1,7 +1,9 @@
 ﻿using ArtGallery.Data.Entities;
+using ArtGallery.ViewModel.Catalog.Auctions;
 using ArtGallery.ViewModel.Catalog.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -115,7 +117,7 @@ namespace ArtGallery.WebApp.Controllers
         public IActionResult UpdateProduct(int id)
         {
             Product singlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "Products/GetProduct/" + id).Result);
-            List<SelectListCate> listCate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager").Result);
+            List<SelectListCate> listCate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager/" + "CategoriesManager").Result);
             foreach (var proincate in singlepro.ProductInCategories)
             {
                 foreach (var cate in listCate)
@@ -230,17 +232,80 @@ namespace ArtGallery.WebApp.Controllers
 
             return RedirectToAction("GetProduct", "ManagerStores");
         }
-        //[HttpGet]
-        //public IActionResult GetAuction()
-        //{
-        //    string UserId = "";
-        //    foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
-        //    {
-        //        UserId = item.Value.ToString();
-        //    }
-        //    IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "Products/AllProduct").Result);
-        //    ViewBag.products = listProducts.Where(c => c.AccountId == UserId).ToList();
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult GetAuction()
+        {
+            string UserId = "";
+            foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
+            {
+                UserId = item.Value.ToString();
+            }
+            IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "Auctions/GetAllAuctions/").Result);
+            listAuctions = listAuctions.Where(c => c.AccountId == UserId && c.Status == true);
+            if (listAuctions == null)
+            {
+                return BadRequest();
+            }
+            return View(listAuctions);
+        }
+       
+        [HttpGet]
+        public IActionResult CreateAuction()
+        {
+            string UserId = "";
+            foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
+            {
+                UserId = item.Value.ToString();
+            }
+            IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "Products/AllProduct").Result);
+            listProducts = listProducts.Where(c => c.AccountId == UserId && c.Auction == null).ToList();
+            ViewBag.select = new SelectList(listProducts, "Id", "Title");
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateAuction(CreateAuctionRequest request)
+        {
+            string UserId = "";
+            foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
+            {
+                UserId = item.Value.ToString();
+            }
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "Products/AllProduct").Result);
+                listProducts = listProducts.Where(c => c.AccountId == UserId && c.Auction == null).ToList();
+                ViewBag.select = new SelectList(listProducts, "Id", "Title");
+                return View();
+            }
+            request.AccountId = UserId;
+            var result = httpClient.PostAsJsonAsync(url + "Auctions/CreateAuction/", request).Result;
+            return RedirectToAction("GetAuction", "ManagerStores");
+        }
+        [HttpGet]
+        public IActionResult UpdateAuction(int id)
+        {
+            Auction auction = JsonConvert.DeserializeObject<Auction>(httpClient.GetStringAsync(url + "Auctions/GetAuction/" + id).Result);
+            ViewBag.auc = auction;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult UpdateAuction(UpdateAuctionRequest request)
+        {
+            if (!ModelState.IsValid) 
+            {
+                Auction auction = JsonConvert.DeserializeObject<Auction>(httpClient.GetStringAsync(url + "Auctions/GetAuction/" + request.Id).Result);
+                ViewBag.auc = auction;
+                return View("GetAuction", "ManagerStores");
+            }
+            var model = httpClient.PutAsJsonAsync(url + "Auctions/UpdateAuction/", request).Result;
+            return RedirectToAction();
+
+        }
+        [HttpGet]
+        public IActionResult DeleteAuction(int id)
+        {
+            var result = httpClient.DeleteAsync(url + "Auctions/DeleteAuction/" + id).Result;
+            return RedirectToAction("GetAuction", "ManagerStores");
+        }
     }
 }

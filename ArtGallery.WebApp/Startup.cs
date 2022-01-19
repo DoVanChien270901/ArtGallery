@@ -44,6 +44,7 @@ namespace ArtGallery.WebApp
                     fv.RegisterValidatorsFromAssemblyContaining<InsertAmountInAuctionRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<InsertProductValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<EditProductValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<CreateAuctionRequestValidator>();
                     });
             //
             services.AddSession();

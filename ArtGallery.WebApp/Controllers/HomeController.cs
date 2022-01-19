@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Data.Entities;
+using ArtGallery.ViewModel.Catalog.Email;
 using ArtGallery.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -63,8 +64,17 @@ namespace ArtGallery.WebApp.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Contact()
         {
+            ContactModelView contact = new ContactModelView();
+            return View(contact);
+        }
+        [HttpPost]
+        public IActionResult Contact(ContactModelView contact)
+        {
+            string urlmail = "http://localhost:5000/api/Mail/";
+            var send = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail + "ContactUs/" + contact.FromMail + "/" + contact.Message).Result);
             return View();
         }
 

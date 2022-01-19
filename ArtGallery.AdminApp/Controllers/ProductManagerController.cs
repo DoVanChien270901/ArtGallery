@@ -74,6 +74,13 @@ namespace ArtGallery.AdminApp.Controllers
         public IActionResult EditStatus(int id)
         {
             var result = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(url + "UpdateStatus/" + id).Result);
+            
+            if (result.Equals(true))
+            {
+
+                string urlmail = "http://localhost:5000/api/Mail/";
+                var notiMail = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail + "sendMail/" + id).Result);
+            }
             return RedirectToAction("Index", "ProductManager");
         }
 

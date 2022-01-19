@@ -40,6 +40,11 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return _aucService.UpdateAuction(request);
         }
+        [HttpPost("CreateAuction")]
+        public Task<bool> CreateAuction(CreateAuctionRequest request)
+        {
+            return _aucService.CreateAuction(request);
+        }
         [HttpDelete("DeleteAuction/{id}")]
         public Task<bool> DeleteAuction(int id)
         {

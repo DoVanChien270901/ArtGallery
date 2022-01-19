@@ -9,11 +9,11 @@ namespace ArtGallery.ViewModel.Catalog.Auctions
 {
     public class CreateAuctionRequest
     {
-        //public List<Category> listcate();
-        public decimal CurrentPrice { get; set; }
+        public int ProductId { get; set; }
+        public string AccountId { get; set; }
+        public decimal StartingPrice { get; set; }
         public decimal PriceStep { get; set; }
-        public decimal NewPrice { get; set; }
-        public int AuctionId { get; set; }
-        public int ProfileUserId { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
     }
 }

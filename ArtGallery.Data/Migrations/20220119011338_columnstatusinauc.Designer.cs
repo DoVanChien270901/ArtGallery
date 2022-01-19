@@ -4,14 +4,16 @@ using ArtGallery.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    partial class ArtGalleryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220119011338_columnstatusinauc")]
+    partial class columnstatusinauc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,21 +154,6 @@ namespace ArtGallery.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("ArtGallery.Data.Entities.CategoryInProfile", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoryId", "ProfileId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("CategoryInProfiles");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Commission", b =>
@@ -468,25 +455,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.CategoryInProfile", b =>
-                {
-                    b.HasOne("ArtGallery.Data.Entities.Category", "Category")
-                        .WithMany("CategoryInProfiles")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ArtGallery.Data.Entities.ProfileUser", "ProfileUser")
-                        .WithMany("CategoryInProfiles")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("ProfileUser");
-                });
-
             modelBuilder.Entity("ArtGallery.Data.Entities.Commission", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Order", "Order")
@@ -631,8 +599,6 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Category", b =>
                 {
-                    b.Navigation("CategoryInProfiles");
-
                     b.Navigation("ProductInCategories");
                 });
 
@@ -652,11 +618,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("ProductInCarts");
 
                     b.Navigation("ProductInCategories");
-                });
-
-            modelBuilder.Entity("ArtGallery.Data.Entities.ProfileUser", b =>
-                {
-                    b.Navigation("CategoryInProfiles");
                 });
 #pragma warning restore 612, 618
         }

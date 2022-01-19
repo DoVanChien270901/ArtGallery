@@ -16,5 +16,6 @@ namespace ArtGallery.Application.Catalog.Auctions
         public Task<bool> DeleteAuction(int Id);
         public Task<bool> UpdateAuction(UpdateAuctionRequest request);
         public Task<ProfileUser> WinnerInformation(int aucId);
+        public Task<bool> CreateAuction(CreateAuctionRequest request);
     }
 }

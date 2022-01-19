@@ -1,5 +1,4 @@
-﻿@model ArtGallery.ViewModel.Catalog.Products.InsertProductRequest
-@using ArtGallery.ViewModel.Catalog.Products
+﻿@model ArtGallery.ViewModel.Catalog.Auctions.CreateAuctionRequest
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Gallery";
@@ -36,65 +35,45 @@
                     <li><a asp-action="CreateProduct" asp-controller="ManagerStores">Create</a></li>
                 </ul>
                 <h2>Create Product</h2>
-                <form class="form-horizontal" asp-action="CreateProduct" asp-controller="ManagerStores" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" asp-action="CreateAuction" asp-controller="ManagerStores" method="post">
                     <fieldset id="account">
                         <div class="form-group required">
-                            <label class="col-sm-4 control-label">Title:</label>
+                            <label class="col-sm-4 control-label">StartingPrice:</label>
                             <div class="col-sm-8">
-                                <span asp-validation-for="Title" class="text-danger"></span>
-                                <input type="text" class="form-control" asp-for="Title">
+                                <span asp-validation-for="StartingPrice" class="text-danger"></span>
+                                <input type="number" class="form-control" asp-for="StartingPrice">
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label class="col-sm-4 control-label">Description:</label>
+                            <label class="col-sm-4 control-label">PriceStep:</label>
                             <div class="col-sm-8">
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                                <textarea type="text" cols="40" rows="5" class="form-control" asp-for="Description"></textarea>
+                                <span asp-validation-for="PriceStep" class="text-danger"></span>
+                                <input type="number" class="form-control" asp-for="PriceStep" />
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label class="col-sm-4 control-label">Price:</label>
+                            <label class="col-sm-4 control-label">StartDateTime</label>
                             <div class="col-sm-8">
-                                <span asp-validation-for="Price" class="text-danger"></span>
-                                <input type="text" class="form-control" asp-for="Price">
+                                <span asp-validation-for="StartDateTime" class="text-danger"></span>
+                                <input type="datetime-local" class="form-control" asp-for="StartDateTime">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">EndDateTime</label>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="EndDateTime" class="text-danger"></span>
+                                <input type="datetime-local" class="form-control" asp-for="EndDateTime">
                             </div>
                         </div>
 
                         <div class="form-group required">
-                            <label class="col-sm-4 control-label">Categories:</label>
+                            <label class="col-sm-4 control-label">Auction for product:</label>
                             <div class="col-sm-8">
-                                <span asp-validation-for="ListCategoryId" class="text-danger"></span>
-                                <span class="text-danger">@Html.ValidationMessage("msgCate")</span>
-                                <div class="form-check form-check-inline">
+                                <span>Product title: </span><select asp-for="ProductId" asp-items="ViewBag.select">
+                                    <option value="">Select Product</option>
+                                </select>
+                                <span asp-validation-for="ProductId" class="text-danger"></span>
 
-                                    @{
-                                        for (int i = 0; i < Model.Selecteds.Count; i++)
-                                        {
-                                            <input type="hidden" class="form-control" asp-for="@Model.Selecteds[i].Id" value="@Model.Selecteds[i].Id">
-                                            @*<span>@Model.Selecteds[i].Name</span>*@
-                                            @*<label class="form-check-label" for="inlineCheckbox1">@Model.Selecteds[i].Name</label>*@
-
-                                            <input class="form-check-input" type="checkbox" asp-for="@Model.Selecteds[i].Selescted">
-                                            <label style="font-weight:500; padding:2px;" class="form-check-label" for="inlineCheckbox1">@Model.Selecteds[i].Name</label>
-                                            <br />
-                                        }
-                                    }
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="form-group required">
-                            <label class="col-sm-4 control-label">Thumbnail:</label>
-                            <div class="col-sm-8">
-                                <span asp-validation-for="Thumbnail" class="text-danger"></span>
-                                <input type="file" class="form-control" asp-for="Thumbnail">
-                            </div>
-                        </div>
-                        <div class="form-group required">
-                            <label class="col-sm-4 control-label">Images:</label>
-                            <div class="col-sm-8">
-                                <span asp-validation-for="Images" class="text-danger"></span>
-                                <input type="file" class="form-control" asp-for="Images" multiple="multiple">
                             </div>
                         </div>
                     </fieldset>

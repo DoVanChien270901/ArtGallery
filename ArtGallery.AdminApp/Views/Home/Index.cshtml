@@ -1,11 +1,12 @@
-﻿@using ArtGallery.Data.Entities
-@model IEnumerable<Product>
+@using ArtGallery.ViewModel.System.Admin
+@model DashboardModelView
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Dashboard";
 }
 @section Scripts{
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+    </script>
     <script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawOnLoad);
@@ -13,30 +14,28 @@
             $(function () {
                 $.ajax({
                     type: 'GET',
-                    url: '/Home/IndexCharts/',
+                    url: '/Home/IndexCharts',
                     success: function (chartsdata) {
                         var Data = chartsdata.jsonList;
                         var data = new google.visualization.DataTable();
-                        //data.addColumn('number', 'Price');
                         data.addColumn('string', 'Title');
                         data.addColumn('number', 'Price');
-
                         for (var i = 0; i < Data.length; i++) {
                             data.addRow([Data[i].title, Data[i].price]);
-                        } 
+                        }
                         var piechart = new google.visualization.PieChart
                             (document.getElementById('piediv'));
                         piechart.draw(data, {
-                            title: "Compare the price of each product",
-                            position: "top",
+                            //title: "Buy products",
+                            //position: "top",
+                            //fontsize: "15px"
                         });
                         //var barchart = new google.visualization.BarChart
                         //    (document.getElementById('bardiv'));
                         //barchart.draw(data, {
-                        //  /*  title: "Compare the price of each product",*/
-                        //    width: "100%",
-                        //    heigh: "350px"
-                        //    /*fontsize: "30px"*/
+                        //    title: "Buy products",
+                        //    position: "top",
+                        //    fontsize: "15px"
                         //});
                     }
                 });
@@ -62,7 +61,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Product</h6>
-                                    <h6 class="font-extrabold mb-0">178</h6>
+                                    <h6 class="font-extrabold mb-0">@Model.ProductCount</h6>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +78,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Customer</h6>
-                                    <h6 class="font-extrabold mb-0">183</h6>
+                                    <h6 class="font-extrabold mb-0">@Model.CustomerCount</h6>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +95,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Transaction</h6>
-                                    <h6 class="font-extrabold mb-0">80</h6>
+                                    <h6 class="font-extrabold mb-0">@Model.TransactionsCount</h6>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +112,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Feedback</h6>
-                                    <h6 class="font-extrabold mb-0">112</h6>
+                                    <h6 class="font-extrabold mb-0">@Model.FeedBacksCount</h6>
                                 </div>
                             </div>
                         </div>
@@ -121,80 +120,80 @@
                 </div>
             </div>
             @*<div class="row">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Chart</h4>
-                    </div>
-                    <div class="card-body">
-                        <div style="width:100%; height:auto;" id="piediv"></div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-            @*<div class="row">
-            <div class="col-12 col-xl-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Visitors Profile</h4>
-                    </div>
-                    <div class="card-body">
-                        <div id="chart-visitors-profile"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-xl-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Latest Comments</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-lg">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Comment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="col-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-md">
-                                                    <img src="assets/images/faces/5.jpg">
-                                                </div>
-                                                <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class=" mb-0">Congratulations on your graduation!</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-md">
-                                                    <img src="assets/images/faces/2.jpg">
-                                                </div>
-                                                <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class=" mb-0">
-                                                Wow amazing design! Can you make another tutorial for
-                                                this design?
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Profile Visit</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-profile-visit"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>*@
-        <div style="width:420px; height:280px; position:relative;" id="piediv"></div>
+                </div>*@
+            @*<div class="row">
+                    <div class="col-12 col-xl-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Visitors Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-visitors-profile"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Latest Comments</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-lg">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/5.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Congratulations on your graduation!</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/2.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">
+                                                        Wow amazing design! Can you make another tutorial for
+                                                        this design?
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <div id="piediv" style="width:424px; height:280px; position:relative;"></div>
         </div>
     </section>
 </div>
