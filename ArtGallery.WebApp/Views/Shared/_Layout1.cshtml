@@ -87,14 +87,6 @@
                         <a asp-action="Home" asp-controller="Home"><img src="~/images/logo3.png" alt="art-design" class="img-responsive" width="140" /></a>
                     </div>
                 </div>
-                <div class="rightside">
-                    <div class="input-group" id="search">
-                        <input type="text" class="form-control input-lg search-box" placeholder="Search" value="" name="search">
-                        <span class="input-group-btn">
-                            <button class="btn-lg search-button" type="button"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </div>
             </div>
             <!---navbar--->
             <div class="container">
@@ -112,7 +104,7 @@
                                 </div>
                                 <div class="collapse navbar-collapse" id="myNavbar">
                                     <ul class="nav navbar-nav">
-                                        <li class="active"><a asp-action="Home">Home</a></li>
+                                        <li><a asp-action="Home" asp-controller="Home">Home</a></li>
                                         <li><a asp-action="GetProduct" asp-controller="ManagerStores">Gallery</a></li>
                                         <li><a asp-action="GetAuctionGoing" asp-controller="Auctions">Auctions</a></li>
                                         <li>@Html.ActionLink("About Us", "AboutUs", "Home")</li>

@@ -159,7 +159,8 @@ namespace ArtGallery.Application.Catalog.Auctions
         // WinnerInformation
         public async Task<ProfileUser> WinnerInformation(int aucId)
         {
-            decimal maxPrice = _db.AmountInAuctions.Max(c => c.NewPrice);
+            var auc = _db.AmountInAuctions.Where(c => c.AuctionId == aucId);
+            decimal maxPrice = auc.Max(c => c.NewPrice);
             string accId = (from aia in _db.AmountInAuctions
                            where aia.AuctionId == aucId && aia.NewPrice == maxPrice
                            select aia.AccountId).Single();
