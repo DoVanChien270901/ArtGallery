@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ArtGallery.Data.Entities;
+using Newtonsoft.Json;
+using System.Net.Http;
+using ArtGallery.ViewModel.Catalog.Products;
 
 namespace ArtGallery.AdminApp.Controllers
 {
@@ -15,16 +19,26 @@ namespace ArtGallery.AdminApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private readonly string url = "http://localhost:5000/api/Products/";
+        private HttpClient httpClient = new HttpClient();
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public IActionResult IndexCharts()
+        {
+            IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "AllProduct").Result);
+            var model = listProducts.Where(c => c.Status == false).ToList();
+            return Json(new { JSONList = model });
         }
 
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var user = User.Claims.ToList();
-            var a = user[2].Value;
+            var a = user[2].Value; 
             return View();
         }
 
