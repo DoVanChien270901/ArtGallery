@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    [Migration("20220118062108_data")]
-    partial class data
+    [Migration("20220119011338_columnstatusinauc")]
+    partial class columnstatusinauc
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,6 +77,9 @@ namespace ArtGallery.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
@@ -92,7 +95,14 @@ namespace ArtGallery.Data.Migrations
                     b.Property<decimal>("StartingPrice")
                         .HasColumnType("decimal(15,2)");
 
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("ProductId")
                         .IsUnique();
@@ -421,11 +431,17 @@ namespace ArtGallery.Data.Migrations
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Auction", b =>
                 {
+                    b.HasOne("ArtGallery.Data.Entities.Account", "Account")
+                        .WithMany("Auctions")
+                        .HasForeignKey("AccountId");
+
                     b.HasOne("ArtGallery.Data.Entities.Product", "Product")
                         .WithOne("Auction")
                         .HasForeignKey("ArtGallery.Data.Entities.Auction", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Account");
 
                     b.Navigation("Product");
                 });
@@ -555,6 +571,8 @@ namespace ArtGallery.Data.Migrations
             modelBuilder.Entity("ArtGallery.Data.Entities.Account", b =>
                 {
                     b.Navigation("AmountInAcctions");
+
+                    b.Navigation("Auctions");
 
                     b.Navigation("Carts");
 

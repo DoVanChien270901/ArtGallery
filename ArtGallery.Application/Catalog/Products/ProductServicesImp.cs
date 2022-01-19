@@ -150,6 +150,16 @@ namespace ArtGallery.Application.Catalog.Products
             {
                 item.ProductImages[0].ImagePath = await _storageService.GetFileUrl(item.ProductImages[0].ImagePath);
             }
+            //get auc
+            foreach (var item in model)
+            {
+                Auction auc = await context.Auctions.SingleOrDefaultAsync(c => c.ProductId == item.Id);
+                if (auc != null)
+                {
+                    item.Auction = auc;
+                }
+
+            }
             //get product and all img
             //List<Product> products = context.Products.ToList();
             //List<ProductImage> images = context.ProductImages.ToList();

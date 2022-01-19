@@ -1,0 +1,83 @@
+﻿@model ArtGallery.ViewModel.Catalog.Auctions.UpdateAuctionRequest
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Gallery";
+}
+<!--middle content-->
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--left sidebar---->
+            <aside class="col-sm-3 left-sidebar">
+                <div class="box category">
+                    <div class="box-heading">
+                        <h3>@ViewData["Title"]<i class="fa fa-angle-up"></i></h3>
+                    </div>
+                    <div class="box-content test">
+                        <div class="box-category">
+                            <ul class="menu">
+                                <li><a asp-action="GetAuction" asp-controller="ManagerStores" class="custom_hover">Auction</a></li>
+                                <li><a asp-action="CreateAuction" asp-controller="ManagerStores" class="custom_hover"> Add Auction</a></li>
+                                <li><a asp-action="GetProduct" asp-controller="ManagerStores" class="custom_hover">Product</a></li>
+                                <li><a asp-action="CreateProduct" asp-controller="ManagerStores" class="custom_hover">Add Products</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box special">
+                </div>
+            </aside>
+            <!--end sidebar-->
+            <!--main content-->
+            <div class="col-sm-9" id="content">
+                <ul class="breadcrumb">
+                    <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
+                    <li><a asp-action="CreateProduct" asp-controller="ManagerStores">Update</a></li>
+                </ul>
+                <h2>Update Auction</h2>
+                <form class="form-horizontal" asp-action="UpdateAuction" asp-controller="ManagerStores" method="post">
+                    <fieldset id="account">
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">StartingPrice:</label>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="StartingPrice" class="text-danger"></span>
+                                <input type="number" class="form-control" asp-for="StartingPrice" value="@ViewBag.auc.StartingPrice">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">PriceStep:</label>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="PriceStep" class="text-danger"></span>
+                                <input type="number" class="form-control" asp-for="PriceStep" value="@ViewBag.auc.PriceStep"/>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">StartDateTime</label>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="StartDateTime" class="text-danger"></span>
+                                <input type="datetime-local" class="form-control" asp-for="StartDateTime">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="col-sm-4 control-label">EndDateTime</label>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="EndDateTime" class="text-danger"></span>
+                                <input type="datetime-local" class="form-control" asp-for="EndDateTime">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="buttons">
+                        <div class="pull-right">
+                            @*I have read and agree to the <a class="agree"><b>Privacy Policy</b></a> <input type="checkbox" value="1" name="agree" style="vertical-align:text-bottom">*@
+
+                            <input type="submit" class="btn btn-custom" value="Create">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <!--end main content-->
+        </div>
+    </div>
+</div>
+<!--End of middle content-->

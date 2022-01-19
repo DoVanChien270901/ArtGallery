@@ -36,6 +36,8 @@ namespace ArtGallery.Application.Catalog.Auctions
                                                      ProductId = auc.ProductId,
                                                      PriceStep = auc.PriceStep,
                                                      EndDateTime = auc.EndDateTime,
+                                                     AccountId =auc.AccountId,
+                                                     Status = auc.Status,
                                                      Product = new Product
                                                      {
                                                          Id = pro.Id,
@@ -152,6 +154,23 @@ namespace ArtGallery.Application.Catalog.Auctions
             auc.PriceStep = request.PriceStep;
             auc.StartDateTime = request.StartDateTime;
             auc.EndDateTime = request.EndDateTime;
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
+        //Create
+        public async Task<bool> CreateAuction(CreateAuctionRequest request)
+        {
+            Auction auc = new Auction
+            {
+                AccountId = request.AccountId,
+                ProductId = request.ProductId,
+                StartingPrice = request.StartingPrice,
+                PriceStep = request.PriceStep,
+                StartDateTime = request.StartDateTime,
+                EndDateTime = request.EndDateTime
+            };
+            await _db.Auctions.AddAsync(auc);
             await _db.SaveChangesAsync();
             return true;
         }

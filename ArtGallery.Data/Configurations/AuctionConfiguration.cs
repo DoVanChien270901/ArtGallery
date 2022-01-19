@@ -19,7 +19,9 @@ namespace ArtGallery.Data.Configurations
             builder.Property(c => c.StartingPrice).HasColumnType("decimal(15,2)");
             builder.Property(c => c.StartDateTime).IsRequired();
             builder.Property(c => c.EndDateTime).IsRequired();
+            builder.Property(c => c.Status).HasDefaultValue(false);
             builder.HasOne(c=>c.Product).WithOne(c=>c.Auction).HasForeignKey<Auction>(c=>c.ProductId);
+            builder.HasOne(c => c.Account).WithMany(c => c.Auctions).HasForeignKey(c => c.AccountId);
         }
     }
 }
