@@ -1,6 +1,7 @@
 ﻿using ArtGallery.Application.Common;
 using ArtGallery.Data.Constants;
 using ArtGallery.Data.Entities;
+using ArtGallery.ViewModel.Catalog.Email;
 using ArtGallery.ViewModel.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -119,6 +120,26 @@ namespace ArtGallery.WebApp.Controllers
             profileUser.AccountId = UserId;
             var result = httpClient.PutAsJsonAsync(url + "updateprofile", profileUser).Result;
             result.ToString();
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordModelView address)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            string urlmail = "http://localhost:5000/api/Mail/";
+            var message = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail + "forgotPassword/" + address.UserName).Result);
+            ViewBag.Message = "Check your Email!";
             return View();
         }
     }
