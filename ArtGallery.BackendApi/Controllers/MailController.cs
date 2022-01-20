@@ -74,7 +74,7 @@ namespace ArtGallery.BackendApi.Controllers
             return mailServices.ContactUsMail(contact, body);
         }
 
-        [HttpGet("ContactUs/{aucId:int}")]
+        [HttpGet("AuctionWiner/{aucId:int}")]
         public async Task<bool> SendMailForWiner(int aucId)
         {
             string body = string.Empty;

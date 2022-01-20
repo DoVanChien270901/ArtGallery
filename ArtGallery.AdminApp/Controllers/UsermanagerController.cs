@@ -36,9 +36,9 @@ namespace ArtGallery.AdminApp.Controllers
                     Name = item.Name,
                     Password = item.Password,
                     Roles = item.Roles,
-                    //OrdersCount = order,
-                    //TransactionsCount = trans,
-                    //FeedBacksCount = feedBacks
+                    OrdersCount = order,
+                    TransactionsCount = trans,
+                    FeedBacksCount = feedBacks
                 };
                 userModelView.Add(view);
             }

@@ -77,7 +77,7 @@
                                             <a class="btn btn-success">@item.Roles.ToString()</a>
                                         }
                                     </td>
-                                    @*<td>
+                                    <td>
                                         @item.OrdersCount
                                     </td>
                                     <td>
@@ -85,7 +85,7 @@
                                     </td>
                                     <td>
                                         @item.FeedBacksCount
-                                    </td>*@
+                                    </td>
                                     <td>
                                         <span onclick="return confirm('Are you sure want to delete this data ?')">
                                             @Html.ActionLink("Delete", "Delete", "UserManager", new { name = item.Name }, new { @class = "btn btn-danger" })

@@ -103,31 +103,14 @@ namespace ArtGallery.Application.Common
         public bool SendMailForWiner(int aucId, string mailBody)
         {
 
-            Auction auctions = new Auction();
-            decimal maxPrice = context.AmountInAuctions.Where(c => c.AuctionId.Equals(aucId)).Max(c => c.NewPrice);
-            auctions = (from auc
-                    in context.Auctions
-                               join pro in context.Products on auc.ProductId equals pro.Id
-                               join amount in context.AmountInAuctions on auc.Id equals amount.AuctionId
-                               where auc.Id.Equals(aucId) && amount.NewPrice >= maxPrice
-                               select new Auction
-                               {
-                                   Id = auc.Id,
-                                   StartDateTime = auc.StartDateTime,
-                                   ProductId = auc.ProductId,
-                                   PriceStep = auc.PriceStep,
-                                   EndDateTime = auc.EndDateTime,
-                                   AmountInAcctions = new List<AmountInAuction>
-                                                    {
-                                                        new AmountInAuction
-                                                        {
-                                                            Id = amount.Id,
-                                                            NewPrice = amount.NewPrice
-                                                        }
-                                                    }
-                               }).FirstOrDefault();
+            //get auction
+            var auctions = context.Auctions.SingleOrDefault(a=>a.Id.Equals(aucId));
+            //get product from auction
             var product = context.Products.SingleOrDefault(p=>p.Id.Equals(auctions.ProductId));
 
+            //get profile winner
+            var auc = context.AmountInAuctions.Where(c => c.AuctionId == aucId);
+            decimal maxPrice = auc.Max(c => c.NewPrice);
             string accId = (from aia in context.AmountInAuctions
                             where aia.AuctionId == aucId && aia.NewPrice == maxPrice
                             select aia.AccountId).Single();
@@ -136,7 +119,7 @@ namespace ArtGallery.Application.Common
             mailBody = mailBody.Replace("{StartDateTime}", auctions.StartDateTime.ToString());
             mailBody = mailBody.Replace("{EndDateTime}", auctions.EndDateTime.ToString());
             mailBody = mailBody.Replace("{ProductTitle}", product.Title);
-            mailBody = mailBody.Replace("{NewPrice}", auctions.AmountInAcctions.Max(c=>c.NewPrice).ToString());
+            mailBody = mailBody.Replace("{NewPrice}", maxPrice.ToString());
             string domain = "http://localhost:5001/Home/Detail/" + product.Id;
             mailBody = mailBody.Replace("{link}", domain.ToString());
 
