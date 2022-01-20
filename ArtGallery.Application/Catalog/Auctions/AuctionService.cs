@@ -25,27 +25,28 @@ namespace ArtGallery.Application.Catalog.Auctions
         public async Task<IEnumerable<Auction>> GetAllAuctions()
         {
             //decimal maxprice = _db.AmountInAuctions.Max(c => c.NewPrice);
-            IEnumerable<Auction> listAuctions = (from auc
-                    in _db.Auctions
-                                                 join pro in _db.Products on auc.ProductId equals pro.Id
-                                                 select new Auction
-                                                 {
-                                                     StartingPrice = auc.StartingPrice,
-                                                     Id = auc.Id,
-                                                     StartDateTime = auc.StartDateTime,
-                                                     ProductId = auc.ProductId,
-                                                     PriceStep = auc.PriceStep,
-                                                     EndDateTime = auc.EndDateTime,
-                                                     AccountId =auc.AccountId,
-                                                     Status = auc.Status,
-                                                     Product = new Product
-                                                     {
-                                                         Id = pro.Id,
-                                                         Title = pro.Title,
-                                                         Price = pro.Price,
-                                                         ProductImages = new List<ProductImage> { }
-                                                     }
-                                                 }).ToList();
+            IEnumerable<Auction> 
+                listAuctions = (from auc
+                                in _db.Auctions
+                                join pro in _db.Products on auc.ProductId equals pro.Id
+                                select new Auction
+                                {
+                                    StartingPrice = auc.StartingPrice,
+                                    Id = auc.Id,
+                                    StartDateTime = auc.StartDateTime,
+                                    ProductId = auc.ProductId,
+                                    PriceStep = auc.PriceStep,
+                                    EndDateTime = auc.EndDateTime,
+                                    AccountId = auc.AccountId,
+                                    Status = auc.Status,
+                                    Product = new Product
+                                    {
+                                        Id = pro.Id,
+                                        Title = pro.Title,
+                                        Price = pro.Price,
+                                        ProductImages = new List<ProductImage> { }
+                                    }
+                                }).ToList();
             foreach (var item in listAuctions)
             {
                 ProductImage image = _db.ProductImages.FirstOrDefault(c => c.ProductId == item.Product.Id && c.Thumbnail == true);
@@ -75,25 +76,25 @@ namespace ArtGallery.Application.Catalog.Auctions
             if (_db.AmountInAuctions.FirstOrDefault(c => c.AuctionId.Equals(Id)) == null)
             {
                 Auction auctions = (from auc
-                                                in _db.Auctions
-                                                 join pro in _db.Products on auc.ProductId equals pro.Id
-                                                 where auc.Id.Equals(Id)
-                                                 select new Auction
-                                                 {
-                                                     Id = auc.Id,
-                                                     StartDateTime = auc.StartDateTime,
-                                                     ProductId = auc.ProductId,
-                                                     PriceStep = auc.PriceStep,
-                                                     StartingPrice = auc.StartingPrice,
-                                                     EndDateTime = auc.EndDateTime,
-                                                     Product = new Product
-                                                     {
-                                                         Id = pro.Id,
-                                                         Title = pro.Title,
-                                                         Price = pro.Price,
-                                                         ProductImages = new List<ProductImage> { }
-                                                     }
-                                                 }).FirstOrDefault();
+                                    in _db.Auctions
+                                    join pro in _db.Products on auc.ProductId equals pro.Id
+                                    where auc.Id.Equals(Id)
+                                    select new Auction
+                                    {
+                                        Id = auc.Id,
+                                        StartDateTime = auc.StartDateTime,
+                                        ProductId = auc.ProductId,
+                                        PriceStep = auc.PriceStep,
+                                        StartingPrice = auc.StartingPrice,
+                                        EndDateTime = auc.EndDateTime,
+                                        Product = new Product
+                                        {
+                                            Id = pro.Id,
+                                            Title = pro.Title,
+                                            Price = pro.Price,
+                                            ProductImages = new List<ProductImage> { }
+                                        }
+                                    }).FirstOrDefault();
                 ProductImage image1 = _db.ProductImages.FirstOrDefault(c => c.ProductId == auctions.ProductId && c.Thumbnail == true);
                 image1.ImagePath = await _storageService.GetFileUrl(image1.ImagePath);
                 auctions.Product.ProductImages.Add(image1);
@@ -102,25 +103,25 @@ namespace ArtGallery.Application.Catalog.Auctions
 
             decimal maxPrice = _db.AmountInAuctions.Where(c=>c.AuctionId.Equals(Id)).Max(c=>c.NewPrice);
             Auction auction = (from auc
-                    in _db.Auctions
-                                            join pro in _db.Products on auc.ProductId equals pro.Id
-                                            join amount in _db.AmountInAuctions on auc.Id equals amount.AuctionId
-                                            where auc.Id.Equals(Id) && amount.NewPrice >= maxPrice
-                                            select new Auction
-                                            {
-                                                Id = auc.Id,
-                                                StartDateTime = auc.StartDateTime,
-                                                ProductId = auc.ProductId,
-                                                PriceStep = auc.PriceStep,
-                                                EndDateTime = auc.EndDateTime,
-                                                Product = new Product
-                                                {
-                                                    Id = pro.Id,
-                                                    Title = pro.Title,
-                                                    Price = pro.Price,
-                                                    ProductImages = new List<ProductImage> { }
-                                                },
-                                                AmountInAcctions = new List<AmountInAuction>
+                               in _db.Auctions
+                               join pro in _db.Products on auc.ProductId equals pro.Id
+                               join amount in _db.AmountInAuctions on auc.Id equals amount.AuctionId
+                               where auc.Id.Equals(Id) && amount.NewPrice >= maxPrice
+                               select new Auction
+                               {
+                                   Id = auc.Id,
+                                   StartDateTime = auc.StartDateTime,
+                                   ProductId = auc.ProductId,
+                                   PriceStep = auc.PriceStep,
+                                   EndDateTime = auc.EndDateTime,
+                                   Product = new Product
+                                   {
+                                       Id = pro.Id,
+                                       Title = pro.Title,
+                                       Price = pro.Price,
+                                       ProductImages = new List<ProductImage> { }
+                                   },
+                                   AmountInAcctions = new List<AmountInAuction>
                                                     {
                                                         new AmountInAuction
                                                         {
@@ -128,7 +129,7 @@ namespace ArtGallery.Application.Catalog.Auctions
                                                             NewPrice = amount.NewPrice
                                                         }
                                                     }
-                                            }).FirstOrDefault();
+                               }).FirstOrDefault();
             ProductImage image = _db.ProductImages.FirstOrDefault(c => c.ProductId == auction.ProductId && c.Thumbnail == true);
             image.ImagePath = await _storageService.GetFileUrl(image.ImagePath);
             auction.Product.ProductImages.Add(image);

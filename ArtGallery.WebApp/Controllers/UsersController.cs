@@ -136,14 +136,13 @@ namespace ArtGallery.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordModelView address)
         {
-
             if (!ModelState.IsValid)
             {
                 return View();
             }
             string urlmail = "http://localhost:5000/api/Mail/";
             var message = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail + "forgotPassword/" + address.UserName).Result);
-            ViewBag.Message = "Check your Email!";
+            ViewBag.Message = "*Check your Email!";
             return View();
         }
     }

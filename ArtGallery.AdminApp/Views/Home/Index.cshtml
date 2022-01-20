@@ -1,8 +1,47 @@
-﻿@using ArtGallery.ViewModel.System.Admin
+@using ArtGallery.ViewModel.System.Admin
 @model DashboardModelView
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Dashboard";
+}
+@section Scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawOnLoad);
+        function drawOnLoad() {
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Home/IndexCharts',
+                    success: function (chartsdata) {
+                        var Data = chartsdata.jsonList;
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Title');
+                        data.addColumn('number', 'Price');
+                        for (var i = 0; i < Data.length; i++) {
+                            data.addRow([Data[i].title, Data[i].price]);
+                        }
+                        var piechart = new google.visualization.PieChart
+                            (document.getElementById('piediv'));
+                        piechart.draw(data, {
+                            //title: "Buy products",
+                            //position: "top",
+                            //fontsize: "15px"
+                        });
+                        //var barchart = new google.visualization.BarChart
+                        //    (document.getElementById('bardiv'));
+                        //barchart.draw(data, {
+                        //    title: "Buy products",
+                        //    position: "top",
+                        //    fontsize: "15px"
+                        //});
+                    }
+                });
+            })
+        }
+    </script>
 }
 <div class="page-heading">
     <h3>@ViewData["Title"]</h3>
@@ -154,6 +193,8 @@
                         </div>
                     </div>
                 </div>*@
+            <div id="piediv" style="width:424px; height:280px; position:relative;"></div>
         </div>
     </section>
 </div>
+<br /><br />

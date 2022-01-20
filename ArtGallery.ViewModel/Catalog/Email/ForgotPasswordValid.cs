@@ -11,7 +11,7 @@ namespace ArtGallery.ViewModel.Catalog.Email
     {
         public ForgotPasswordValid()
         {
-            RuleFor(c => c.UserName).NotEmpty().WithMessage("UserName is required !!");
+            RuleFor(c => c.UserName).NotEmpty().WithMessage("*UserName is required !!");
         }
     }
 }

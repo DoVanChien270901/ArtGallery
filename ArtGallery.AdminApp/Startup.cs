@@ -46,7 +46,7 @@ namespace ArtGallery.AdminApp
                     fv.RegisterValidatorsFromAssemblyContaining<UpdateAuctionRequestValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
                 });
-            
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +65,8 @@ namespace ArtGallery.AdminApp
             app.UseAuthentication();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
