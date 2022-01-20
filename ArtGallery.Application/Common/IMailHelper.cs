@@ -12,7 +12,7 @@ namespace ArtGallery.Application.Common
     {
         public bool SendMailForWithProduct(Product productstring, string mailBody);
         public bool SendMailForgotPassword(string uname, string mailBody);
-        //public bool SendWithAuction(, string mailBody);
         public bool ContactUsMail(ContactModelView contact, string mailBody);
+        public bool SendMailForWiner(int aucId, string mailBody);
     }
 }

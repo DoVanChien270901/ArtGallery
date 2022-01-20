@@ -73,5 +73,17 @@ namespace ArtGallery.BackendApi.Controllers
             }
             return mailServices.ContactUsMail(contact, body);
         }
+
+        [HttpGet("ContactUs/{aucId:int}")]
+        public async Task<bool> SendMailForWiner(int aucId)
+        {
+            string body = string.Empty;
+            //mail template
+            using (StreamReader reader = new StreamReader(hosting.WebRootPath + "\\mailTemplate\\mailForWinner.html"))
+            {
+                body = reader.ReadToEnd();
+            }
+            return mailServices.SendMailForWiner(aucId, body);
+        }
     }
 }

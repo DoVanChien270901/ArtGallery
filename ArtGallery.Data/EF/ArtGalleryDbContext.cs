@@ -23,16 +23,13 @@ namespace ArtGallery.Data.EF
             modelbuilder.ApplyConfiguration(new AccountConfiguration());
             modelbuilder.ApplyConfiguration(new AmountInAuctionConfiguration());
             modelbuilder.ApplyConfiguration(new AuctionConfiguration());
-            modelbuilder.ApplyConfiguration(new CartConfiguration());
             modelbuilder.ApplyConfiguration(new CategoryConfiguration());
             
-            modelbuilder.ApplyConfiguration(new CommissionConfiguration());
             modelbuilder.ApplyConfiguration(new FeedBackConfiguration());
             modelbuilder.ApplyConfiguration(new OrderConfiguration());
             modelbuilder.ApplyConfiguration(new ProductConfiguration());
             modelbuilder.ApplyConfiguration(new ProductImageConfiguration());
 
-            modelbuilder.ApplyConfiguration(new ProductInCartConfiguration());
             modelbuilder.ApplyConfiguration(new ProfileUserConfiguration());
             modelbuilder.ApplyConfiguration(new TransactionConfiguration());
 
@@ -43,14 +40,11 @@ namespace ArtGallery.Data.EF
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AmountInAuction> AmountInAuctions { get; set; }
         public DbSet<Auction> Auctions { get; set; }
-        public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Commission> Commissions { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
-        public DbSet<ProductInCart> ProductInCarts { get; set; }
         public DbSet<ProfileUser> ProfileUsers { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<ProductInCategory>  ProductInCategories { get; set; }

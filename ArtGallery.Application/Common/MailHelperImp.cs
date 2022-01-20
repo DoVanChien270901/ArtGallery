@@ -14,11 +14,14 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ArtGallery.ViewModel.Catalog.Email;
+using ArtGallery.Application.Catalog.Auctions;
 
 namespace ArtGallery.Application.Common
 {
-    public class MailHelperImp : IMailHelper
+    public class MailHelperImp : IMailHelper 
     {
+        private readonly IStorageService storageService;
+        private readonly IAuctionsService auctionsService;
         private readonly IConfiguration config;
         private readonly IHostingEnvironment hosting;
         private readonly ArtGalleryDbContext context;
@@ -27,8 +30,10 @@ namespace ArtGallery.Application.Common
         string fromPassword = "";
         string host = "";
         int port = 0;
-        public MailHelperImp(IConfiguration config, ArtGalleryDbContext context, IHostingEnvironment hosting)
+        public MailHelperImp(IStorageService storageService, IAuctionsService auctionsService, IConfiguration config, ArtGalleryDbContext context, IHostingEnvironment hosting)
         {
+            this.storageService = storageService;
+            this.auctionsService = auctionsService;
             this.hosting = hosting;
             this.config = config.GetSection("MailSettings");
             this.context = context;
@@ -95,6 +100,65 @@ namespace ArtGallery.Application.Common
             return true;
         }
 
+        public bool SendMailForWiner(int aucId, string mailBody)
+        {
+
+            Auction auctions = new Auction();
+            decimal maxPrice = context.AmountInAuctions.Where(c => c.AuctionId.Equals(aucId)).Max(c => c.NewPrice);
+            auctions = (from auc
+                    in context.Auctions
+                               join pro in context.Products on auc.ProductId equals pro.Id
+                               join amount in context.AmountInAuctions on auc.Id equals amount.AuctionId
+                               where auc.Id.Equals(aucId) && amount.NewPrice >= maxPrice
+                               select new Auction
+                               {
+                                   Id = auc.Id,
+                                   StartDateTime = auc.StartDateTime,
+                                   ProductId = auc.ProductId,
+                                   PriceStep = auc.PriceStep,
+                                   EndDateTime = auc.EndDateTime,
+                                   AmountInAcctions = new List<AmountInAuction>
+                                                    {
+                                                        new AmountInAuction
+                                                        {
+                                                            Id = amount.Id,
+                                                            NewPrice = amount.NewPrice
+                                                        }
+                                                    }
+                               }).FirstOrDefault();
+            var product = context.Products.SingleOrDefault(p=>p.Id.Equals(auctions.ProductId));
+
+            string accId = (from aia in context.AmountInAuctions
+                            where aia.AuctionId == aucId && aia.NewPrice == maxPrice
+                            select aia.AccountId).Single();
+            ProfileUser profile = context.ProfileUsers.SingleOrDefault(c => c.AccountId.Equals(accId));
+
+            mailBody = mailBody.Replace("{StartDateTime}", auctions.StartDateTime.ToString());
+            mailBody = mailBody.Replace("{EndDateTime}", auctions.EndDateTime.ToString());
+            mailBody = mailBody.Replace("{ProductTitle}", product.Title);
+            mailBody = mailBody.Replace("{NewPrice}", auctions.AmountInAcctions.Max(c=>c.NewPrice).ToString());
+            string domain = "http://localhost:5001/Home/Detail/" + product.Id;
+            mailBody = mailBody.Replace("{link}", domain.ToString());
+
+            string mailSubject = "You are Winner Art !!!";
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(from));
+            email.Subject = mailSubject;
+            var builder = new BodyBuilder();
+            builder.HtmlBody = mailBody;
+            email.Body = builder.ToMessageBody();
+            
+            email.To.Add(MailboxAddress.Parse(profile.Email));
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Connect(host, Convert.ToInt32(port), MailKit.Security.SecureSocketOptions.StartTls);
+            smtpClient.Authenticate(from, fromPassword);
+            smtpClient.Send(email);
+
+            smtpClient.Disconnect(true);
+            return true;
+        }
+
         public bool SendMailForWithProduct(Product product, string mailBody)
         {
             //get product
@@ -104,7 +168,7 @@ namespace ArtGallery.Application.Common
             mailBody = mailBody.Replace("{price}", prod.Price.ToString());
             mailBody = mailBody.Replace("{date}", prod.CreateDate.ToString());
             mailBody = mailBody.Replace("{id}", prod.Id.ToString());
-            string domain = "http://localhost:30162/Home/Detail/" + prod.Id;
+            string domain = "http://localhost:5001/Home/Detail/" + prod.Id;
             mailBody = mailBody.Replace("{link}", domain.ToString());
 
             //getList Category In Product
@@ -178,7 +242,7 @@ namespace ArtGallery.Application.Common
             smtpClient.Disconnect(true);
             return true;
         }
-
-
     }
+
+    
 }

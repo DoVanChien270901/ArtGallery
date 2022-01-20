@@ -10,11 +10,10 @@ namespace ArtGallery.Data.Entities
     {
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
-        public string Status { get; set; }
+        public bool Status { get; set; }
+        public decimal Total { get; set; }
+        public decimal Commision { get; set; }
+        public string Description { get; set; }
         public string AccountId { get; set; }
-        public Account Account { get; set; }
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-        public Commission Commission { get; set; }
     }
 }

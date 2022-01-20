@@ -22,19 +22,6 @@ namespace ArtGallery.Application.System.Admin
             return context.Accounts.SingleOrDefault(a=>a.Name.Equals(name));
         }
 
-        // Get Carts Count
-        public async Task<int> GetCartsCount(string name)
-        {
-            var model = context.Carts.Where(c => c.AccountId.Equals(name)).ToList();
-            try
-            {
-                return model.Count();
-            }
-            catch (ArgumentNullException)
-            {
-                return 0;
-            }
-        }
 
         // Get Feedbacks Count
         public async Task<int> GetFeedBacksCount(string name)

@@ -37,11 +37,6 @@ namespace ArtGallery.BackendApi.Controllers.Admin
             return await profileUserManager.UpdateProfile(profileUser);
         }
 
-        [HttpGet("GetCarts/{name}")]
-        public async Task<int> GetCarts(string name)
-        {
-            return await profileUserManager.GetCartsCount(name);
-        }
 
         [HttpGet("GetOrders/{name}")]
         public async Task<int> GetOrders(string name)
