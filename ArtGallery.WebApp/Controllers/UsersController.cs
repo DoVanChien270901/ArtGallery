@@ -65,6 +65,7 @@ namespace ArtGallery.WebApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
             return RedirectToAction("Login", "Users");
         }
         [HttpGet]
@@ -75,6 +76,7 @@ namespace ArtGallery.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterRequest request, string gender)
         {
+            request.Role = Data.Enum.Roleposition.User;
             request.Gender = gender;
             if (!ModelState.IsValid) return View();
             var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url + "register", request).Result.Content.ReadAsStringAsync());

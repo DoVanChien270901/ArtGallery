@@ -55,6 +55,11 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return await userManager.GetUser(name);
         }
+        [HttpGet("RequestAdmin/{name}")]
+        public Task<bool> RequestAdmin(string name)
+        {
+            return userManager.RequestAdmin(name);
+        }
 
     }
 }

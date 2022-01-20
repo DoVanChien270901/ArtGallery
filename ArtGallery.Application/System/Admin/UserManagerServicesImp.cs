@@ -61,6 +61,18 @@ namespace ArtGallery.Application.System.Admin
             return context.Accounts.ToList();
         }
 
+        public async Task<bool> RequestAdmin(string uname)
+        {
+            var acc = await context.Accounts.FindAsync(uname);
+            if (acc!= null)
+            {
+                acc.Roles = Roleposition.Admin;
+                await context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public async Task<IEnumerable<Account>> SearchUsers(string uname)
         {
             return context.Accounts.Where(u=>u.Name.Contains(uname));

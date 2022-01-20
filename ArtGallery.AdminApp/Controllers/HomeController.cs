@@ -19,11 +19,6 @@ namespace ArtGallery.AdminApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly string url = "http://localhost:5000/api/AdminDashboad/";
         private readonly HttpClient httpClient = new HttpClient();
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
@@ -41,17 +36,6 @@ namespace ArtGallery.AdminApp.Controllers
                 TransactionsCount = trans
             };
             return View(view);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

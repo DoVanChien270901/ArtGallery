@@ -17,5 +17,6 @@ namespace ArtGallery.Application.System.Admin
         Task<bool> UpdateUser(Account uname);
         Task<bool> DeleteUser(string uname);
         Task<IEnumerable<Account>> SearchUsers(string uname);
+        Task<bool> RequestAdmin(string uname);
     }
 }

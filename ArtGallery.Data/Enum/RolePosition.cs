@@ -9,6 +9,7 @@ namespace ArtGallery.Data.Enum
     public enum Roleposition
     {
         Admin,
-        User
+        User,
+        RAdmin
     }
 }

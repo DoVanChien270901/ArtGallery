@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Data.Entities;
+using ArtGallery.Data.Enum;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace ArtGallery.ViewModel.System.Users
         public string PhoneNumber { get; set; }
         public DateTime DOB { get; set; }
         public string ConfirmPassword { get; set; }
+        public Roleposition Role { get; set; }
     }    
 }
