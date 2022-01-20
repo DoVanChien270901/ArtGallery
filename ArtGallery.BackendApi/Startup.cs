@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtGallery.Application.Common;
+using ArtGallery.Application.Catalog.Carts;
 
 namespace ArtGallery.BackendApi
 {
@@ -44,11 +45,11 @@ namespace ArtGallery.BackendApi
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuctionsService, AuctionService>();
             services.AddTransient<IStorageService, StorageService>();
+            services.AddTransient<ICartService, CartService>();
 
             //DI vinhvizg
             services.AddTransient<ICategoryServices, CategoryServicesImp>();
             services.AddTransient<IProductServices, ProductServicesImp>();
-            services.AddTransient<IProductImageServices, ProductImageServicesImp>();
             services.AddTransient<IUserManagerServices, UserManagerServicesImp>();
             services.AddTransient<IProfileUserManager, ProfileUserManagerImp>();
             services.AddTransient<IMailHelper, MailHelperImp>();

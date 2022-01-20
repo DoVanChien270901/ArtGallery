@@ -63,6 +63,9 @@
                                 <li class="submenu-item ">
                                     @Html.ActionLink("List", "Index", "UserManager")
                                 </li>
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Request Add Admin", "RequestAdmin", "UserManager")
+                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
@@ -90,6 +93,20 @@
                                 </li>
                                 <li class="submenu-item ">
                                     @Html.ActionLink("Request", "GetRequestUser", "ProductManager")
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Order Manager</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("List", "Ordering", "Order")
+                                </li>
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Orders delivered", "SuccessfulDelivery", "Order")
                                 </li>
                             </ul>
                         </li>

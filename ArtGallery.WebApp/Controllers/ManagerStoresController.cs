@@ -117,7 +117,7 @@ namespace ArtGallery.WebApp.Controllers
         public IActionResult UpdateProduct(int id)
         {
             Product singlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "Products/GetProduct/" + id).Result);
-            List<SelectListCate> listCate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager/" + "CategoriesManager").Result);
+            List<SelectListCate> listCate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager/").Result);
             foreach (var proincate in singlepro.ProductInCategories)
             {
                 foreach (var cate in listCate)
@@ -295,10 +295,10 @@ namespace ArtGallery.WebApp.Controllers
             {
                 Auction auction = JsonConvert.DeserializeObject<Auction>(httpClient.GetStringAsync(url + "Auctions/GetAuction/" + request.Id).Result);
                 ViewBag.auc = auction;
-                return View("GetAuction", "ManagerStores");
+                return View();
             }
             var model = httpClient.PutAsJsonAsync(url + "Auctions/UpdateAuction/", request).Result;
-            return RedirectToAction();
+            return RedirectToAction("GetAuction", "ManagerStores");
 
         }
         [HttpGet]

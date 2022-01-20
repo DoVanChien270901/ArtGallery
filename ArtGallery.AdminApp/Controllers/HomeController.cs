@@ -21,11 +21,6 @@ namespace ArtGallery.AdminApp.Controllers
         private readonly string url = "http://localhost:5000/api/AdminDashboad/";
         private readonly string urlChart = "http://localhost:5000/api/Products/";
         private readonly HttpClient httpClient = new HttpClient();
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {

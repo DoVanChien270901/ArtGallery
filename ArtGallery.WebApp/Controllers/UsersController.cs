@@ -6,6 +6,7 @@ using ArtGallery.ViewModel.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -47,13 +48,14 @@ namespace ArtGallery.WebApp.Controllers
                 var authProperties = new AuthenticationProperties
                 {
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
-                    IsPersistent = false
+                    IsPersistent = true
                 };
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     userPrincipal,
                     authProperties
                     );
+                //HttpContext.Session.SetString("carts", "null");
                 return RedirectToAction("Home", "Home");
             }
             ModelState.AddModelError("loginMessage", result.Message);
@@ -63,6 +65,7 @@ namespace ArtGallery.WebApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
             return RedirectToAction("Login", "Users");
         }
         [HttpGet]
@@ -73,6 +76,7 @@ namespace ArtGallery.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterRequest request, string gender)
         {
+            request.Role = Data.Enum.Roleposition.User;
             request.Gender = gender;
             if (!ModelState.IsValid) return View();
             var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url + "register", request).Result.Content.ReadAsStringAsync());
@@ -83,7 +87,7 @@ namespace ArtGallery.WebApp.Controllers
                 var authProperties = new AuthenticationProperties
                 {
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
-                    IsPersistent = false
+                    IsPersistent = true
                 };
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,

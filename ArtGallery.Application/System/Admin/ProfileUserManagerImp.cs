@@ -25,15 +25,16 @@ namespace ArtGallery.Application.System.Admin
         // Get Carts Count
         public async Task<int> GetCartsCount(string name)
         {
-            var model = context.Carts.Where(c => c.AccountId.Equals(name)).ToList();
-            try
-            {
-                return model.Count();
-            }
-            catch (ArgumentNullException)
-            {
-                return 0;
-            }
+            //var model = context.Carts.Where(c => c.AccountId.Equals(name)).ToList();
+            //try
+            //{
+            //    return model.Count();
+            //}
+            //catch (ArgumentNullException)
+            //{
+            //    return 0;
+            //}
+            return 0;
         }
 
         // Get Feedbacks Count

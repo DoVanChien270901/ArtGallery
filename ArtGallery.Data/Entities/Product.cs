@@ -19,8 +19,6 @@ namespace ArtGallery.Data.Entities
         public Auction Auction { get; set; }
         public Account Account { get; set; }
         public List<ProductInCategory> ProductInCategories { get; set; }
-        public List<ProductInCart> ProductInCarts { get; set; }
         public List<ProductImage> ProductImages { get; set; }
-        public List<Order> Orders { get; set; }
     }
 }

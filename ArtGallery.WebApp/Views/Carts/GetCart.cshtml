@@ -1,0 +1,87 @@
+﻿@model ArtGallery.Data.Entities.Product
+@using ArtGallery.ViewModel.Catalog.Carts
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json;
+@{
+    Layout = "_Layout";
+}
+<!--middle content-->
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--left sidebar---->
+            <aside class="col-sm-3 left-sidebar">
+                <div class="box category">
+                    <div class="box-heading">
+                        <h3>Categories <i class="fa fa-angle-up"></i></h3>
+                    </div>
+                    <div class="box-content test">
+                        <div class="box-category">
+                            <ul class="menu">
+                               <li>null</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!--end sidebar-->
+            <!--main content-->
+            <div class="col-sm-9 single-product" id="content">
+                <ul class="breadcrumb">
+                    <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
+                    <li><a asp-action="Detail" asp-controller="Home">Details</a></li>
+                </ul>
+                <div class="row">
+                    @{ if (Context.Session.GetString("carts") != null)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        decimal total = 0;
+                                        List<SessionCart> sesstionCart = JsonConvert.DeserializeObject<List<SessionCart>>(Context.Session.GetString("carts"));
+                                        foreach (var item in sesstionCart)
+                                        {
+
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Title</td>
+                                                <td>@item.Price</td>
+                                                <td>
+                                                    <img src="@Url.Content(item.PathImg)" width="120px" />
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Delete" asp-controller="Carts" asp-route-id="@item.Id" class="text-danger">X</a>
+                                                </td>
+                                                @{ total = total + item.Price;}
+                                            </tr>
+                                        }
+
+
+                                    }
+                                </tbody>
+                            </table>
+                            <label>Total Price: <span class="text-danger">@total$</span></label>
+                            <a asp-action="Order" asp-controller="Carts" class="btn btn-success">Order</a>
+                        }
+                        else
+                        {
+                            <span>No item</span>
+                        }
+                    }
+                </div>
+            </div>
+            <!--end main content-->
+        </div>
+    </div>
+</div>
+<br />
+<!--End of middle content-->

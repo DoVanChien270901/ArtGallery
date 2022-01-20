@@ -24,7 +24,7 @@ namespace ArtGallery.AdminApp.Controllers
         public IActionResult Index(int pg = 1)
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Account>>(httpClient.GetStringAsync(url).Result);
-           
+            model = model.Where(c => c.Roles != Data.Enum.Roleposition.RAdmin);
             List<UserModelView> userModelView = new List<UserModelView>();
             foreach (var item in model)
             {
@@ -54,7 +54,52 @@ namespace ArtGallery.AdminApp.Controllers
             this.ViewBag.Pager = pager;
             return View(data);
         }
-       
+        //request admin
+        [HttpGet]
+        public IActionResult RequestAdmin(int pg = 1)
+        {
+            var model = JsonConvert.DeserializeObject<IEnumerable<Account>>(httpClient.GetStringAsync(url).Result);
+            model = model.Where(c => c.Roles == Data.Enum.Roleposition.RAdmin);
+            List<UserModelView> userModelView = new List<UserModelView>();
+            foreach (var item in model)
+            {
+                //var cart = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + item.Name).Result);
+                //var order = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + item.Name).Result);
+                //var trans = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + item.Name).Result);
+                //var feedBacks = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + item.Name).Result);
+                UserModelView view = new UserModelView
+                {
+                    Name = item.Name,
+                    Password = item.Password,
+                    Roles = item.Roles,
+                    //CartsCount = cart,
+                    //OrdersCount = order,
+                    //TransactionsCount = trans,
+                    //FeedBacksCount = feedBacks
+                };
+                userModelView.Add(view);
+            }
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = userModelView.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> AcceptAdmin(string name)
+        {
+            var model = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(url + "RequestAdmin/" + name).Result);
+            if (model ==true)
+            {
+                return RedirectToAction("RequestAdmin");
+            }
+            return BadRequest();
+        }
+        //
         [HttpPost]
         public IActionResult Index(string name, int pg = 1)
         {
