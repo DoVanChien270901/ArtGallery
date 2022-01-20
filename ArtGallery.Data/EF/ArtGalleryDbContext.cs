@@ -26,7 +26,6 @@ namespace ArtGallery.Data.EF
             modelbuilder.ApplyConfiguration(new CartConfiguration());
             modelbuilder.ApplyConfiguration(new CategoryConfiguration());
             
-            modelbuilder.ApplyConfiguration(new CommissionConfiguration());
             modelbuilder.ApplyConfiguration(new FeedBackConfiguration());
             modelbuilder.ApplyConfiguration(new OrderConfiguration());
             modelbuilder.ApplyConfiguration(new ProductConfiguration());
@@ -45,7 +44,6 @@ namespace ArtGallery.Data.EF
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Commission> Commissions { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }

@@ -295,10 +295,10 @@ namespace ArtGallery.WebApp.Controllers
             {
                 Auction auction = JsonConvert.DeserializeObject<Auction>(httpClient.GetStringAsync(url + "Auctions/GetAuction/" + request.Id).Result);
                 ViewBag.auc = auction;
-                return View("GetAuction", "ManagerStores");
+                return View();
             }
             var model = httpClient.PutAsJsonAsync(url + "Auctions/UpdateAuction/", request).Result;
-            return RedirectToAction();
+            return RedirectToAction("GetAuction", "ManagerStores");
 
         }
         [HttpGet]
