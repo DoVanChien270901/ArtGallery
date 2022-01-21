@@ -18,7 +18,10 @@
                     <div class="box-content test">
                         <div class="box-category">
                             <ul class="menu">
-                               <li>null</li>
+                                @foreach (var item in ViewBag.cate)
+                                {
+                                    <li><a asp-action="Home" asp-fragment="Home" asp-route-cateName="@item.Name" class="custom_hover">@item.Name</a></li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -74,7 +77,9 @@
                         }
                         else
                         {
-                            <span>No item</span>
+                            <h4>
+                                Cart Has No Products
+                            </h4>
                         }
                     }
                 </div>

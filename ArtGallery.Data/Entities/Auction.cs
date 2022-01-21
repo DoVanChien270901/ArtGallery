@@ -13,7 +13,6 @@ namespace ArtGallery.Data.Entities
         public decimal PriceStep { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public bool Status { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
         public string AccountId { get; set; }

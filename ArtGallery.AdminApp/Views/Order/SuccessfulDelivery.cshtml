@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ArtGallery.Data.Entities.Order>
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Auction List";
+    ViewData["Title"] = "Order List";
     Pager pager = new Pager();
     int pageNo = 0;
     if (ViewBag.Pager != null)
@@ -31,7 +31,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row mb-3">
-                    <h4>Auctions Started</h4>
+                    <h4>List Of Orders Delivered Successfully</h4>
                 </div>
             </div>
             <div class="card-body">

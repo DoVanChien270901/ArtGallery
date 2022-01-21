@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AuctionsController : Controller
     {
         private readonly string url = "http://localhost:5000/api/Auctions/";

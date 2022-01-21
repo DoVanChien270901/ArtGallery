@@ -1,5 +1,6 @@
 ﻿using ArtGallery.Data.Entities;
 using ArtGallery.ViewModel.Catalog.Carts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class CartsController : Controller
     {
         private readonly string url = "http://localhost:5000/api/Products/";
@@ -58,6 +60,9 @@ namespace ArtGallery.WebApp.Controllers
         [HttpGet]
         public IActionResult GetCart()
         {
+            string urlcate = "http://localhost:5000/api/CategoriesManager/";
+            IEnumerable<Category> Cate = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(urlcate).Result);
+            ViewBag.cate = Cate;
             return View();
         }
         [HttpGet]
@@ -102,6 +107,10 @@ namespace ArtGallery.WebApp.Controllers
                 HttpContext.Session.Clear();
             }
             TempData["msgcart"] = "Order Success. Invoice will be sent to your gmail within 24 hours";
+
+            
+            string urlmail = "http://localhost:5000/api/Mail/";
+            var sendmail = httpClient.PostAsJsonAsync(urlorder + "SendMailOrder", order).Result;
             return RedirectToAction("Home", "Home");
         }
     }

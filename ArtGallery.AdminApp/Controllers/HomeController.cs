@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.AdminApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

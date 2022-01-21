@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ArtGallery.ViewModel.Catalog.Email;
 using ArtGallery.Application.Catalog.Auctions;
+using ArtGallery.ViewModel.Catalog.Carts;
 
 namespace ArtGallery.Application.Common
 {
@@ -219,6 +220,38 @@ namespace ArtGallery.Application.Common
 
             SmtpClient smtpClient = new SmtpClient();
             smtpClient.Connect(host,Convert.ToInt32(port),MailKit.Security.SecureSocketOptions.StartTls);
+            smtpClient.Authenticate(from, fromPassword);
+            smtpClient.Send(email);
+
+            smtpClient.Disconnect(true);
+            return true;
+        }
+
+        public bool SendMailOrder(InsertCart order, string mailBody)
+        {
+
+            ProfileUser profile = context.ProfileUsers.SingleOrDefault(p=>p.AccountId.Equals(order.AccountId));
+            var address = profile.Email;
+
+            mailBody = mailBody.Replace("{orderdate}", order.OrderDate.ToString());
+            mailBody = mailBody.Replace("{user}", order.AccountId.ToString());
+            mailBody = mailBody.Replace("{description}", order.Description.ToString());
+            mailBody = mailBody.Replace("{total}", order.Total.ToString());
+
+            //send Mail
+
+            string mailSubject = "You have new favorite Art selling !!!";
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(from));
+            email.Subject = mailSubject;
+            var builder = new BodyBuilder();
+            builder.HtmlBody = mailBody;
+            email.Body = builder.ToMessageBody();
+            email.To.Add(MailboxAddress.Parse(address));
+       
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Connect(host, Convert.ToInt32(port), MailKit.Security.SecureSocketOptions.StartTls);
             smtpClient.Authenticate(from, fromPassword);
             smtpClient.Send(email);
 

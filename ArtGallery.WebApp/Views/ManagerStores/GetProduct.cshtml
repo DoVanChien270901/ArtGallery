@@ -28,6 +28,13 @@
             </aside>
             <!--end sidebar-->
             <!--main content-->
+            @*masager*@
+            @if (TempData["msgproduct"] != null)
+            {
+                <div id="msg" class="alert alert-success" role="alert" style="width:500px; margin:auto">
+                    @TempData["msgproduct"]
+                </div>
+            }
             <div class="col-sm-9 single-product" id="content">
                 <ul class="breadcrumb">
                     <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
@@ -47,32 +54,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               @foreach (var item in ViewBag.products as IEnumerable<Product>)
-                                {
-                                <tr>
-                                    <td class="text-bold-500">@item.Title</td>
-                                    <td class="post">
-                                        <p class="content">@item.Description</p>
-                                        <button onclick="readMore(this)" hidden="hidden"></button>
-                                    </td>
-                                    <td>@item.Price</td>
-                                    @foreach (ProductImage img in item.ProductImages)
+                                @{
+                                    if (ViewBag.products.Count != 0)
                                     {
-                                        if (img.Thumbnail == true)
+                                        @foreach (var item in ViewBag.products as IEnumerable<Product>)
                                         {
-                                            <td>
-                                                <img src="@Url.Content(img.ImagePath)" style="width:100px; height:auto;">
-                                            </td>
+                                            <tr>
+                                                <td class="text-bold-500">@item.Title</td>
+                                                <td class="post">
+                                                    <p class="content">@item.Description</p>
+                                                    <button onclick="readMore(this)" hidden="hidden"></button>
+                                                </td>
+                                                <td>@item.Price</td>
+                                                @foreach (ProductImage img in item.ProductImages)
+                                                {
+                                                    if (img.Thumbnail == true)
+                                                    {
+                                                        <td>
+                                                            <img src="@Url.Content(img.ImagePath)" style="width:100px; height:auto;">
+                                                        </td>
+                                                    }
+                                                }
+                                                <td>
+                                                    <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                                        <a asp-action="DeleteProduct" asp-controller="ManagerStores" asp-route-id="@item.Id">Delete</a>&nbsp;|
+                                                    </span>
+                                                    @*<input type="button" asp-controller="CategoryManager" asp-action="" asp-route="@item.Id" class="btn btn-danger" value="Delete" name="alertMsg" id="btnAlertMsg" onclick="myFunction()" />*@
+                                                    <a asp-action="UpdateProduct" asp-controller="ManagerStores" asp-route-id="@item.Id">Update</a>
+                                                </td>
+                                            </tr>
                                         }
                                     }
-                                    <td>
-                                        <span onclick="return confirm('Are you sure want to delete this data ?')">
-                                            <a asp-action="DeleteProduct" asp-controller="ManagerStores" asp-route-id="@item.Id">Delete</a>&nbsp;|
-                                        </span>
-                                        @*<input type="button" asp-controller="CategoryManager" asp-action="" asp-route="@item.Id" class="btn btn-danger" value="Delete" name="alertMsg" id="btnAlertMsg" onclick="myFunction()" />*@
-                                        <a asp-action="UpdateProduct" asp-controller="ManagerStores" asp-route-id="@item.Id">Update</a>
-                                    </td>
-                                </tr>
+                                    else
+                                    {
+                                        <tr><th><h4>There Are No Product Available !</h4></th></tr>
+
+                                    }
                                 }
                             </tbody>
                         </table>
@@ -103,4 +120,10 @@
     function readMore(btn) {
         let post = btn.parentElement;
     }
+</script>
+<script>
+    setTimeout(function () {
+
+        $('#msg').fadeOut('slow');
+    }, 2000);
 </script>

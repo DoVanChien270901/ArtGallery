@@ -33,8 +33,8 @@ namespace ArtGallery.AdminApp
             //cookie
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(op => {
-                    op.LoginPath = "/Users/Login";
-                    op.AccessDeniedPath = "";
+                    op.LoginPath = "/Accounts/Login";
+                    op.AccessDeniedPath = "/Accounts/LoginFail";
                 });
             //DI
            

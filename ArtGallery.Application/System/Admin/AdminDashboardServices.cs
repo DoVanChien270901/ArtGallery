@@ -58,16 +58,17 @@ namespace ArtGallery.Application.System.Admin
 
         public async Task<int> GetTransactionsCount()
         {
-            var model = context.Transactions.ToList();
-            try
-            {
-                return model.Count();
-            }
-            catch (ArgumentNullException)
-            {
+            //var model = context.Transactions.ToList();
+            //try
+            //{
+            //    return model.Count();
+            //}
+            //catch (ArgumentNullException)
+            //{
 
-                return 0;
-            }
+            //    return 0;
+            //}
+            return 0;
         }
     }
 }

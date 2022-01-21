@@ -14,7 +14,6 @@ namespace ArtGallery.Data.Entities
         public Roleposition Roles { get; set; }
         public ProfileUser ProfileUser { get; set; }
         public List<FeedBack> FeedBacks { get; set; }
-        public List<Transaction> Transactions { get; set; }
         public List<AmountInAuction> AmountInAcctions { get; set; }
         public List<Product> Products { get; set; }
         public List<Auction> Auctions { get; set; }

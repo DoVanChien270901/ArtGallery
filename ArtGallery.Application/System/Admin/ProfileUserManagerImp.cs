@@ -59,12 +59,13 @@ namespace ArtGallery.Application.System.Admin
         // Get Transactions Count
         public async Task<int> GetTransactionsCount(string name)
         {
-            var model = context.Transactions.Where(c => c.AccountId.Equals(name)).ToList();
-            try
-            {
-                return model.Count();
-            }
-            catch (ArgumentNullException) { return 0; }
+            //var model = context.Transactions.Where(c => c.AccountId.Equals(name)).ToList();
+            //try
+            //{
+            //    return model.Count();
+            //}
+            //catch (ArgumentNullException) { return 0; }
+            return 0;
         }
 
         // Update Profile

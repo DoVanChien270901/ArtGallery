@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryManagerController : Controller
     {
         // Check

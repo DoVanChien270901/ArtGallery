@@ -33,6 +33,13 @@
             </aside>
             <!--end sidebar-->
             <!--main content-->
+            @*masager*@
+            @if (TempData["msgroomauc"] != null)
+            {
+                <div id="msg" class="alert alert-success" role="alert" style="width:500px; margin:auto">
+                    @TempData["msgroomauc"]
+                </div>
+            }
             <div class="col-sm-9" id="content">
                 <ul class="breadcrumb">
                     <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
@@ -55,7 +62,7 @@
                                             <p class="price">
                                                 <span class="price-tax">Starting Price: @item.Product.Price $</span>
                                                 @*<span class="price-old">$122.00</span>
-                                                <span class="price-tax">Ex Tax: $90.00</span>*@
+                                            <span class="price-tax">Ex Tax: $90.00</span>*@
                                             </p>
                                             <p>Start: @item.StartDateTime</p>
                                             <p>End: @item.EndDateTime</p>
@@ -63,7 +70,7 @@
                                         <div class="button-group">
                                             <a class="btn special-button"><i class="fa fa-eye"></i> <span>Views</span></a>
                                             @*<button class="btn special-button" type="button"><i class="fa fa-heart"></i></button>
-                                            <button class="btn special-button" type="button"><i class="fa fa-exchange"></i></button>*@
+                                        <button class="btn special-button" type="button"><i class="fa fa-exchange"></i></button>*@
                                         </div>
                                     </div>
                                 </div>
@@ -113,4 +120,10 @@
         </div>
     </div>
 </div>
+<script>
+    setTimeout(function () {
+
+        $('#msg').fadeOut('slow');
+    }, 5000);
+</script>
 <!--End of middle content-->

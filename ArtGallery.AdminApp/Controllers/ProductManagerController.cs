@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductManagerController : Controller
     {
         private readonly string url = "http://localhost:5000/api/Products/";

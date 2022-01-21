@@ -41,9 +41,11 @@ namespace ArtGallery.Application.System.Admin
         public async Task<bool> DeleteUser(string uname)
         {
             var us = context.Accounts.SingleOrDefault(c => c.Name.Equals(uname));
+            var pr = context.ProfileUsers.SingleOrDefault(c => c.AccountId.Equals(uname));
             if (us != null)
             {
                 context.Accounts.Remove(us);
+                context.ProfileUsers.Remove(pr);
                 await context.SaveChangesAsync();
                 return true;
             }

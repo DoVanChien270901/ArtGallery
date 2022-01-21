@@ -33,7 +33,7 @@ namespace ArtGallery.WebApp
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(op => {
                     op.LoginPath = "/Users/Login";
-                    op.AccessDeniedPath = "";
+                    op.AccessDeniedPath = "/Users/LoginFail";
                 });
             //configuration fluent validator
             services.AddSingleton<ITokenService, TokenService>();

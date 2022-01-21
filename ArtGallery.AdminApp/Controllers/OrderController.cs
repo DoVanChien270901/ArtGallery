@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.AdminApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrderController : Controller
     {
         private readonly string url = "http://localhost:5000/api/Carts/";

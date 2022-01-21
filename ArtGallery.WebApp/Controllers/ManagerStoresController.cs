@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ManagerStoresController : Controller
     {
         private readonly string url = "http://localhost:5000/api/";
@@ -36,6 +37,7 @@ namespace ArtGallery.WebApp.Controllers
         public IActionResult DeleteProduct(int id)
         {
             var result = httpClient.DeleteAsync(url + "Products/DeleteProduct/" + id).Result;
+            TempData["msgproduct"] = "Delete Product Successfully";
             return RedirectToAction("GetProduct", "ManagerStores");
         }
 
@@ -111,6 +113,7 @@ namespace ArtGallery.WebApp.Controllers
 
             var result = httpClient.PostAsync(url + "Products/InsertProduct", requestcontent).Result;
             if (!result.IsSuccessStatusCode) return BadRequest();
+            TempData["msgproduct"] = "Successfully added products, please wait for admin approval";
             return RedirectToAction("GetProduct", "ManagerStores");
         }
         [HttpGet]
@@ -229,7 +232,7 @@ namespace ArtGallery.WebApp.Controllers
 
             var result = httpClient.PutAsync(url + "Products/UpdateProduct", requestcontent).Result;
             if (!result.IsSuccessStatusCode) return BadRequest();
-
+            TempData["msgproduct"] = "Update Product Successfully";
             return RedirectToAction("GetProduct", "ManagerStores");
         }
         [HttpGet]
@@ -241,7 +244,7 @@ namespace ArtGallery.WebApp.Controllers
                 UserId = item.Value.ToString();
             }
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "Auctions/GetAllAuctions/").Result);
-            listAuctions = listAuctions.Where(c => c.AccountId == UserId && c.Status == true);
+            listAuctions = listAuctions.Where(c => c.AccountId == UserId);
             if (listAuctions == null)
             {
                 return BadRequest();
@@ -279,6 +282,7 @@ namespace ArtGallery.WebApp.Controllers
             }
             request.AccountId = UserId;
             var result = httpClient.PostAsJsonAsync(url + "Auctions/CreateAuction/", request).Result;
+            TempData["msgauction"] = "Add Auction Successfully!";
             return RedirectToAction("GetAuction", "ManagerStores");
         }
         [HttpGet]
@@ -298,6 +302,7 @@ namespace ArtGallery.WebApp.Controllers
                 return View();
             }
             var model = httpClient.PutAsJsonAsync(url + "Auctions/UpdateAuction/", request).Result;
+            TempData["msgauction"] = "Update Auction Successfully!";
             return RedirectToAction("GetAuction", "ManagerStores");
 
         }
@@ -305,6 +310,7 @@ namespace ArtGallery.WebApp.Controllers
         public IActionResult DeleteAuction(int id)
         {
             var result = httpClient.DeleteAsync(url + "Auctions/DeleteAuction/" + id).Result;
+            TempData["msgauction"] = "Delete Auction Successfully!";
             return RedirectToAction("GetAuction", "ManagerStores");
         }
     }

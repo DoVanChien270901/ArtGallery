@@ -93,11 +93,6 @@ namespace ArtGallery.Data.Migrations
                     b.Property<decimal>("StartingPrice")
                         .HasColumnType("decimal(15,2)");
 
-                    b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -203,8 +198,8 @@ namespace ArtGallery.Data.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("Id");
+
                     b.ToTable("Orders");
                 });
 
@@ -340,31 +335,6 @@ namespace ArtGallery.Data.Migrations
                     b.ToTable("ProfileUsers");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.Transaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountId")
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(15,2)");
-
-                    b.Property<DateTime>("TransactionDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("Transactions");
-                });
-
             modelBuilder.Entity("ArtGallery.Data.Entities.AmountInAuction", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Account", "Account")
@@ -426,6 +396,7 @@ namespace ArtGallery.Data.Migrations
 
                     b.Navigation("Account");
                 });
+
             modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Account", "Account")
@@ -474,15 +445,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("ArtGallery.Data.Entities.Transaction", b =>
-                {
-                    b.HasOne("ArtGallery.Data.Entities.Account", "Account")
-                        .WithMany("Transactions")
-                        .HasForeignKey("AccountId");
-
-                    b.Navigation("Account");
-                });
-
             modelBuilder.Entity("ArtGallery.Data.Entities.Account", b =>
                 {
                     b.Navigation("AmountInAcctions");
@@ -494,8 +456,6 @@ namespace ArtGallery.Data.Migrations
                     b.Navigation("Products");
 
                     b.Navigation("ProfileUser");
-
-                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Auction", b =>
@@ -506,10 +466,6 @@ namespace ArtGallery.Data.Migrations
             modelBuilder.Entity("ArtGallery.Data.Entities.Category", b =>
                 {
                     b.Navigation("CategoryInProfiles");
-
-
-                    b.Navigation("ProductInCategories");
-                });
 
                     b.Navigation("ProductInCategories");
                 });
