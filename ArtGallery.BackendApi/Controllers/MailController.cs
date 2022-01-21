@@ -1,5 +1,6 @@
 ﻿using ArtGallery.Application.Common;
 using ArtGallery.Data.Entities;
+using ArtGallery.ViewModel.Catalog.Carts;
 using ArtGallery.ViewModel.Catalog.Email;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -84,6 +85,18 @@ namespace ArtGallery.BackendApi.Controllers
                 body = reader.ReadToEnd();
             }
             return mailServices.SendMailForWiner(aucId, body);
+        }
+
+        [HttpGet("SendMailOrder")]
+        public async Task<bool> SendMailOrder(InsertCart order)
+        {
+            string body = string.Empty;
+            //mail template
+            using (StreamReader reader = new StreamReader(hosting.WebRootPath + "\\mailTemplate\\newOrder.html"))
+            {
+                body = reader.ReadToEnd();
+            }
+            return mailServices.SendMailOrder(order, body);
         }
     }
 }

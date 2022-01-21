@@ -102,6 +102,10 @@ namespace ArtGallery.WebApp.Controllers
                 HttpContext.Session.Clear();
             }
             TempData["msgcart"] = "Order Success. Invoice will be sent to your gmail within 24 hours";
+
+            
+            string urlmail = "http://localhost:5000/api/Mail/";
+            var sendmail = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail+ "SendMailOrder"+ order).Result);
             return RedirectToAction("Home", "Home");
         }
     }

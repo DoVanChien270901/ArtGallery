@@ -203,8 +203,8 @@ namespace ArtGallery.Data.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("Id");
+
                     b.ToTable("Orders");
                 });
 
@@ -426,6 +426,7 @@ namespace ArtGallery.Data.Migrations
 
                     b.Navigation("Account");
                 });
+
             modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Account", "Account")
@@ -506,10 +507,6 @@ namespace ArtGallery.Data.Migrations
             modelBuilder.Entity("ArtGallery.Data.Entities.Category", b =>
                 {
                     b.Navigation("CategoryInProfiles");
-
-
-                    b.Navigation("ProductInCategories");
-                });
 
                     b.Navigation("ProductInCategories");
                 });
