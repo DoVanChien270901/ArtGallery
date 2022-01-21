@@ -100,7 +100,7 @@ namespace ArtGallery.WebApp.Controllers
             //IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAcutions").Result);
             return View(/*listAuctions.SingleOrDefault(c => c.Id.Equals(id))*/);
         }
-
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<IActionResult> AuctionRoom(InsertAmountInAuctionRequest request)
         {

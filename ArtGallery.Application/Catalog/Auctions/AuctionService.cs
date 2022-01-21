@@ -38,7 +38,6 @@ namespace ArtGallery.Application.Catalog.Auctions
                                     PriceStep = auc.PriceStep,
                                     EndDateTime = auc.EndDateTime,
                                     AccountId = auc.AccountId,
-                                    Status = auc.Status,
                                     Product = new Product
                                     {
                                         Id = pro.Id,

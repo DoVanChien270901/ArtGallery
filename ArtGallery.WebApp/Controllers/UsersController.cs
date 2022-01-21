@@ -145,5 +145,10 @@ namespace ArtGallery.WebApp.Controllers
             ViewBag.Message = "*Check your Email!";
             return View();
         }
+        [HttpGet]
+        public IActionResult LoginFail()
+        {
+            return BadRequest("Unlicensed account");
+        }
     }
 }

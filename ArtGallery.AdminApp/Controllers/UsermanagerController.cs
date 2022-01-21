@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ArtGallery.AdminApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsermanagerController : Controller
     {
         private readonly string url = "http://localhost:5000/api/UsersManager/";
@@ -139,11 +140,11 @@ namespace ArtGallery.AdminApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public IActionResult Delete(string name)
         {
             try
             {
+                
                 var model = httpClient.DeleteAsync(url + name).Result;
                 if (model.IsSuccessStatusCode)
                 {

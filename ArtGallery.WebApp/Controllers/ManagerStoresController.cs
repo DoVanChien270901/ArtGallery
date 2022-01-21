@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ManagerStoresController : Controller
     {
         private readonly string url = "http://localhost:5000/api/";
@@ -241,7 +242,7 @@ namespace ArtGallery.WebApp.Controllers
                 UserId = item.Value.ToString();
             }
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "Auctions/GetAllAuctions/").Result);
-            listAuctions = listAuctions.Where(c => c.AccountId == UserId && c.Status == true);
+            listAuctions = listAuctions.Where(c => c.AccountId == UserId);
             if (listAuctions == null)
             {
                 return BadRequest();

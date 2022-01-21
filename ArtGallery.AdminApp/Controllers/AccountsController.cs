@@ -100,5 +100,10 @@ namespace ArtGallery.AdminApp.Controllers
             ModelState.AddModelError("registerMessage", result.Message);
             return View();
         }
+        [HttpGet]
+        public IActionResult LoginFail()
+        {
+            return BadRequest("Unlicensed account");
+        }
     }
 }

@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.WebApp.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly string url = "http://localhost:5000/api/Products/";
