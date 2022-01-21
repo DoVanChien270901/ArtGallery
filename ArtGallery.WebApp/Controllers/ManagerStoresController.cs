@@ -1,6 +1,7 @@
 ﻿using ArtGallery.Data.Entities;
 using ArtGallery.ViewModel.Catalog.Auctions;
 using ArtGallery.ViewModel.Catalog.Products;
+using ArtGallery.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,7 +22,7 @@ namespace ArtGallery.WebApp.Controllers
         private HttpClient httpClient = new HttpClient();
         [Authorize]
         [HttpGet]
-        public IActionResult GetProduct()
+        public IActionResult GetProduct(int pg = 1)
         {
             string UserId = "";
             foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
@@ -29,8 +30,20 @@ namespace ArtGallery.WebApp.Controllers
                 UserId = item.Value.ToString();
             }
             IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "Products/AllProduct").Result);
-            ViewBag.products = listProducts.Where(c => c.AccountId == UserId).ToList();
+            listProducts = listProducts.Where(c => c.AccountId == UserId).ToList();
+            // Check
+            const int pageSize2 = 6;
+            if (pg < 1)
+                pg = 1;
+            int recsCount2 = listProducts.Count();
+            var pager2 = new Pager(recsCount2, pg, pageSize2);
+            int recSkip2 = (pg - 1) * pageSize2;
+            var data2 = listProducts.Skip(recSkip2).Take(pager2.PageSize).ToList();
+            //
+            this.ViewBag.Pager = pager2;
+            this.ViewBag.products = data2;
             return View();
+            //ViewBag.products = listProducts.Where(c => c.AccountId == UserId).ToList();
         }
 
         [HttpGet]
@@ -236,7 +249,7 @@ namespace ArtGallery.WebApp.Controllers
             return RedirectToAction("GetProduct", "ManagerStores");
         }
         [HttpGet]
-        public IActionResult GetAuction()
+        public IActionResult GetAuction(int pg = 1)
         {
             string UserId = "";
             foreach (var item in User.Claims.ToList().Where(c => c.Type.Equals("UserId")))
@@ -245,6 +258,17 @@ namespace ArtGallery.WebApp.Controllers
             }
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "Auctions/GetAllAuctions/").Result);
             listAuctions = listAuctions.Where(c => c.AccountId == UserId);
+            // Check
+            const int pageSize2 = 6;
+            if (pg < 1)
+                pg = 1;
+            int recsCount2 = listAuctions.Count();
+            var pager2 = new Pager(recsCount2, pg, pageSize2);
+            int recSkip2 = (pg - 1) * pageSize2;
+            var data2 = listAuctions.Skip(recSkip2).Take(pager2.PageSize).ToList();
+            //
+            this.ViewBag.Pager = pager2;
+            listAuctions = data2;
             if (listAuctions == null)
             {
                 return BadRequest();

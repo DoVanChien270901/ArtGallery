@@ -3,6 +3,13 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Gallery";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 <!--middle content-->
 <div id="container">
@@ -98,6 +105,39 @@
                 <!--end-->
             </div>
             <!--end main content-->
+        </div>
+        <div class="container">
+            <div style="float:right;">
+                <div class="col-md-12">
+                    @if (pager.TotalPages > 0)
+                    {
+                        <ul class="pagination justify-content-end">
+                            @if (pager.CurrentPage > 1)
+                            {
+                                @*<li class="page-item"><a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="1">First</a></li>*@
+                                <li class="page-item">
+                                    <a class="page-link" asp-controller="ManagerStores" asp-action="GetProduct" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                                </li>
+                            }
+                            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                            {
+                                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                                    <a class="page-link" asp-controller="ManagerStores" asp-action="GetProduct" asp-route-pg="@pge">@pge</a>
+                                </li>
+                            }
+                            @if (pager.CurrentPage < pager.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-controller="ManagerStores" asp-action="GetProduct" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                                </li>
+                                @*<li class="page-item">
+                                    <a class="page-link" asp-controller="CategoryManager" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                                </li>*@
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>
