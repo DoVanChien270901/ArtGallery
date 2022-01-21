@@ -26,7 +26,7 @@ namespace ArtGallery.WebApp.Controllers
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAuctions").Result);
             //HttpContext.Session.SetString("listAuctions", JsonConvert.SerializeObject(listAuctions));
             //var aucComming = listAuctions.Where(c => c.StartDateTime > DateTime.Now).ToList();
-            var aucGoing = listAuctions.Where(c => c.StartDateTime < DateTime.Now && c.EndDateTime > DateTime.Now).ToList();
+            var aucGoing = listAuctions.Where(c => c.StartDateTime < DateTime.Now && c.EndDateTime > DateTime.Now).OrderByDescending(c=>c.Id).ToList();
             //var aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
             // Check
             const int pageSize2 = 6;
@@ -48,7 +48,7 @@ namespace ArtGallery.WebApp.Controllers
         {
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAuctions").Result);
             //HttpContext.Session.SetString("listAuctions", JsonConvert.SerializeObject(listAuctions));
-            var aucComming = listAuctions.Where(c => c.StartDateTime > DateTime.Now).ToList();
+            var aucComming = listAuctions.Where(c => c.StartDateTime > DateTime.Now).OrderByDescending(c=>c.Id).ToList();
             // Check
             const int pageSize = 6;
             if (pg < 1)
@@ -69,7 +69,7 @@ namespace ArtGallery.WebApp.Controllers
         {
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "GetAllAuctions").Result);
             //HttpContext.Session.SetString("listAuctions", JsonConvert.SerializeObject(listAuctions));
-            var aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).ToList();
+            var aucEnded = listAuctions.Where(c => c.EndDateTime < DateTime.Now).OrderByDescending(c=>c.Id).ToList();
             // Check
             const int pageSize3 = 6;
             if (pg < 1)

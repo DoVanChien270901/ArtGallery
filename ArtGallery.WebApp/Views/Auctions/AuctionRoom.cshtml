@@ -197,12 +197,13 @@
         hoursEl.innerHTML = hours;
         minsEl.innerHTML = mins;
         seconsdEl.innerHTML = seconsd;
-        if (totalSeconsds<=0) {
+        if (days == 0 && hours == 0 && mins == 0 && seconsd == 0) {
             window.location.href = "http://localhost:5001/Auctions/RoomEnded/" + id;
+            return;
         }
     }
-    countdown();
-    setInterval(countdown, 1000);
+        countdown();
+        setInterval(countdown, 1000); 
 </script>
 <script>
     setTimeout(function () {

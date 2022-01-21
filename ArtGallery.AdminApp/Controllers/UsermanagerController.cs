@@ -167,7 +167,6 @@ namespace ArtGallery.AdminApp.Controllers
                 var model = JsonConvert.DeserializeObject<Account>(httpClient.GetStringAsync(url + name).Result);
 
                 var profile = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(urlProfile + "getProfileUser/" + name).Result);
-                var carts = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + model.Name).Result);
                 var orders = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + model.Name).Result);
                 var transactions = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + model.Name).Result);
                 var feedBacks = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + model.Name).Result);
@@ -180,7 +179,6 @@ namespace ArtGallery.AdminApp.Controllers
                     PhoneNumber = profile.PhoneNumber,
                     DOB = profile.DOB,
                     AccountId = profile.AccountId,
-                    CartsCount = carts,
                     OrdersCount = orders,
                     TransactionsCount = transactions,
                     FeedBacksCount = feedBacks

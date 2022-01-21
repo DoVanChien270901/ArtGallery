@@ -42,8 +42,16 @@ namespace ArtGallery.Application.System.Admin
         {
             var us = context.Accounts.SingleOrDefault(c => c.Name.Equals(uname));
             var pr = context.ProfileUsers.SingleOrDefault(c => c.AccountId.Equals(uname));
+            var product = context.Products.Where(c => c.AccountId == uname).ToList();
             if (us != null)
             {
+                if (product.Count != 0)
+                {
+                    foreach (var item in product)
+                    {
+                        context.Products.Remove(item);
+                    }
+                }
                 context.Accounts.Remove(us);
                 context.ProfileUsers.Remove(pr);
                 await context.SaveChangesAsync();

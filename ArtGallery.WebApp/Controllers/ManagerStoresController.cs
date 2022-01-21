@@ -30,7 +30,7 @@ namespace ArtGallery.WebApp.Controllers
                 UserId = item.Value.ToString();
             }
             IEnumerable<Product> listProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(httpClient.GetStringAsync(url + "Products/AllProduct").Result);
-            listProducts = listProducts.Where(c => c.AccountId == UserId).ToList();
+            listProducts = listProducts.Where(c => c.AccountId == UserId).OrderByDescending(c=>c.Id).ToList();
             // Check
             const int pageSize2 = 6;
             if (pg < 1)
@@ -257,7 +257,7 @@ namespace ArtGallery.WebApp.Controllers
                 UserId = item.Value.ToString();
             }
             IEnumerable<Auction> listAuctions = JsonConvert.DeserializeObject<IEnumerable<Auction>>(httpClient.GetStringAsync(url + "Auctions/GetAllAuctions/").Result);
-            listAuctions = listAuctions.Where(c => c.AccountId == UserId);
+            listAuctions = listAuctions.Where(c => c.AccountId == UserId).OrderByDescending(c=>c.Id).ToList();
             // Check
             const int pageSize2 = 6;
             if (pg < 1)

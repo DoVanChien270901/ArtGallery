@@ -23,6 +23,7 @@ namespace ArtGallery.AdminApp.Controllers
         public IActionResult Index(int pg = 1)
         {
             var model = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(url).Result);
+            model = model.OrderByDescending(c => c.Id).ToList();
             // Check 
             const int pageSize = 10;
             if (pg < 1)

@@ -63,7 +63,9 @@
                                 <tr>
                                     <td>@item.Name</td>
                                     <td>
+                                        <span onclick="return confirm('Are you sure want to accept account?')">
                                             @Html.ActionLink("Accept", "AcceptAdmin", "UserManager", new { name = item.Name }, new { @class = "btn btn-primary" })
+                                        </span>
                                     </td>
                                     @*<td>
                                         @item.CartsCount
