@@ -132,6 +132,8 @@ namespace ArtGallery.WebApp.Controllers
             {
                 ProfileUser profileUsers = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(url + "GetWinner/" + id).Result);
                 TempData["msgroomauc"] = $"Auction ended. We will contact Mr.{profileUsers.FullName} via gmail";
+                string urlmail = "http://localhost:5000/api/Mail/";
+                var request = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail + "AuctionWiner/" + id).Result);
             }
             catch (Exception)
             {
