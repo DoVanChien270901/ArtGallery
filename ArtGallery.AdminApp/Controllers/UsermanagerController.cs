@@ -29,7 +29,6 @@ namespace ArtGallery.AdminApp.Controllers
             List<UserModelView> userModelView = new List<UserModelView>();
             foreach (var item in model)
             {
-                var cart = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + item.Name).Result);
                 var order = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + item.Name).Result);
                 var trans = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + item.Name).Result);
                 var feedBacks = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + item.Name).Result);
@@ -38,7 +37,6 @@ namespace ArtGallery.AdminApp.Controllers
                     Name = item.Name,
                     Password = item.Password,
                     Roles = item.Roles,
-                    CartsCount = cart,
                     OrdersCount = order,
                     TransactionsCount = trans,
                     FeedBacksCount = feedBacks
@@ -112,7 +110,6 @@ namespace ArtGallery.AdminApp.Controllers
             }
             foreach (var item in model)
             {
-                var cart = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetCarts/" + item.Name).Result);
                 var order = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetOrders/" + item.Name).Result);
                 var trans = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetTransactions/" + item.Name).Result);
                 var feedBacks = JsonConvert.DeserializeObject<int>(httpClient.GetStringAsync(urlProfile + "GetFeedBacks/" + item.Name).Result);
@@ -121,7 +118,6 @@ namespace ArtGallery.AdminApp.Controllers
                     Name = item.Name,
                     Password = item.Password,
                     Roles = item.Roles,
-                    CartsCount = cart,
                     OrdersCount = order,
                     TransactionsCount = trans,
                     FeedBacksCount = feedBacks

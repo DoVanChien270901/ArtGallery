@@ -100,5 +100,13 @@ namespace ArtGallery.AdminApp.Controllers
             ProfileUser profileUsers = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(url + "GetWinner/" + id).Result);
             return View(profileUsers);
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Notice(int id)
+        {
+            string urlmail = "http://localhost:5000/api/Mail/";
+            var request = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail + "AuctionWiner/" + id).Result);
+            return RedirectToAction("GetAll");
+        }
     }
 }
