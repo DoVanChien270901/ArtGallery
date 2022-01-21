@@ -122,7 +122,23 @@ namespace ArtGallery.WebApp.Controllers
             var json = JsonConvert.SerializeObject(Aauc);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             var result = JsonConvert.DeserializeObject<bool>(await httpClient.PostAsync(url + "InsertAmount", httpContent).Result.Content.ReadAsStringAsync());
+            TempData["msgroomauc"] = "The amount you bet is: " + request.NewPrice.ToString() + "$";
             return RedirectToAction("AuctionRoom");
+        }
+        [HttpGet]
+        public IActionResult RoomEnded(int id)
+        {
+            try
+            {
+                ProfileUser profileUsers = JsonConvert.DeserializeObject<ProfileUser>(httpClient.GetStringAsync(url + "GetWinner/" + id).Result);
+                TempData["msgroomauc"] = $"Auction ended. We will contact Mr.{profileUsers.FullName} via gmail";
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+            return RedirectToAction("GetAuctionEnded");
         }
     }
 }

@@ -38,7 +38,7 @@
                     <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
                     <li><a asp-action="GetAuctionGoing" asp-controller="Auctions">Auctions Going</a></li>
                 </ul>
-                @if (ViewBag.aucGoing != null)
+                @if (ViewBag.aucGoing.Count != 0)
                 {
                     foreach (var item in ViewBag.aucGoing as IEnumerable<Auction>)
                     {

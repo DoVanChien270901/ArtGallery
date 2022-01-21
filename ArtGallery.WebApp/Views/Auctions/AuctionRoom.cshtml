@@ -1,4 +1,4 @@
-﻿@model ArtGallery.ViewModel.Catalog.Auctions.InsertAmountInAuctionRequest 
+﻿@model ArtGallery.ViewModel.Catalog.Auctions.InsertAmountInAuctionRequest
 @using Newtonsoft.Json;
 @using ArtGallery.Data.Entities
 @using Microsoft.AspNetCore.Http
@@ -28,6 +28,13 @@
             </aside>
             <!--end sidebar-->
             <!--main content-->
+            @*masager*@
+            @if (TempData["msgroomauc"] != null)
+            {
+                <div id="msg" class="alert alert-success" role="alert" style="width:500px; margin:auto">
+                    @TempData["msgroomauc"]
+                </div>
+            }
             <div class="col-sm-9 single-product" id="content">
                 <ul class="breadcrumb">
                     <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
@@ -171,6 +178,7 @@
 <script>
    //const newYears = '1 Jan 2023'
     const newYears = '@(System.Web.HttpUtility.HtmlEncode(ViewBag.auc.EndDateTime))';
+    const id = '@(System.Web.HttpUtility.HtmlEncode(ViewBag.auc.Id))';
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minsEl = document.getElementById('mins');
@@ -189,10 +197,17 @@
         minsEl.innerHTML = mins;
         seconsdEl.innerHTML = seconsd;
         if (totalSeconsds == 0) {
-            window.location.href = "vanchien.html";
+            window.location.href = "http://localhost:5001/Auctions/RoomEnded/" + id;
         }
     }
     countdown();
     setInterval(countdown, 1000);
 </script>
+<script>
+    setTimeout(function () {
+
+        $('#msg').fadeOut('slow');
+    }, 2000);
+</script>
+
 <!--End of middle content-->

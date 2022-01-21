@@ -60,6 +60,9 @@ namespace ArtGallery.WebApp.Controllers
         [HttpGet]
         public IActionResult GetCart()
         {
+            string urlcate = "http://localhost:5000/api/CategoriesManager/";
+            IEnumerable<Category> Cate = JsonConvert.DeserializeObject<IEnumerable<Category>>(httpClient.GetStringAsync(urlcate).Result);
+            ViewBag.cate = Cate;
             return View();
         }
         [HttpGet]

@@ -28,6 +28,13 @@
                 </aside>
                 <!--end sidebar-->
                 <!--main content-->
+                @*masager*@
+                @if (TempData["msgauction"] != null)
+                {
+                    <div id="msg" class="alert alert-success" role="alert" style="width:500px; margin:auto">
+                        @TempData["msgauction"]
+                    </div>
+                }
                 <div class="col-sm-9 single-product" id="content">
                     <ul class="breadcrumb">
                         <li><a asp-action="Home" asp-controller="Home"><i class="fa fa-home"></i></a></li>
@@ -48,43 +55,54 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                    <tr>
-                                        <td class="text-bold-500">@item.Product.Title</td>
-                                        <td class="text-bold-500; text-danger">@item.StartingPrice$</td>
-                                        <td class="text-bold-500; text-danger">@item.PriceStep$</td>
-                                        <td class="text-bold-500">@item.StartDateTime</td>
-                                        <td class="text-bold-500">@item.EndDateTime</td>
-                                        @foreach (ProductImage img in item.Product.ProductImages)
+
+                                    @{
+                                        if (Model.ToList().Count != 0)
                                         {
-                                            if (img.Thumbnail == true)
+                                            @foreach (var item in Model)
                                             {
-                                                <td>
-                                                    <img src="@Url.Content(img.ImagePath)" style="width:100px; height:auto;">
-                                                </td>
+                                                <tr>
+                                                    <td class="text-bold-500">@item.Product.Title</td>
+                                                    <td class="text-bold-500; text-danger">@item.StartingPrice$</td>
+                                                    <td class="text-bold-500; text-danger">@item.PriceStep$</td>
+                                                    <td class="text-bold-500">@item.StartDateTime</td>
+                                                    <td class="text-bold-500">@item.EndDateTime</td>
+                                                    @foreach (ProductImage img in item.Product.ProductImages)
+                                                    {
+                                                        if (img.Thumbnail == true)
+                                                        {
+                                                            <td>
+                                                                <img src="@Url.Content(img.ImagePath)" style="width:100px; height:auto;">
+                                                            </td>
+                                                        }
+                                                    }
+                                                    @if (item.StartDateTime < DateTime.Now || item.EndDateTime < DateTime.Now)
+                                                    {
+                                                        <td>
+                                                            <span class="text-danger">
+                                                                Auction room has ended
+                                                            </span>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+                                                            <span onclick="return confirm('Are you sure want to delete this data ?')">
+                                                                <a asp-action="DeleteAuction" asp-controller="ManagerStores" asp-route-id="@item.Id">Delete</a>&nbsp;|
+                                                            </span>
+                                                            @*<input type="button" asp-controller="CategoryManager" asp-action="" asp-route="@item.Id" class="btn btn-danger" value="Delete" name="alertMsg" id="btnAlertMsg" onclick="myFunction()" />*@
+                                                            <a asp-action="UpdateAuction" asp-controller="ManagerStores" asp-route-id="@item.Id">Update</a>
+                                                        </td>
+                                                    }
+
+                                                </tr>
                                             }
-                                        }
-                                        @if (item.StartDateTime < DateTime.Now || item.EndDateTime < DateTime.Now)
-                                        {
-                                            <td>
-                                                <span class="text-danger">
-                                                    Auction room has ended
-                                                </span>
-                                            </td>
                                         }
                                         else
                                         {
-                                            <td>
-                                                <span onclick="return confirm('Are you sure want to delete this data ?')">
-                                                    <a asp-action="DeleteAuction" asp-controller="ManagerStores" asp-route-id="@item.Id">Delete</a>&nbsp;|
-                                                </span>
-                                                @*<input type="button" asp-controller="CategoryManager" asp-action="" asp-route="@item.Id" class="btn btn-danger" value="Delete" name="alertMsg" id="btnAlertMsg" onclick="myFunction()" />*@
-                                                <a asp-action="UpdateAuction" asp-controller="ManagerStores" asp-route-id="@item.Id">Update</a>
-                                            </td>
-                                        }
+                                            <tr><th><h4>There Are No Auction Rooms Available !</h4></th></tr>
 
-                                    </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>
@@ -115,4 +133,10 @@
     function readMore(btn) {
         let post = btn.parentElement;
     }
+    </script>
+    <script>
+        setTimeout(function () {
+
+            $('#msg').fadeOut('slow');
+        }, 2000);
     </script>
