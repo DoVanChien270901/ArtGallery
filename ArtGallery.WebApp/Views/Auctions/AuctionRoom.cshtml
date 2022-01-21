@@ -187,6 +187,7 @@
         const newYearsDate = new Date(newYears);
         const currentDate = new Date();
         const totalSeconsds = (newYearsDate - currentDate) / 1000;
+        
         const days = Math.floor(totalSeconsds / 3600 / 24);
         const hours = Math.floor((totalSeconsds / 3600) % 24);
         const mins = Math.floor(totalSeconsds / 60) % 60;
@@ -196,7 +197,7 @@
         hoursEl.innerHTML = hours;
         minsEl.innerHTML = mins;
         seconsdEl.innerHTML = seconsd;
-        if (totalSeconsds == 0) {
+        if (totalSeconsds<=0) {
             window.location.href = "http://localhost:5001/Auctions/RoomEnded/" + id;
         }
     }
