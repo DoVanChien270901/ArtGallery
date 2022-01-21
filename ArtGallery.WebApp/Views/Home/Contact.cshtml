@@ -14,7 +14,7 @@
                 <h1>@ViewData["Title"]</h1><br>
                 <input type="text" class="field" placeholder="Your Email" asp-for="FromMail">
                 <textarea placeholder="Message" class="field" asp-for="Message"></textarea>
-                <button type="submit" class="btn">Send</button>
+                <button onclick="return confirm('Sent successfully')" type="submit" class="btn">Send</button>
             </form>
         </div>
     </div>

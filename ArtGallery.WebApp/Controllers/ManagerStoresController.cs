@@ -117,7 +117,7 @@ namespace ArtGallery.WebApp.Controllers
         public IActionResult UpdateProduct(int id)
         {
             Product singlepro = JsonConvert.DeserializeObject<Product>(httpClient.GetStringAsync(url + "Products/GetProduct/" + id).Result);
-            List<SelectListCate> listCate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager/" + "CategoriesManager").Result);
+            List<SelectListCate> listCate = JsonConvert.DeserializeObject<List<SelectListCate>>(httpClient.GetStringAsync(url + "CategoriesManager/").Result);
             foreach (var proincate in singlepro.ProductInCategories)
             {
                 foreach (var cate in listCate)

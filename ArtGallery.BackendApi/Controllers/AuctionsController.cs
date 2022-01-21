@@ -55,5 +55,10 @@ namespace ArtGallery.BackendApi.Controllers
         {
             return _aucService.WinnerInformation(id);
         }
+        [HttpGet("RequestAdmin/{id}")]
+        public Task<IEnumerable<Auction>> RequestAdmin(int id)
+        {
+            return _aucService.GetAllAuctions();
+        }
     }
 }

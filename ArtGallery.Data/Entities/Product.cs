@@ -20,6 +20,5 @@ namespace ArtGallery.Data.Entities
         public Account Account { get; set; }
         public List<ProductInCategory> ProductInCategories { get; set; }
         public List<ProductImage> ProductImages { get; set; }
-        public List<Order> Orders { get; set; }
     }
 }

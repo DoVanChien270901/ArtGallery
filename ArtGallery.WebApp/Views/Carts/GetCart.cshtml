@@ -64,12 +64,13 @@
                                                 @{ total = total + item.Price;}
                                             </tr>
                                         }
-                                        
-    
+
+
                                     }
                                 </tbody>
                             </table>
                             <label>Total Price: <span class="text-danger">@total$</span></label>
+                            <a asp-action="Order" asp-controller="Carts" class="btn btn-success">Order</a>
                         }
                         else
                         {

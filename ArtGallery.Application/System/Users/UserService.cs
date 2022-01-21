@@ -69,7 +69,7 @@ namespace ArtGallery.Application.System.Users
             {
                 Name = registerRequest.Name,
                 Password = registerRequest.Password,
-                Roles = Roleposition.User
+                Roles = registerRequest.Role
             };
             ProfileUser pro = new ProfileUser
             {

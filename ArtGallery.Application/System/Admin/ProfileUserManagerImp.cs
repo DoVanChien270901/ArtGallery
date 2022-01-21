@@ -22,7 +22,6 @@ namespace ArtGallery.Application.System.Admin
             return context.Accounts.SingleOrDefault(a=>a.Name.Equals(name));
         }
 
-
         // Get Feedbacks Count
         public async Task<int> GetFeedBacksCount(string name)
         {

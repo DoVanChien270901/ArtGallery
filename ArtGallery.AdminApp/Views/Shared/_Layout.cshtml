@@ -63,6 +63,9 @@
                                 <li class="submenu-item ">
                                     @Html.ActionLink("List", "Index", "UserManager")
                                 </li>
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Request Add Admin", "RequestAdmin", "UserManager")
+                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
@@ -90,6 +93,20 @@
                                 </li>
                                 <li class="submenu-item ">
                                     @Html.ActionLink("Request", "GetRequestUser", "ProductManager")
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Order Manager</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("List", "Ordering", "Order")
+                                </li>
+                                <li class="submenu-item ">
+                                    @Html.ActionLink("Orders delivered", "SuccessfulDelivery", "Order")
                                 </li>
                             </ul>
                         </li>
@@ -167,10 +184,13 @@
     @*</div>*@
     <script src="~/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendors/apexcharts/apexcharts.js"></script>
+    @*<script src="~/vendors/apexcharts/apexcharts.js"></script>*@
     <script src="~/js/pages/dashboard.js"></script>
     <script src="~/js/mazer.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

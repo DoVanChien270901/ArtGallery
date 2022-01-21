@@ -77,6 +77,7 @@ namespace ArtGallery.AdminApp.Controllers
         public async Task<IActionResult> Register(RegisterRequest request, string gender)
         {
             request.Gender = gender;
+            request.Role = Data.Enum.Roleposition.RAdmin;
             if (!ModelState.IsValid) return View();
             var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url + "register", request).Result.Content.ReadAsStringAsync());
             if (result.Success)
@@ -93,7 +94,8 @@ namespace ArtGallery.AdminApp.Controllers
                     userPrincipal,
                     authProperties
                     );
-                return RedirectToAction("Index", "Home");
+                ViewBag.msg= "Successful registration please wait for account confirmation within 24 hours";
+                return View();
             };
             ModelState.AddModelError("registerMessage", result.Message);
             return View();

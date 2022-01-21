@@ -65,6 +65,7 @@ namespace ArtGallery.WebApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
             return RedirectToAction("Login", "Users");
         }
         [HttpGet]
@@ -75,6 +76,7 @@ namespace ArtGallery.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterRequest request, string gender)
         {
+            request.Role = Data.Enum.Roleposition.User;
             request.Gender = gender;
             if (!ModelState.IsValid) return View();
             var result = JsonConvert.DeserializeObject<ResponseApi>(await httpClient.PostAsJsonAsync(url + "register", request).Result.Content.ReadAsStringAsync());
@@ -134,14 +136,13 @@ namespace ArtGallery.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordModelView address)
         {
-
             if (!ModelState.IsValid)
             {
                 return View();
             }
             string urlmail = "http://localhost:5000/api/Mail/";
             var message = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail + "forgotPassword/" + address.UserName).Result);
-            ViewBag.Message = "Check your Email!";
+            ViewBag.Message = "*Check your Email!";
             return View();
         }
     }

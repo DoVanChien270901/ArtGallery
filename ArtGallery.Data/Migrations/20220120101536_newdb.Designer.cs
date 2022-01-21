@@ -4,14 +4,16 @@ using ArtGallery.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    partial class ArtGalleryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220120101536_newdb")]
+    partial class newdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,15 +198,14 @@ namespace ArtGallery.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasMaxLength(20)
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("Id");
+
                     b.ToTable("Orders");
                 });
 
@@ -426,6 +427,7 @@ namespace ArtGallery.Data.Migrations
 
                     b.Navigation("Account");
                 });
+
             modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Account", "Account")
@@ -506,10 +508,6 @@ namespace ArtGallery.Data.Migrations
             modelBuilder.Entity("ArtGallery.Data.Entities.Category", b =>
                 {
                     b.Navigation("CategoryInProfiles");
-
-
-                    b.Navigation("ProductInCategories");
-                });
 
                     b.Navigation("ProductInCategories");
                 });
