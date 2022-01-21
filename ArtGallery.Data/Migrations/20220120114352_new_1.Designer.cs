@@ -4,14 +4,16 @@ using ArtGallery.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArtGallery.Data.Migrations
 {
     [DbContext(typeof(ArtGalleryDbContext))]
-    partial class ArtGalleryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220120114352_new_1")]
+    partial class new_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,6 +197,9 @@ namespace ArtGallery.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -203,8 +208,10 @@ namespace ArtGallery.Data.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
                     b.ToTable("Orders");
                 });
 
@@ -426,6 +433,14 @@ namespace ArtGallery.Data.Migrations
 
                     b.Navigation("Account");
                 });
+
+            modelBuilder.Entity("ArtGallery.Data.Entities.Order", b =>
+                {
+                    b.HasOne("ArtGallery.Data.Entities.Product", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId");
+                });
+
             modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
                 {
                     b.HasOne("ArtGallery.Data.Entities.Account", "Account")
@@ -507,16 +522,14 @@ namespace ArtGallery.Data.Migrations
                 {
                     b.Navigation("CategoryInProfiles");
 
-
-                    b.Navigation("ProductInCategories");
-                });
-
                     b.Navigation("ProductInCategories");
                 });
 
             modelBuilder.Entity("ArtGallery.Data.Entities.Product", b =>
                 {
                     b.Navigation("Auction");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("ProductImages");
 
