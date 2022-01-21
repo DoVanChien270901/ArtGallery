@@ -87,7 +87,7 @@ namespace ArtGallery.BackendApi.Controllers
             return mailServices.SendMailForWiner(aucId, body);
         }
 
-        [HttpGet("SendMailOrder")]
+        [HttpPost("SendMailOrder")]
         public async Task<bool> SendMailOrder(InsertCart order)
         {
             string body = string.Empty;

@@ -110,7 +110,7 @@ namespace ArtGallery.WebApp.Controllers
 
             
             string urlmail = "http://localhost:5000/api/Mail/";
-            var sendmail = JsonConvert.DeserializeObject<bool>(httpClient.GetStringAsync(urlmail+ "SendMailOrder"+ order).Result);
+            var sendmail = httpClient.PostAsJsonAsync(urlorder + "SendMailOrder", order).Result;
             return RedirectToAction("Home", "Home");
         }
     }
